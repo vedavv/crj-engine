@@ -1,0 +1,406 @@
+{
+  "metadata": {
+    "description": "35 Suladi Sapta Talas of Carnatic Music",
+    "system": "Suladi Sapta Tala",
+    "total": 35,
+    "components": {
+      "laghu": "Clap + finger counts (count = jati)",
+      "drutam": "Clap + wave (always 2 aksharas)",
+      "anudrutam": "Single clap (always 1 akshara)"
+    },
+    "jatis": {
+      "tisra": 3,
+      "chatusra": 4,
+      "khanda": 5,
+      "misra": 7,
+      "sankeerna": 9
+    }
+  },
+  "talas": [
+    {
+      "id": "eka_tisra",
+      "name": "Eka Tala (Tisra)",
+      "base_tala": "Eka",
+      "jati": "tisra",
+      "jati_count": 3,
+      "components": ["laghu"],
+      "beat_pattern": [3],
+      "total_aksharas": 3,
+      "aliases": []
+    },
+    {
+      "id": "eka_chatusra",
+      "name": "Eka Tala (Chatusra)",
+      "base_tala": "Eka",
+      "jati": "chatusra",
+      "jati_count": 4,
+      "components": ["laghu"],
+      "beat_pattern": [4],
+      "total_aksharas": 4,
+      "aliases": ["Eka Tala"]
+    },
+    {
+      "id": "eka_khanda",
+      "name": "Eka Tala (Khanda)",
+      "base_tala": "Eka",
+      "jati": "khanda",
+      "jati_count": 5,
+      "components": ["laghu"],
+      "beat_pattern": [5],
+      "total_aksharas": 5,
+      "aliases": []
+    },
+    {
+      "id": "eka_misra",
+      "name": "Eka Tala (Misra)",
+      "base_tala": "Eka",
+      "jati": "misra",
+      "jati_count": 7,
+      "components": ["laghu"],
+      "beat_pattern": [7],
+      "total_aksharas": 7,
+      "aliases": []
+    },
+    {
+      "id": "eka_sankeerna",
+      "name": "Eka Tala (Sankeerna)",
+      "base_tala": "Eka",
+      "jati": "sankeerna",
+      "jati_count": 9,
+      "components": ["laghu"],
+      "beat_pattern": [9],
+      "total_aksharas": 9,
+      "aliases": []
+    },
+    {
+      "id": "rupaka_tisra",
+      "name": "Rupaka Tala (Tisra)",
+      "base_tala": "Rupaka",
+      "jati": "tisra",
+      "jati_count": 3,
+      "components": ["drutam", "laghu"],
+      "beat_pattern": [2, 3],
+      "total_aksharas": 5,
+      "aliases": []
+    },
+    {
+      "id": "rupaka_chatusra",
+      "name": "Rupaka Tala (Chatusra)",
+      "base_tala": "Rupaka",
+      "jati": "chatusra",
+      "jati_count": 4,
+      "components": ["drutam", "laghu"],
+      "beat_pattern": [2, 4],
+      "total_aksharas": 6,
+      "aliases": ["Rupaka Tala"]
+    },
+    {
+      "id": "rupaka_khanda",
+      "name": "Rupaka Tala (Khanda)",
+      "base_tala": "Rupaka",
+      "jati": "khanda",
+      "jati_count": 5,
+      "components": ["drutam", "laghu"],
+      "beat_pattern": [2, 5],
+      "total_aksharas": 7,
+      "aliases": []
+    },
+    {
+      "id": "rupaka_misra",
+      "name": "Rupaka Tala (Misra)",
+      "base_tala": "Rupaka",
+      "jati": "misra",
+      "jati_count": 7,
+      "components": ["drutam", "laghu"],
+      "beat_pattern": [2, 7],
+      "total_aksharas": 9,
+      "aliases": []
+    },
+    {
+      "id": "rupaka_sankeerna",
+      "name": "Rupaka Tala (Sankeerna)",
+      "base_tala": "Rupaka",
+      "jati": "sankeerna",
+      "jati_count": 9,
+      "components": ["drutam", "laghu"],
+      "beat_pattern": [2, 9],
+      "total_aksharas": 11,
+      "aliases": []
+    },
+    {
+      "id": "triputa_tisra",
+      "name": "Triputa Tala (Tisra)",
+      "base_tala": "Triputa",
+      "jati": "tisra",
+      "jati_count": 3,
+      "components": ["laghu", "drutam", "drutam"],
+      "beat_pattern": [3, 2, 2],
+      "total_aksharas": 7,
+      "aliases": ["Tisra Triputa", "Tisra Adi"]
+    },
+    {
+      "id": "triputa_chatusra",
+      "name": "Triputa Tala (Chatusra)",
+      "base_tala": "Triputa",
+      "jati": "chatusra",
+      "jati_count": 4,
+      "components": ["laghu", "drutam", "drutam"],
+      "beat_pattern": [4, 2, 2],
+      "total_aksharas": 8,
+      "aliases": ["Adi Tala"]
+    },
+    {
+      "id": "triputa_khanda",
+      "name": "Triputa Tala (Khanda)",
+      "base_tala": "Triputa",
+      "jati": "khanda",
+      "jati_count": 5,
+      "components": ["laghu", "drutam", "drutam"],
+      "beat_pattern": [5, 2, 2],
+      "total_aksharas": 9,
+      "aliases": []
+    },
+    {
+      "id": "triputa_misra",
+      "name": "Triputa Tala (Misra)",
+      "base_tala": "Triputa",
+      "jati": "misra",
+      "jati_count": 7,
+      "components": ["laghu", "drutam", "drutam"],
+      "beat_pattern": [7, 2, 2],
+      "total_aksharas": 11,
+      "aliases": []
+    },
+    {
+      "id": "triputa_sankeerna",
+      "name": "Triputa Tala (Sankeerna)",
+      "base_tala": "Triputa",
+      "jati": "sankeerna",
+      "jati_count": 9,
+      "components": ["laghu", "drutam", "drutam"],
+      "beat_pattern": [9, 2, 2],
+      "total_aksharas": 13,
+      "aliases": []
+    },
+    {
+      "id": "matya_tisra",
+      "name": "Matya Tala (Tisra)",
+      "base_tala": "Matya",
+      "jati": "tisra",
+      "jati_count": 3,
+      "components": ["laghu", "drutam", "laghu"],
+      "beat_pattern": [3, 2, 3],
+      "total_aksharas": 8,
+      "aliases": []
+    },
+    {
+      "id": "matya_chatusra",
+      "name": "Matya Tala (Chatusra)",
+      "base_tala": "Matya",
+      "jati": "chatusra",
+      "jati_count": 4,
+      "components": ["laghu", "drutam", "laghu"],
+      "beat_pattern": [4, 2, 4],
+      "total_aksharas": 10,
+      "aliases": []
+    },
+    {
+      "id": "matya_khanda",
+      "name": "Matya Tala (Khanda)",
+      "base_tala": "Matya",
+      "jati": "khanda",
+      "jati_count": 5,
+      "components": ["laghu", "drutam", "laghu"],
+      "beat_pattern": [5, 2, 5],
+      "total_aksharas": 12,
+      "aliases": []
+    },
+    {
+      "id": "matya_misra",
+      "name": "Matya Tala (Misra)",
+      "base_tala": "Matya",
+      "jati": "misra",
+      "jati_count": 7,
+      "components": ["laghu", "drutam", "laghu"],
+      "beat_pattern": [7, 2, 7],
+      "total_aksharas": 16,
+      "aliases": []
+    },
+    {
+      "id": "matya_sankeerna",
+      "name": "Matya Tala (Sankeerna)",
+      "base_tala": "Matya",
+      "jati": "sankeerna",
+      "jati_count": 9,
+      "components": ["laghu", "drutam", "laghu"],
+      "beat_pattern": [9, 2, 9],
+      "total_aksharas": 20,
+      "aliases": []
+    },
+    {
+      "id": "jhampa_tisra",
+      "name": "Jhampa Tala (Tisra)",
+      "base_tala": "Jhampa",
+      "jati": "tisra",
+      "jati_count": 3,
+      "components": ["laghu", "anudrutam", "drutam"],
+      "beat_pattern": [3, 1, 2],
+      "total_aksharas": 6,
+      "aliases": []
+    },
+    {
+      "id": "jhampa_chatusra",
+      "name": "Jhampa Tala (Chatusra)",
+      "base_tala": "Jhampa",
+      "jati": "chatusra",
+      "jati_count": 4,
+      "components": ["laghu", "anudrutam", "drutam"],
+      "beat_pattern": [4, 1, 2],
+      "total_aksharas": 7,
+      "aliases": []
+    },
+    {
+      "id": "jhampa_khanda",
+      "name": "Jhampa Tala (Khanda)",
+      "base_tala": "Jhampa",
+      "jati": "khanda",
+      "jati_count": 5,
+      "components": ["laghu", "anudrutam", "drutam"],
+      "beat_pattern": [5, 1, 2],
+      "total_aksharas": 8,
+      "aliases": []
+    },
+    {
+      "id": "jhampa_misra",
+      "name": "Jhampa Tala (Misra)",
+      "base_tala": "Jhampa",
+      "jati": "misra",
+      "jati_count": 7,
+      "components": ["laghu", "anudrutam", "drutam"],
+      "beat_pattern": [7, 1, 2],
+      "total_aksharas": 10,
+      "aliases": ["Misra Chapu"]
+    },
+    {
+      "id": "jhampa_sankeerna",
+      "name": "Jhampa Tala (Sankeerna)",
+      "base_tala": "Jhampa",
+      "jati": "sankeerna",
+      "jati_count": 9,
+      "components": ["laghu", "anudrutam", "drutam"],
+      "beat_pattern": [9, 1, 2],
+      "total_aksharas": 12,
+      "aliases": []
+    },
+    {
+      "id": "dhruva_tisra",
+      "name": "Dhruva Tala (Tisra)",
+      "base_tala": "Dhruva",
+      "jati": "tisra",
+      "jati_count": 3,
+      "components": ["laghu", "drutam", "laghu", "laghu"],
+      "beat_pattern": [3, 2, 3, 3],
+      "total_aksharas": 11,
+      "aliases": []
+    },
+    {
+      "id": "dhruva_chatusra",
+      "name": "Dhruva Tala (Chatusra)",
+      "base_tala": "Dhruva",
+      "jati": "chatusra",
+      "jati_count": 4,
+      "components": ["laghu", "drutam", "laghu", "laghu"],
+      "beat_pattern": [4, 2, 4, 4],
+      "total_aksharas": 14,
+      "aliases": []
+    },
+    {
+      "id": "dhruva_khanda",
+      "name": "Dhruva Tala (Khanda)",
+      "base_tala": "Dhruva",
+      "jati": "khanda",
+      "jati_count": 5,
+      "components": ["laghu", "drutam", "laghu", "laghu"],
+      "beat_pattern": [5, 2, 5, 5],
+      "total_aksharas": 17,
+      "aliases": []
+    },
+    {
+      "id": "dhruva_misra",
+      "name": "Dhruva Tala (Misra)",
+      "base_tala": "Dhruva",
+      "jati": "misra",
+      "jati_count": 7,
+      "components": ["laghu", "drutam", "laghu", "laghu"],
+      "beat_pattern": [7, 2, 7, 7],
+      "total_aksharas": 23,
+      "aliases": []
+    },
+    {
+      "id": "dhruva_sankeerna",
+      "name": "Dhruva Tala (Sankeerna)",
+      "base_tala": "Dhruva",
+      "jati": "sankeerna",
+      "jati_count": 9,
+      "components": ["laghu", "drutam", "laghu", "laghu"],
+      "beat_pattern": [9, 2, 9, 9],
+      "total_aksharas": 29,
+      "aliases": []
+    },
+    {
+      "id": "ata_tisra",
+      "name": "Ata Tala (Tisra)",
+      "base_tala": "Ata",
+      "jati": "tisra",
+      "jati_count": 3,
+      "components": ["laghu", "laghu", "drutam", "drutam"],
+      "beat_pattern": [3, 3, 2, 2],
+      "total_aksharas": 10,
+      "aliases": []
+    },
+    {
+      "id": "ata_chatusra",
+      "name": "Ata Tala (Chatusra)",
+      "base_tala": "Ata",
+      "jati": "chatusra",
+      "jati_count": 4,
+      "components": ["laghu", "laghu", "drutam", "drutam"],
+      "beat_pattern": [4, 4, 2, 2],
+      "total_aksharas": 12,
+      "aliases": []
+    },
+    {
+      "id": "ata_khanda",
+      "name": "Ata Tala (Khanda)",
+      "base_tala": "Ata",
+      "jati": "khanda",
+      "jati_count": 5,
+      "components": ["laghu", "laghu", "drutam", "drutam"],
+      "beat_pattern": [5, 5, 2, 2],
+      "total_aksharas": 14,
+      "aliases": []
+    },
+    {
+      "id": "ata_misra",
+      "name": "Ata Tala (Misra)",
+      "base_tala": "Ata",
+      "jati": "misra",
+      "jati_count": 7,
+      "components": ["laghu", "laghu", "drutam", "drutam"],
+      "beat_pattern": [7, 7, 2, 2],
+      "total_aksharas": 18,
+      "aliases": []
+    },
+    {
+      "id": "ata_sankeerna",
+      "name": "Ata Tala (Sankeerna)",
+      "base_tala": "Ata",
+      "jati": "sankeerna",
+      "jati_count": 9,
+      "components": ["laghu", "laghu", "drutam", "drutam"],
+      "beat_pattern": [9, 9, 2, 2],
+      "total_aksharas": 22,
+      "aliases": []
+    }
+  ]
+}
