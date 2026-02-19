@@ -14,16 +14,15 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 WORKDIR /build
 
 # Install CPU-only PyTorch first (saves ~4.5 GB vs full CUDA build)
-COPY pyproject.toml ./
 RUN pip install --no-cache-dir --prefix=/install \
     --extra-index-url https://download.pytorch.org/whl/cpu \
-    torch torchcrepe torchaudio \
-    && pip install --no-cache-dir --prefix=/install .
+    torch torchcrepe torchaudio
 
-# Install the project itself
+# Copy project files and install
+COPY pyproject.toml ./
 COPY src/ ./src/
 COPY configs/ ./configs/
-RUN pip install --no-cache-dir --prefix=/install --no-deps .
+RUN touch README.md && pip install --no-cache-dir --prefix=/install .
 
 # Stage 2: Runtime — lean image
 FROM python:3.11-slim AS runtime

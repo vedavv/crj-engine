@@ -11,7 +11,12 @@
       "Bash(pkill:*)",
       "Bash(gcloud --version:*)",
       "Bash(node --version:*)",
-      "Bash(npm install:*)"
+      "Bash(npm install:*)",
+      "Bash(export PATH=\"/opt/homebrew/share/google-cloud-sdk/bin:$PATH\")",
+      "Bash(firebase --version:*)",
+      "Bash(export PATH=\"/opt/homebrew/share/google-cloud-sdk/bin:/opt/homebrew/bin:$PATH\")",
+      "Bash(gcloud version:*)",
+      "Bash(gcloud config set:*)"
     ]
   }
 }
