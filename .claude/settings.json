@@ -2,7 +2,16 @@
   "permissions": {
     "allow": [
       "Bash(pip install:*)",
-      "WebFetch(domain:vedavishtaram.in)"
+      "WebFetch(domain:vedavishtaram.in)",
+      "Bash(chmod:*)",
+      "Bash(curl:*)",
+      "Bash(else)",
+      "Bash(echo:*)",
+      "Bash(fi)",
+      "Bash(pkill:*)",
+      "Bash(gcloud --version:*)",
+      "Bash(node --version:*)",
+      "Bash(npm install:*)"
     ]
   }
 }
