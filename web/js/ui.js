@@ -20,8 +20,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const saPreset = document.getElementById('sa-preset');
     const saCustom = document.getElementById('sa-custom');
     const inputCard = document.getElementById('input-card');
+    const recordIndicator = document.getElementById('record-indicator');
+    const recordTimer = document.getElementById('record-timer');
+    const contourCanvas = document.getElementById('pitch-contour');
 
     let recorder = null;
+    let lastResult = null;   // store for contour re-rendering
 
     // --- Load tuning presets ---
     try {
@@ -44,6 +48,23 @@ document.addEventListener('DOMContentLoaded', async () => {
         saCustom.style.display = saPreset.value === 'custom' ? 'block' : 'none';
     });
 
+    // --- Tab switching ---
+    const tabs = document.getElementById('results-tabs');
+    if (tabs) {
+        tabs.addEventListener('click', (e) => {
+            const btn = e.target.closest('.tab-btn');
+            if (!btn) return;
+            const tabId = btn.dataset.tab;
+
+            tabs.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            const panel = document.getElementById(tabId);
+            if (panel) panel.classList.add('active');
+        });
+    }
+
     // --- Helpers ---
 
     function getOptions() {
@@ -55,6 +76,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             referenceSaHz: saHz,
             algorithm: document.getElementById('algorithm').value,
             script: document.getElementById('script').value,
+            includeContour: true,   // always request contour for visualization
         };
     }
 
@@ -68,12 +90,34 @@ document.addEventListener('DOMContentLoaded', async () => {
         btnStop.disabled = !isRecording;
         fileInput.disabled = !isIdle;
         inputCard.style.opacity = isIdle || isRecording ? '1' : '0.5';
+        inputCard.style.pointerEvents = isIdle || isRecording ? 'auto' : 'none';
+
+        // Processing card with smooth show/hide
         processingCard.style.display = isProcessing ? 'block' : 'none';
+
+        // Results card
         resultsCard.style.display = isResults ? 'block' : 'none';
+        if (isResults) {
+            resultsCard.classList.add('fade-in');
+        }
+
+        // Recording button state
+        if (isRecording) {
+            btnRecord.classList.add('recording');
+            recordIndicator.classList.add('active');
+        } else {
+            btnRecord.classList.remove('recording');
+            recordIndicator.classList.remove('active');
+        }
 
         if (isIdle) {
             progressFill.style.width = '0%';
             processingMsg.textContent = '';
+            recordTimer.textContent = '0.0 s';
+
+            // Reset to summary tab
+            const firstTab = tabs && tabs.querySelector('.tab-btn');
+            if (firstTab) firstTab.click();
         }
     }
 
@@ -92,9 +136,15 @@ document.addEventListener('DOMContentLoaded', async () => {
         const ctx = waveformCanvas.getContext('2d');
         const w = waveformCanvas.width;
         const h = waveformCanvas.height;
-        ctx.fillStyle = '#0d1b2a';
+        ctx.fillStyle = '#0d1624';
         ctx.fillRect(0, 0, w, h);
-        ctx.strokeStyle = '#4CAF50';
+
+        // Gradient waveform
+        const grad = ctx.createLinearGradient(0, 0, w, 0);
+        grad.addColorStop(0, '#5cc8d4');
+        grad.addColorStop(0.5, '#c5a059');
+        grad.addColorStop(1, '#5cc8d4');
+        ctx.strokeStyle = grad;
         ctx.lineWidth = 1.5;
         ctx.beginPath();
         const slice = w / data.length;
@@ -110,8 +160,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     function clearWaveform() {
         const ctx = waveformCanvas.getContext('2d');
-        ctx.fillStyle = '#0d1b2a';
+        ctx.fillStyle = '#0d1624';
         ctx.fillRect(0, 0, waveformCanvas.width, waveformCanvas.height);
+
+        // Draw center line
+        ctx.strokeStyle = 'rgba(197, 160, 89, 0.08)';
+        ctx.lineWidth = 1;
+        ctx.beginPath();
+        ctx.moveTo(0, waveformCanvas.height / 2);
+        ctx.lineTo(waveformCanvas.width, waveformCanvas.height / 2);
+        ctx.stroke();
     }
 
     // --- Analysis ---
@@ -122,7 +180,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         progressFill.style.width = '20%';
 
         try {
-            processingMsg.textContent = 'Analyzing pitch contour\u2026';
+            processingMsg.textContent = 'Detecting pitch contour\u2026';
             progressFill.style.width = '40%';
 
             const opts = getOptions();
@@ -130,16 +188,33 @@ document.addEventListener('DOMContentLoaded', async () => {
                 ? await CRJApi.analyzeFile(blobOrFile, opts)
                 : await CRJApi.analyze(blobOrFile, opts);
 
+            processingMsg.textContent = 'Rendering results\u2026';
+            progressFill.style.width = '80%';
+
+            // Small pause so user sees progress
+            await new Promise(r => setTimeout(r, 200));
+
             progressFill.style.width = '100%';
-            processingMsg.textContent = 'Done!';
-            displayResults(result);
+            processingMsg.textContent = 'Complete!';
+
+            lastResult = result;
+            displayResults(result, opts.referenceSaHz);
+
+            // Brief delay before showing results
+            await new Promise(r => setTimeout(r, 300));
             setState('results');
         } catch (err) {
             showError('Analysis failed: ' + err.message);
         }
     }
 
-    function displayResults(result) {
+    function displayResults(result, referenceSaHz) {
+        // Summary
+        NotationRenderer.renderSummary(
+            result,
+            document.getElementById('summary')
+        );
+
         // Compact notation
         const compactEl = document.getElementById('notation-compact');
         compactEl.innerHTML = '<pre class="notation-pre">' +
@@ -168,11 +243,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('gamaka-results')
         );
 
-        // Summary
-        NotationRenderer.renderSummary(
-            result,
-            document.getElementById('summary')
-        );
+        // Pitch contour
+        if (result.pitch_contour && contourCanvas) {
+            NotationRenderer.renderContour(
+                result.pitch_contour,
+                referenceSaHz || result.reference_sa_hz,
+                contourCanvas
+            );
+        } else if (contourCanvas) {
+            NotationRenderer.renderContour(null, 0, contourCanvas);
+        }
     }
 
     function escapeHtml(str) {
@@ -189,21 +269,16 @@ document.addEventListener('DOMContentLoaded', async () => {
             recorder = new AudioRecorder({
                 maxDurationMs: 30000,
                 onDurationUpdate(ms) {
-                    recordingStatus.textContent =
-                        'Recording: ' + (ms / 1000).toFixed(1) + 's / 30s';
-                    recordingStatus.className = 'recording-status';
-                    recordingStatus.style.color = '#4CAF50';
+                    recordTimer.textContent = (ms / 1000).toFixed(1) + ' s';
                 },
                 onMaxReached(blob) {
-                    recordingStatus.textContent = 'Max duration reached. Processing\u2026';
+                    recordingStatus.textContent = 'Max duration reached.';
                     runAnalysis(blob, false);
                 },
                 onWaveformData: drawWaveform,
             });
             await recorder.start();
             setState('recording');
-            recordingStatus.textContent = 'Recording\u2026';
-            recordingStatus.style.color = '#4CAF50';
         } catch (err) {
             showError('Microphone error: ' + err.message);
         }
@@ -239,6 +314,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         setState('idle');
         clearError();
         clearWaveform();
+        lastResult = null;
     });
 
     // --- Init ---
