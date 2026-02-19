@@ -1,0 +1,12 @@
+#!/bin/bash
+# Git post-tag notification — call this after creating a milestone tag.
+# Usage: git tag v0.1.0-pitch && bash scripts/hooks/post-tag
+
+TAG=$(git describe --tags --exact-match HEAD 2>/dev/null)
+
+if [ -n "$TAG" ]; then
+    echo "[crj-engine] Tag created: $TAG — sending milestone notification..."
+    python3 scripts/notify.py --auto
+else
+    echo "[crj-engine] No tag at HEAD."
+fi

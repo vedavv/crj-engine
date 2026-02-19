@@ -1,0 +1,10 @@
+#!/bin/bash
+# Git post-commit hook — checks if HEAD has a milestone tag and sends notification.
+# Install: cp scripts/hooks/post-commit .git/hooks/post-commit && chmod +x .git/hooks/post-commit
+
+TAG=$(git describe --tags --exact-match HEAD 2>/dev/null)
+
+if [ -n "$TAG" ]; then
+    echo "[crj-engine] Tagged commit detected: $TAG — checking milestones..."
+    python3 scripts/notify.py --auto
+fi

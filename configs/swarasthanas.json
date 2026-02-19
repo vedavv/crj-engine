@@ -1,0 +1,327 @@
+{
+  "metadata": {
+    "description": "12 Swarasthanas of Indian Classical Music with multilingual transliteration",
+    "reference_note": "Sa (Shadja) is the tonic — all cent values are relative to Sa",
+    "default_sa_hz": 261.63,
+    "tolerance_cents": 25,
+    "scripts": ["iast", "devanagari", "kannada", "tamil", "telugu"]
+  },
+  "swarasthanas": [
+    {
+      "index": 1,
+      "id": "Sa",
+      "cents": 0,
+      "western_equivalent": "C",
+      "ratio": "1/1",
+      "sanskrit_name": "Shadja",
+      "names": {
+        "iast": "Sa",
+        "devanagari": "स",
+        "kannada": "ಸ",
+        "tamil": "ச",
+        "telugu": "స"
+      },
+      "full_names": {
+        "iast": "Shadja",
+        "devanagari": "षड्ज",
+        "kannada": "ಷಡ್ಜ",
+        "tamil": "ஷட்ஜம்",
+        "telugu": "షడ్జము"
+      },
+      "is_fixed": true,
+      "aliases": []
+    },
+    {
+      "index": 2,
+      "id": "Ri1",
+      "cents": 100,
+      "western_equivalent": "Db",
+      "ratio": "256/243",
+      "sanskrit_name": "Shuddha Rishabha",
+      "names": {
+        "iast": "Ri₁",
+        "devanagari": "रि₁",
+        "kannada": "ರಿ₁",
+        "tamil": "ரி₁",
+        "telugu": "రి₁"
+      },
+      "full_names": {
+        "iast": "Shuddha Rishabha",
+        "devanagari": "शुद्ध ऋषभ",
+        "kannada": "ಶುದ್ಧ ಋಷಭ",
+        "tamil": "சுத்த ரிஷபம்",
+        "telugu": "శుద్ధ ఋషభము"
+      },
+      "is_fixed": false,
+      "aliases": []
+    },
+    {
+      "index": 3,
+      "id": "Ri2",
+      "cents": 200,
+      "western_equivalent": "D",
+      "ratio": "9/8",
+      "sanskrit_name": "Chatusshruti Rishabha",
+      "names": {
+        "iast": "Ri₂",
+        "devanagari": "रि₂",
+        "kannada": "ರಿ₂",
+        "tamil": "ரி₂",
+        "telugu": "రి₂"
+      },
+      "full_names": {
+        "iast": "Chatusshruti Rishabha",
+        "devanagari": "चतुःश्रुति ऋषभ",
+        "kannada": "ಚತುಶ್ಶ್ರುತಿ ಋಷಭ",
+        "tamil": "சதுஸ்ருதி ரிஷபம்",
+        "telugu": "చతుశ్శ్రుతి ఋషభము"
+      },
+      "is_fixed": false,
+      "aliases": ["Ga1"],
+      "alias_names": {
+        "iast": "Shuddha Gandhara",
+        "devanagari": "शुद्ध गान्धार",
+        "kannada": "ಶುದ್ಧ ಗಾಂಧಾರ",
+        "tamil": "சுத்த காந்தாரம்",
+        "telugu": "శుద్ధ గాంధారము"
+      }
+    },
+    {
+      "index": 4,
+      "id": "Ga2",
+      "cents": 300,
+      "western_equivalent": "Eb",
+      "ratio": "32/27",
+      "sanskrit_name": "Sadharana Gandhara",
+      "names": {
+        "iast": "Ga₂",
+        "devanagari": "ग₂",
+        "kannada": "ಗ₂",
+        "tamil": "க₂",
+        "telugu": "గ₂"
+      },
+      "full_names": {
+        "iast": "Sadharana Gandhara",
+        "devanagari": "साधारण गान्धार",
+        "kannada": "ಸಾಧಾರಣ ಗಾಂಧಾರ",
+        "tamil": "சாதாரண காந்தாரம்",
+        "telugu": "సాధారణ గాంధారము"
+      },
+      "is_fixed": false,
+      "aliases": ["Ri3"],
+      "alias_names": {
+        "iast": "Shatshruti Rishabha",
+        "devanagari": "षट्श्रुति ऋषभ",
+        "kannada": "ಷಟ್ಶ್ರುತಿ ಋಷಭ",
+        "tamil": "ஷட்ஸ்ருதி ரிஷபம்",
+        "telugu": "షట్శ్రుతి ఋషభము"
+      }
+    },
+    {
+      "index": 5,
+      "id": "Ga3",
+      "cents": 400,
+      "western_equivalent": "E",
+      "ratio": "81/64",
+      "sanskrit_name": "Antara Gandhara",
+      "names": {
+        "iast": "Ga₃",
+        "devanagari": "ग₃",
+        "kannada": "ಗ₃",
+        "tamil": "க₃",
+        "telugu": "గ₃"
+      },
+      "full_names": {
+        "iast": "Antara Gandhara",
+        "devanagari": "अन्तर गान्धार",
+        "kannada": "ಅಂತರ ಗಾಂಧಾರ",
+        "tamil": "அந்தர காந்தாரம்",
+        "telugu": "అంతర గాంధారము"
+      },
+      "is_fixed": false,
+      "aliases": []
+    },
+    {
+      "index": 6,
+      "id": "Ma1",
+      "cents": 500,
+      "western_equivalent": "F",
+      "ratio": "4/3",
+      "sanskrit_name": "Shuddha Madhyama",
+      "names": {
+        "iast": "Ma₁",
+        "devanagari": "म₁",
+        "kannada": "ಮ₁",
+        "tamil": "ம₁",
+        "telugu": "మ₁"
+      },
+      "full_names": {
+        "iast": "Shuddha Madhyama",
+        "devanagari": "शुद्ध मध्यम",
+        "kannada": "ಶುದ್ಧ ಮಧ್ಯಮ",
+        "tamil": "சுத்த மத்யமம்",
+        "telugu": "శుద్ధ మధ్యమము"
+      },
+      "is_fixed": false,
+      "aliases": []
+    },
+    {
+      "index": 7,
+      "id": "Ma2",
+      "cents": 600,
+      "western_equivalent": "F#",
+      "ratio": "729/512",
+      "sanskrit_name": "Prati Madhyama",
+      "names": {
+        "iast": "Ma₂",
+        "devanagari": "म₂",
+        "kannada": "ಮ₂",
+        "tamil": "ம₂",
+        "telugu": "మ₂"
+      },
+      "full_names": {
+        "iast": "Prati Madhyama",
+        "devanagari": "प्रति मध्यम",
+        "kannada": "ಪ್ರತಿ ಮಧ್ಯಮ",
+        "tamil": "பிரதி மத்யமம்",
+        "telugu": "ప్రతి మధ్యమము"
+      },
+      "is_fixed": false,
+      "aliases": []
+    },
+    {
+      "index": 8,
+      "id": "Pa",
+      "cents": 700,
+      "western_equivalent": "G",
+      "ratio": "3/2",
+      "sanskrit_name": "Panchama",
+      "names": {
+        "iast": "Pa",
+        "devanagari": "प",
+        "kannada": "ಪ",
+        "tamil": "ப",
+        "telugu": "ప"
+      },
+      "full_names": {
+        "iast": "Panchama",
+        "devanagari": "पञ्चम",
+        "kannada": "ಪಂಚಮ",
+        "tamil": "பஞ்சமம்",
+        "telugu": "పంచమము"
+      },
+      "is_fixed": true,
+      "aliases": []
+    },
+    {
+      "index": 9,
+      "id": "Dha1",
+      "cents": 800,
+      "western_equivalent": "Ab",
+      "ratio": "128/81",
+      "sanskrit_name": "Shuddha Dhaivata",
+      "names": {
+        "iast": "Dha₁",
+        "devanagari": "ध₁",
+        "kannada": "ಧ₁",
+        "tamil": "த₁",
+        "telugu": "ధ₁"
+      },
+      "full_names": {
+        "iast": "Shuddha Dhaivata",
+        "devanagari": "शुद्ध धैवत",
+        "kannada": "ಶುದ್ಧ ಧೈವತ",
+        "tamil": "சுத்த தைவதம்",
+        "telugu": "శుద్ధ ధైవతము"
+      },
+      "is_fixed": false,
+      "aliases": []
+    },
+    {
+      "index": 10,
+      "id": "Dha2",
+      "cents": 900,
+      "western_equivalent": "A",
+      "ratio": "27/16",
+      "sanskrit_name": "Chatusshruti Dhaivata",
+      "names": {
+        "iast": "Dha₂",
+        "devanagari": "ध₂",
+        "kannada": "ಧ₂",
+        "tamil": "த₂",
+        "telugu": "ధ₂"
+      },
+      "full_names": {
+        "iast": "Chatusshruti Dhaivata",
+        "devanagari": "चतुःश्रुति धैवत",
+        "kannada": "ಚತುಶ್ಶ್ರುತಿ ಧೈವತ",
+        "tamil": "சதுஸ்ருதி தைவதம்",
+        "telugu": "చతుశ్శ్రుతి ధైవతము"
+      },
+      "is_fixed": false,
+      "aliases": ["Ni1"],
+      "alias_names": {
+        "iast": "Shuddha Nishada",
+        "devanagari": "शुद्ध निषाद",
+        "kannada": "ಶುದ್ಧ ನಿಷಾದ",
+        "tamil": "சுத்த நிஷாதம்",
+        "telugu": "శుద్ధ నిషాదము"
+      }
+    },
+    {
+      "index": 11,
+      "id": "Ni2",
+      "cents": 1000,
+      "western_equivalent": "Bb",
+      "ratio": "16/9",
+      "sanskrit_name": "Kaisiki Nishada",
+      "names": {
+        "iast": "Ni₂",
+        "devanagari": "नि₂",
+        "kannada": "ನಿ₂",
+        "tamil": "நி₂",
+        "telugu": "ని₂"
+      },
+      "full_names": {
+        "iast": "Kaisiki Nishada",
+        "devanagari": "कैशिकी निषाद",
+        "kannada": "ಕೈಶಿಕೀ ನಿಷಾದ",
+        "tamil": "கைசிகி நிஷாதம்",
+        "telugu": "కైశికీ నిషాదము"
+      },
+      "is_fixed": false,
+      "aliases": ["Dha3"],
+      "alias_names": {
+        "iast": "Shatshruti Dhaivata",
+        "devanagari": "षट्श्रुति धैवत",
+        "kannada": "ಷಟ್ಶ್ರುತಿ ಧೈವತ",
+        "tamil": "ஷட்ஸ்ருதி தைவதம்",
+        "telugu": "షట్శ్రుతి ధైవతము"
+      }
+    },
+    {
+      "index": 12,
+      "id": "Ni3",
+      "cents": 1100,
+      "western_equivalent": "B",
+      "ratio": "243/128",
+      "sanskrit_name": "Kakali Nishada",
+      "names": {
+        "iast": "Ni₃",
+        "devanagari": "नि₃",
+        "kannada": "ನಿ₃",
+        "tamil": "நி₃",
+        "telugu": "ని₃"
+      },
+      "full_names": {
+        "iast": "Kakali Nishada",
+        "devanagari": "काकली निषाद",
+        "kannada": "ಕಾಕಲೀ ನಿಷಾದ",
+        "tamil": "காகலி நிஷாதம்",
+        "telugu": "కాకలీ నిషాదము"
+      },
+      "is_fixed": false,
+      "aliases": []
+    }
+  ]
+}

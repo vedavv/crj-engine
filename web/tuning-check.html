@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRJ Engine — Sa Tuning Reference</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: 'Segoe UI', system-ui, sans-serif;
+    background: #1a1a2e;
+    color: #e0e0e0;
+    min-height: 100vh;
+    padding: 24px;
+  }
+  h1 { color: #a0c4ff; font-size: 22px; margin-bottom: 4px; }
+  .subtitle { color: #888; font-size: 14px; margin-bottom: 32px; }
+  .card {
+    background: #16213e;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+    border: 1px solid #2a2a4a;
+  }
+  .card h2 { font-size: 18px; color: #fff; margin-bottom: 4px; }
+  .card .desc { color: #aaa; font-size: 13px; margin-bottom: 16px; }
+  .freq { color: #ffb74d; font-weight: bold; font-size: 15px; }
+  .btn-row { display: flex; gap: 10px; flex-wrap: wrap; }
+  button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  button:active { transform: scale(0.96); }
+  .play-sa {
+    background: #2196F3;
+    color: #fff;
+  }
+  .play-sa:hover { background: #1976D2; }
+  .play-sa.playing {
+    background: #ff5722;
+    animation: pulse 0.8s infinite alternate;
+  }
+  .play-scale {
+    background: #4CAF50;
+    color: #fff;
+  }
+  .play-scale:hover { background: #388E3C; }
+  .play-scale.playing {
+    background: #ff5722;
+    animation: pulse 0.8s infinite alternate;
+  }
+  .stop-btn {
+    background: #555;
+    color: #fff;
+  }
+  .stop-btn:hover { background: #777; }
+  @keyframes pulse {
+    from { box-shadow: 0 0 0 0 rgba(255,87,34,0.4); }
+    to   { box-shadow: 0 0 0 10px rgba(255,87,34,0); }
+  }
+  .now-playing {
+    margin-top: 24px;
+    padding: 16px;
+    background: #0d1b2a;
+    border-radius: 8px;
+    text-align: center;
+    font-size: 14px;
+    color: #aaa;
+    min-height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .swara-list {
+    margin-top: 8px;
+    font-size: 13px;
+    color: #80cbc4;
+    font-family: monospace;
+  }
+  .instructions {
+    margin-top: 24px;
+    padding: 16px;
+    background: #1e3a5f;
+    border-radius: 8px;
+    font-size: 13px;
+    color: #b0bec5;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<h1>CRJ Engine — Sa Tuning Reference</h1>
+<p class="subtitle">Listen to each preset and confirm which Sa matches your tonic</p>
+
+<div id="cards"></div>
+
+<div class="now-playing" id="status">Tap a button to hear the tone</div>
+
+<div class="instructions">
+  <strong>How to use:</strong><br>
+  1. <strong>Play Sa</strong> — plays a steady tone at that Sa frequency for 3 seconds<br>
+  2. <strong>Play Scale</strong> — plays Sa Ri Ga Ma Pa Dha Ni Saˊ ascending, using Shankarabharanam (major scale) intervals<br>
+  3. Listen and tell us which preset matches your natural tonic (shruti)<br>
+  4. If none match exactly, note which two are closest — we'll set a custom Hz value
+</div>
+
+<script>
+const presets = [
+  {
+    id: 'concert_c',
+    name: 'Sa = C4 (Middle C)',
+    desc: 'Standard for many Carnatic vocalists',
+    hz: 261.63,
+    western: 'C4'
+  },
+  {
+    id: 'concert_a',
+    name: 'Sa = A3',
+    desc: 'Common for male vocalists (lower register)',
+    hz: 220.0,
+    western: 'A3'
+  },
+  {
+    id: 'd_sharp',
+    name: 'Sa = D#4 / Eb4',
+    desc: 'Common for female Carnatic vocalists',
+    hz: 311.13,
+    western: 'D#4'
+  },
+  {
+    id: 'b_flat',
+    name: 'Sa = Bb3',
+    desc: 'Common for Hindustani vocalists',
+    hz: 233.08,
+    western: 'Bb3'
+  },
+  {
+    id: 'g3',
+    name: 'Sa = G3',
+    desc: 'Lower male vocal range',
+    hz: 196.0,
+    western: 'G3'
+  },
+  {
+    id: 'd4',
+    name: 'Sa = D4',
+    desc: 'Mid-range, common for both traditions',
+    hz: 293.66,
+    western: 'D4'
+  }
+];
+
+// Shankarabharanam / Major scale intervals in cents from Sa
+const scaleCents = [0, 200, 400, 500, 700, 900, 1100, 1200];
+const swaraNames = ['Sa', 'Ri₂', 'Ga₃', 'Ma₁', 'Pa', 'Dha₂', 'Ni₃', 'Saˊ'];
+
+let audioCtx = null;
+let currentNodes = [];
+let isPlaying = false;
+
+function getAudioCtx() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  return audioCtx;
+}
+
+function stopAll() {
+  currentNodes.forEach(n => { try { n.stop(); } catch(e) {} });
+  currentNodes = [];
+  isPlaying = false;
+  document.querySelectorAll('button.playing').forEach(b => b.classList.remove('playing'));
+}
+
+function playSa(hz, btn) {
+  stopAll();
+  isPlaying = true;
+  btn.classList.add('playing');
+
+  const ctx = getAudioCtx();
+  const osc = ctx.createOscillator();
+  const gain = ctx.createGain();
+
+  // Warm tone: mix of fundamental + soft overtone
+  osc.type = 'sine';
+  osc.frequency.value = hz;
+  gain.gain.setValueAtTime(0, ctx.currentTime);
+  gain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 0.05);
+  gain.gain.setValueAtTime(0.3, ctx.currentTime + 2.7);
+  gain.gain.linearRampToValueAtTime(0, ctx.currentTime + 3.0);
+
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+  osc.start(ctx.currentTime);
+  osc.stop(ctx.currentTime + 3.0);
+  currentNodes.push(osc);
+
+  // Add tanpura-like drone: Sa + Pa softly
+  const oscPa = ctx.createOscillator();
+  const gainPa = ctx.createGain();
+  oscPa.type = 'sine';
+  oscPa.frequency.value = hz * 1.5; // Perfect fifth (Pa)
+  gainPa.gain.setValueAtTime(0, ctx.currentTime);
+  gainPa.gain.linearRampToValueAtTime(0.08, ctx.currentTime + 0.1);
+  gainPa.gain.setValueAtTime(0.08, ctx.currentTime + 2.7);
+  gainPa.gain.linearRampToValueAtTime(0, ctx.currentTime + 3.0);
+  oscPa.connect(gainPa);
+  gainPa.connect(ctx.destination);
+  oscPa.start(ctx.currentTime);
+  oscPa.stop(ctx.currentTime + 3.0);
+  currentNodes.push(oscPa);
+
+  document.getElementById('status').innerHTML =
+    `Playing <strong>Sa</strong> at <span class="freq">${hz} Hz</span> (${btn.dataset.western}) with Pa drone`;
+
+  osc.onended = () => {
+    btn.classList.remove('playing');
+    isPlaying = false;
+    document.getElementById('status').textContent = 'Done. Try another preset or play the scale.';
+  };
+}
+
+function playScale(hz, btn) {
+  stopAll();
+  isPlaying = true;
+  btn.classList.add('playing');
+
+  const ctx = getAudioCtx();
+  const noteDuration = 0.5; // seconds per note
+
+  scaleCents.forEach((cents, i) => {
+    const freq = hz * Math.pow(2, cents / 1200);
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = 'sine';
+    osc.frequency.value = freq;
+
+    const startTime = ctx.currentTime + i * noteDuration;
+    gain.gain.setValueAtTime(0, startTime);
+    gain.gain.linearRampToValueAtTime(0.25, startTime + 0.03);
+    gain.gain.setValueAtTime(0.25, startTime + noteDuration - 0.05);
+    gain.gain.linearRampToValueAtTime(0, startTime + noteDuration);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+    osc.start(startTime);
+    osc.stop(startTime + noteDuration);
+    currentNodes.push(osc);
+
+    // Update display as each note plays
+    setTimeout(() => {
+      if (isPlaying) {
+        document.getElementById('status').innerHTML =
+          `<strong>${swaraNames[i]}</strong> — ${freq.toFixed(1)} Hz`;
+      }
+    }, i * noteDuration * 1000);
+  });
+
+  // After scale finishes
+  const totalTime = scaleCents.length * noteDuration;
+  setTimeout(() => {
+    btn.classList.remove('playing');
+    isPlaying = false;
+    document.getElementById('status').textContent = 'Scale complete. How did that sound?';
+  }, totalTime * 1000);
+}
+
+// Render cards
+const container = document.getElementById('cards');
+presets.forEach(p => {
+  const card = document.createElement('div');
+  card.className = 'card';
+  card.innerHTML = `
+    <h2>${p.name}</h2>
+    <p class="desc">${p.desc} — <span class="freq">${p.hz} Hz</span></p>
+    <div class="btn-row">
+      <button class="play-sa" data-western="${p.western}"
+        onclick="playSa(${p.hz}, this)">Play Sa (3s)</button>
+      <button class="play-scale" data-western="${p.western}"
+        onclick="playScale(${p.hz}, this)">Play Scale ↑</button>
+      <button class="stop-btn" onclick="stopAll()">Stop</button>
+    </div>
+    <div class="swara-list">Sa Ri₂ Ga₃ Ma₁ Pa Dha₂ Ni₃ Saˊ (Shankarabharanam)</div>
+  `;
+  container.appendChild(card);
+});
+</script>
+
+</body>
+</html>

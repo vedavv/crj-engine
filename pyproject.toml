@@ -1,0 +1,68 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "crj-engine"
+version = "0.1.0"
+description = "AI-powered audio engine for Indian classical music frequency recognition and Vedic chanting analysis"
+readme = "README.md"
+requires-python = ">=3.11"
+license = {text = "Proprietary"}
+authors = [
+    {name = "CRJ Studio", email = "crj@vedavishtaram.in"},
+]
+
+dependencies = [
+    "numpy>=1.26",
+    "librosa>=0.10",
+    "soundfile>=0.12",
+    "pydub>=0.25",
+    "torchcrepe>=0.0.22",
+    "torch>=2.1",
+    "torchaudio>=2.1",
+    "fastapi>=0.104",
+    "uvicorn[standard]>=0.24",
+    "python-multipart>=0.0.6",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4",
+    "pytest-cov>=4.1",
+    "ruff>=0.1",
+    "mypy>=1.7",
+    "pre-commit>=3.5",
+]
+ml = [
+    "scikit-learn>=1.3",
+    "torchvision>=0.16",
+    "matplotlib>=3.8",
+    "plotly>=5.18",
+]
+web = [
+    "streamlit>=1.28",
+]
+all = [
+    "crj-engine[dev,ml,web]",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+target-version = "py311"
+line-length = 100
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W", "UP", "B", "SIM"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["src"]
+
+[tool.mypy]
+python_version = "3.11"
+warn_return_any = true
+warn_unused_configs = true

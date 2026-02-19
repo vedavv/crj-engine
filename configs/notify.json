@@ -1,0 +1,21 @@
+{
+  "recipient": "tech@dharmaposhanam.in",
+  "sender": "crj-engine@dharmaposhanam.in",
+  "project_name": "CRJ Engine",
+  "smtp": {
+    "host": "",
+    "port": 587,
+    "use_tls": true,
+    "username": "",
+    "password": ""
+  },
+  "milestones": [
+    {"tag": "v0.1.0-pitch",    "sprint": 1, "label": "Pitch Detection Complete"},
+    {"tag": "v0.1.0-swara",    "sprint": 2, "label": "Swara Mapping Complete"},
+    {"tag": "v0.1.0-gamaka",   "sprint": 3, "label": "Gamaka Classification Complete"},
+    {"tag": "v0.1.0-raga",     "sprint": 4, "label": "Raga Identification Complete"},
+    {"tag": "v0.1.0-mvp",      "sprint": 5, "label": "MVP — Phase 1 Complete"},
+    {"tag": "v0.2.0",          "sprint": null, "label": "Phase 2 — Instruments + Hindustani"},
+    {"tag": "v0.3.0",          "sprint": null, "label": "Phase 3 — Sama Veda + Synthesis"}
+  ]
+}
