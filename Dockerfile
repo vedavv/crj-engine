@@ -13,16 +13,13 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 WORKDIR /build
 
-# Install CPU-only PyTorch first (saves ~4.5 GB vs full CUDA build)
-RUN pip install --no-cache-dir --prefix=/install \
-    --extra-index-url https://download.pytorch.org/whl/cpu \
-    torch torchcrepe torchaudio
-
-# Copy project files and install
+# Install CPU-only PyTorch + all dependencies (no project install — use PYTHONPATH)
 COPY pyproject.toml ./
 COPY src/ ./src/
 COPY configs/ ./configs/
-RUN touch README.md && pip install --no-cache-dir --prefix=/install .
+RUN touch README.md && pip install --no-cache-dir \
+    --extra-index-url https://download.pytorch.org/whl/cpu \
+    .
 
 # Stage 2: Runtime — lean image
 FROM python:3.11-slim AS runtime
@@ -32,9 +29,11 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy installed Python packages from builder
-COPY --from=builder /install /usr/local
+# Copy installed Python packages and binaries (uvicorn, etc.) from builder
+COPY --from=builder /usr/local/lib/python3.11/site-packages /usr/local/lib/python3.11/site-packages
+COPY --from=builder /usr/local/bin /usr/local/bin
 
+# Copy source tree (configs path resolution uses __file__ relative paths)
 WORKDIR /app
 COPY src/ ./src/
 COPY configs/ ./configs/
@@ -43,6 +42,7 @@ COPY web/ ./web/
 # Cloud Run injects PORT (default 8080)
 ENV PORT=8080
 ENV PYTHONUNBUFFERED=1
+ENV PYTHONPATH=/app/src
 ENV OMP_NUM_THREADS=2
 ENV MKL_NUM_THREADS=2
 
