@@ -41,6 +41,7 @@ def load_audio(file_path: str | Path, target_sr: int = 16000) -> tuple[np.ndarra
     # For MP3: convert to WAV via pydub (ffmpeg) first, then load with librosa
     if suffix == ".mp3":
         import io
+
         import soundfile as sf
         from pydub import AudioSegment
 

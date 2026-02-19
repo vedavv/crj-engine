@@ -6,7 +6,7 @@ import json
 import os
 import smtplib
 import subprocess
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from pathlib import Path
@@ -55,22 +55,26 @@ def _build_html_body(
     git_info: dict,
 ) -> str:
     """Build a clean HTML email body."""
-    now = datetime.now(timezone.utc).strftime("%Y-%m-%d %H:%M UTC")
+    now = datetime.now(UTC).strftime("%Y-%m-%d %H:%M UTC")
 
     return f"""\
 <html>
-<body style="font-family: 'Segoe UI', Arial, sans-serif; max-width: 600px; margin: 0 auto; color: #333;">
-  <div style="background: linear-gradient(135deg, #1a1a2e, #16213e); padding: 24px; border-radius: 8px 8px 0 0;">
+<body style="font-family: 'Segoe UI', Arial, sans-serif;
+  max-width: 600px; margin: 0 auto; color: #333;">
+  <div style="background: linear-gradient(135deg, #1a1a2e, #16213e);
+    padding: 24px; border-radius: 8px 8px 0 0;">
     <h1 style="color: #e0e0e0; margin: 0; font-size: 20px;">CRJ Engine</h1>
     <p style="color: #a0c4ff; margin: 4px 0 0 0; font-size: 14px;">Milestone Notification</p>
   </div>
 
-  <div style="border: 1px solid #e0e0e0; border-top: none; padding: 24px; border-radius: 0 0 8px 8px;">
+  <div style="border: 1px solid #e0e0e0; border-top: none;
+    padding: 24px; border-radius: 0 0 8px 8px;">
     <h2 style="color: #1a1a2e; margin-top: 0;">{milestone_label}</h2>
 
     <table style="width: 100%; border-collapse: collapse; margin: 16px 0;">
       <tr>
-        <td style="padding: 8px 12px; background: #f5f5f5; font-weight: bold; width: 120px;">Tag</td>
+        <td style="padding: 8px 12px; background: #f5f5f5;
+          font-weight: bold; width: 120px;">Tag</td>
         <td style="padding: 8px 12px; background: #f5f5f5;"><code>{tag}</code></td>
       </tr>
       <tr>
@@ -93,7 +97,10 @@ def _build_html_body(
       </tr>
     </table>
 
-    {f'<div style="margin-top: 16px; padding: 16px; background: #f0f7ff; border-left: 4px solid #2196F3; border-radius: 4px;"><strong>Details:</strong><br/>{details}</div>' if details else ''}
+    {f'<div style="margin-top: 16px; padding: 16px; background: #f0f7ff;'
+     f' border-left: 4px solid #2196F3; border-radius: 4px;">'
+     f'<strong>Details:</strong><br/>{details}</div>'
+     if details else ''}
 
     <hr style="border: none; border-top: 1px solid #e0e0e0; margin: 24px 0;" />
     <p style="color: #888; font-size: 12px; margin: 0;">
@@ -130,7 +137,7 @@ def send_notification(
     from_addr = os.environ.get("CRJ_NOTIFY_SENDER", config["sender"])
 
     if not smtp["host"] or not smtp["username"]:
-        print(f"[notify] SMTP not configured. Notification logged locally:")
+        print("[notify] SMTP not configured. Notification logged locally:")
         print(f"  Milestone: {milestone_label}")
         print(f"  Tag:       {tag}")
         print(f"  Commit:    {git_info.get('commit', '?')} — {git_info.get('commit_msg', '')}")
@@ -183,7 +190,7 @@ def _log_locally(
 ) -> None:
     """Append a record to the local notification log."""
     log_path = _PROJECT_ROOT / "data" / "notifications.log"
-    now = datetime.now(timezone.utc).isoformat()
+    now = datetime.now(UTC).isoformat()
     status = "SENT" if sent else ("FAILED" if error else "LOCAL_ONLY")
 
     entry = (

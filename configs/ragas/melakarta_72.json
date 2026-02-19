@@ -1,0 +1,729 @@
+{
+  "metadata": {
+    "description": "72 Melakarta Ragas of Carnatic Music",
+    "system": "Katapayadi Sankhya",
+    "total": 72
+  },
+  "ragas": [
+    {
+      "number": 1,
+      "name": "Kanakangi",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga1", "Ma1", "Pa", "Dha1", "Ni1", "Sa"],
+      "avarohana": ["Sa", "Ni1", "Dha1", "Pa", "Ma1", "Ga1", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga1"],
+      "dha_ni": ["Dha1", "Ni1"]
+    },
+    {
+      "number": 2,
+      "name": "Ratnangi",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga1", "Ma1", "Pa", "Dha1", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha1", "Pa", "Ma1", "Ga1", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga1"],
+      "dha_ni": ["Dha1", "Ni2"]
+    },
+    {
+      "number": 3,
+      "name": "Ganamurti",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga1", "Ma1", "Pa", "Dha1", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha1", "Pa", "Ma1", "Ga1", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga1"],
+      "dha_ni": ["Dha1", "Ni3"]
+    },
+    {
+      "number": 4,
+      "name": "Vanaspati",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga1", "Ma1", "Pa", "Dha2", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha2", "Pa", "Ma1", "Ga1", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga1"],
+      "dha_ni": ["Dha2", "Ni2"]
+    },
+    {
+      "number": 5,
+      "name": "Manavati",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga1", "Ma1", "Pa", "Dha2", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha2", "Pa", "Ma1", "Ga1", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga1"],
+      "dha_ni": ["Dha2", "Ni3"]
+    },
+    {
+      "number": 6,
+      "name": "Tanarupi",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga1", "Ma1", "Pa", "Dha3", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha3", "Pa", "Ma1", "Ga1", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga1"],
+      "dha_ni": ["Dha3", "Ni3"]
+    },
+    {
+      "number": 7,
+      "name": "Senavati",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga2", "Ma1", "Pa", "Dha1", "Ni1", "Sa"],
+      "avarohana": ["Sa", "Ni1", "Dha1", "Pa", "Ma1", "Ga2", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga2"],
+      "dha_ni": ["Dha1", "Ni1"]
+    },
+    {
+      "number": 8,
+      "name": "Hanumatodi",
+      "aliases": ["Todi", "Janatodi"],
+      "arohana": ["Sa", "Ri1", "Ga2", "Ma1", "Pa", "Dha1", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha1", "Pa", "Ma1", "Ga2", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga2"],
+      "dha_ni": ["Dha1", "Ni2"]
+    },
+    {
+      "number": 9,
+      "name": "Dhenuka",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga2", "Ma1", "Pa", "Dha1", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha1", "Pa", "Ma1", "Ga2", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga2"],
+      "dha_ni": ["Dha1", "Ni3"]
+    },
+    {
+      "number": 10,
+      "name": "Natakapriya",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga2", "Ma1", "Pa", "Dha2", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha2", "Pa", "Ma1", "Ga2", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga2"],
+      "dha_ni": ["Dha2", "Ni2"]
+    },
+    {
+      "number": 11,
+      "name": "Kokilapriya",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga2", "Ma1", "Pa", "Dha2", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha2", "Pa", "Ma1", "Ga2", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga2"],
+      "dha_ni": ["Dha2", "Ni3"]
+    },
+    {
+      "number": 12,
+      "name": "Rupavati",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga2", "Ma1", "Pa", "Dha3", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha3", "Pa", "Ma1", "Ga2", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga2"],
+      "dha_ni": ["Dha3", "Ni3"]
+    },
+    {
+      "number": 13,
+      "name": "Gayakapriya",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga3", "Ma1", "Pa", "Dha1", "Ni1", "Sa"],
+      "avarohana": ["Sa", "Ni1", "Dha1", "Pa", "Ma1", "Ga3", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga3"],
+      "dha_ni": ["Dha1", "Ni1"]
+    },
+    {
+      "number": 14,
+      "name": "Vakulabharanam",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga3", "Ma1", "Pa", "Dha1", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha1", "Pa", "Ma1", "Ga3", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga3"],
+      "dha_ni": ["Dha1", "Ni2"]
+    },
+    {
+      "number": 15,
+      "name": "Mayamalavagowla",
+      "aliases": ["Mayamalavagaula"],
+      "arohana": ["Sa", "Ri1", "Ga3", "Ma1", "Pa", "Dha1", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha1", "Pa", "Ma1", "Ga3", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga3"],
+      "dha_ni": ["Dha1", "Ni3"]
+    },
+    {
+      "number": 16,
+      "name": "Chakravakam",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga3", "Ma1", "Pa", "Dha2", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha2", "Pa", "Ma1", "Ga3", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga3"],
+      "dha_ni": ["Dha2", "Ni2"]
+    },
+    {
+      "number": 17,
+      "name": "Suryakantam",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga3", "Ma1", "Pa", "Dha2", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha2", "Pa", "Ma1", "Ga3", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga3"],
+      "dha_ni": ["Dha2", "Ni3"]
+    },
+    {
+      "number": 18,
+      "name": "Hatakambari",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga3", "Ma1", "Pa", "Dha3", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha3", "Pa", "Ma1", "Ga3", "Ri1", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri1", "Ga3"],
+      "dha_ni": ["Dha3", "Ni3"]
+    },
+    {
+      "number": 19,
+      "name": "Jhankaradhwani",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga2", "Ma1", "Pa", "Dha1", "Ni1", "Sa"],
+      "avarohana": ["Sa", "Ni1", "Dha1", "Pa", "Ma1", "Ga2", "Ri2", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri2", "Ga2"],
+      "dha_ni": ["Dha1", "Ni1"]
+    },
+    {
+      "number": 20,
+      "name": "Natabhairavi",
+      "aliases": ["Bhairavi"],
+      "arohana": ["Sa", "Ri2", "Ga2", "Ma1", "Pa", "Dha1", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha1", "Pa", "Ma1", "Ga2", "Ri2", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri2", "Ga2"],
+      "dha_ni": ["Dha1", "Ni2"]
+    },
+    {
+      "number": 21,
+      "name": "Keeravani",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga2", "Ma1", "Pa", "Dha1", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha1", "Pa", "Ma1", "Ga2", "Ri2", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri2", "Ga2"],
+      "dha_ni": ["Dha1", "Ni3"]
+    },
+    {
+      "number": 22,
+      "name": "Kharaharapriya",
+      "aliases": ["Kafi"],
+      "arohana": ["Sa", "Ri2", "Ga2", "Ma1", "Pa", "Dha2", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha2", "Pa", "Ma1", "Ga2", "Ri2", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri2", "Ga2"],
+      "dha_ni": ["Dha2", "Ni2"]
+    },
+    {
+      "number": 23,
+      "name": "Gourimanohari",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga2", "Ma1", "Pa", "Dha2", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha2", "Pa", "Ma1", "Ga2", "Ri2", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri2", "Ga2"],
+      "dha_ni": ["Dha2", "Ni3"]
+    },
+    {
+      "number": 24,
+      "name": "Varunapriya",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga2", "Ma1", "Pa", "Dha3", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha3", "Pa", "Ma1", "Ga2", "Ri2", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri2", "Ga2"],
+      "dha_ni": ["Dha3", "Ni3"]
+    },
+    {
+      "number": 25,
+      "name": "Mararanjani",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga3", "Ma1", "Pa", "Dha1", "Ni1", "Sa"],
+      "avarohana": ["Sa", "Ni1", "Dha1", "Pa", "Ma1", "Ga3", "Ri2", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri2", "Ga3"],
+      "dha_ni": ["Dha1", "Ni1"]
+    },
+    {
+      "number": 26,
+      "name": "Charukesi",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga3", "Ma1", "Pa", "Dha1", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha1", "Pa", "Ma1", "Ga3", "Ri2", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri2", "Ga3"],
+      "dha_ni": ["Dha1", "Ni2"]
+    },
+    {
+      "number": 27,
+      "name": "Sarasangi",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga3", "Ma1", "Pa", "Dha1", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha1", "Pa", "Ma1", "Ga3", "Ri2", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri2", "Ga3"],
+      "dha_ni": ["Dha1", "Ni3"]
+    },
+    {
+      "number": 28,
+      "name": "Harikambhoji",
+      "aliases": ["Kambhoji", "Khamaj"],
+      "arohana": ["Sa", "Ri2", "Ga3", "Ma1", "Pa", "Dha2", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha2", "Pa", "Ma1", "Ga3", "Ri2", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri2", "Ga3"],
+      "dha_ni": ["Dha2", "Ni2"]
+    },
+    {
+      "number": 29,
+      "name": "Dheerasankarabharanam",
+      "aliases": ["Sankarabharanam", "Shankarabharanam", "Bilawal"],
+      "arohana": ["Sa", "Ri2", "Ga3", "Ma1", "Pa", "Dha2", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha2", "Pa", "Ma1", "Ga3", "Ri2", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri2", "Ga3"],
+      "dha_ni": ["Dha2", "Ni3"]
+    },
+    {
+      "number": 30,
+      "name": "Naganandini",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga3", "Ma1", "Pa", "Dha3", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha3", "Pa", "Ma1", "Ga3", "Ri2", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri2", "Ga3"],
+      "dha_ni": ["Dha3", "Ni3"]
+    },
+    {
+      "number": 31,
+      "name": "Yagapriya",
+      "aliases": [],
+      "arohana": ["Sa", "Ri3", "Ga3", "Ma1", "Pa", "Dha1", "Ni1", "Sa"],
+      "avarohana": ["Sa", "Ni1", "Dha1", "Pa", "Ma1", "Ga3", "Ri3", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri3", "Ga3"],
+      "dha_ni": ["Dha1", "Ni1"]
+    },
+    {
+      "number": 32,
+      "name": "Ragavardhini",
+      "aliases": [],
+      "arohana": ["Sa", "Ri3", "Ga3", "Ma1", "Pa", "Dha1", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha1", "Pa", "Ma1", "Ga3", "Ri3", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri3", "Ga3"],
+      "dha_ni": ["Dha1", "Ni2"]
+    },
+    {
+      "number": 33,
+      "name": "Gangeyabhushani",
+      "aliases": [],
+      "arohana": ["Sa", "Ri3", "Ga3", "Ma1", "Pa", "Dha1", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha1", "Pa", "Ma1", "Ga3", "Ri3", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri3", "Ga3"],
+      "dha_ni": ["Dha1", "Ni3"]
+    },
+    {
+      "number": 34,
+      "name": "Vagadheeswari",
+      "aliases": [],
+      "arohana": ["Sa", "Ri3", "Ga3", "Ma1", "Pa", "Dha2", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha2", "Pa", "Ma1", "Ga3", "Ri3", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri3", "Ga3"],
+      "dha_ni": ["Dha2", "Ni2"]
+    },
+    {
+      "number": 35,
+      "name": "Shulini",
+      "aliases": [],
+      "arohana": ["Sa", "Ri3", "Ga3", "Ma1", "Pa", "Dha2", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha2", "Pa", "Ma1", "Ga3", "Ri3", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri3", "Ga3"],
+      "dha_ni": ["Dha2", "Ni3"]
+    },
+    {
+      "number": 36,
+      "name": "Chalanata",
+      "aliases": [],
+      "arohana": ["Sa", "Ri3", "Ga3", "Ma1", "Pa", "Dha3", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha3", "Pa", "Ma1", "Ga3", "Ri3", "Sa"],
+      "ma_type": "shuddha",
+      "ri_ga": ["Ri3", "Ga3"],
+      "dha_ni": ["Dha3", "Ni3"]
+    },
+    {
+      "number": 37,
+      "name": "Salagam",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga1", "Ma2", "Pa", "Dha1", "Ni1", "Sa"],
+      "avarohana": ["Sa", "Ni1", "Dha1", "Pa", "Ma2", "Ga1", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga1"],
+      "dha_ni": ["Dha1", "Ni1"]
+    },
+    {
+      "number": 38,
+      "name": "Jalarnavam",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga1", "Ma2", "Pa", "Dha1", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha1", "Pa", "Ma2", "Ga1", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga1"],
+      "dha_ni": ["Dha1", "Ni2"]
+    },
+    {
+      "number": 39,
+      "name": "Jhalavarali",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga1", "Ma2", "Pa", "Dha1", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha1", "Pa", "Ma2", "Ga1", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga1"],
+      "dha_ni": ["Dha1", "Ni3"]
+    },
+    {
+      "number": 40,
+      "name": "Navaneetam",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga1", "Ma2", "Pa", "Dha2", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha2", "Pa", "Ma2", "Ga1", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga1"],
+      "dha_ni": ["Dha2", "Ni2"]
+    },
+    {
+      "number": 41,
+      "name": "Pavani",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga1", "Ma2", "Pa", "Dha2", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha2", "Pa", "Ma2", "Ga1", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga1"],
+      "dha_ni": ["Dha2", "Ni3"]
+    },
+    {
+      "number": 42,
+      "name": "Raghupriya",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga1", "Ma2", "Pa", "Dha3", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha3", "Pa", "Ma2", "Ga1", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga1"],
+      "dha_ni": ["Dha3", "Ni3"]
+    },
+    {
+      "number": 43,
+      "name": "Gavambhodi",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga2", "Ma2", "Pa", "Dha1", "Ni1", "Sa"],
+      "avarohana": ["Sa", "Ni1", "Dha1", "Pa", "Ma2", "Ga2", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga2"],
+      "dha_ni": ["Dha1", "Ni1"]
+    },
+    {
+      "number": 44,
+      "name": "Bhavapriya",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga2", "Ma2", "Pa", "Dha1", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha1", "Pa", "Ma2", "Ga2", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga2"],
+      "dha_ni": ["Dha1", "Ni2"]
+    },
+    {
+      "number": 45,
+      "name": "Shubhapantuvarali",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga2", "Ma2", "Pa", "Dha1", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha1", "Pa", "Ma2", "Ga2", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga2"],
+      "dha_ni": ["Dha1", "Ni3"]
+    },
+    {
+      "number": 46,
+      "name": "Shadvidhamargini",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga2", "Ma2", "Pa", "Dha2", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha2", "Pa", "Ma2", "Ga2", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga2"],
+      "dha_ni": ["Dha2", "Ni2"]
+    },
+    {
+      "number": 47,
+      "name": "Suvarnangi",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga2", "Ma2", "Pa", "Dha2", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha2", "Pa", "Ma2", "Ga2", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga2"],
+      "dha_ni": ["Dha2", "Ni3"]
+    },
+    {
+      "number": 48,
+      "name": "Divyamani",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga2", "Ma2", "Pa", "Dha3", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha3", "Pa", "Ma2", "Ga2", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga2"],
+      "dha_ni": ["Dha3", "Ni3"]
+    },
+    {
+      "number": 49,
+      "name": "Dhavalambari",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga3", "Ma2", "Pa", "Dha1", "Ni1", "Sa"],
+      "avarohana": ["Sa", "Ni1", "Dha1", "Pa", "Ma2", "Ga3", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga3"],
+      "dha_ni": ["Dha1", "Ni1"]
+    },
+    {
+      "number": 50,
+      "name": "Namanarayani",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga3", "Ma2", "Pa", "Dha1", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha1", "Pa", "Ma2", "Ga3", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga3"],
+      "dha_ni": ["Dha1", "Ni2"]
+    },
+    {
+      "number": 51,
+      "name": "Kamavardhini",
+      "aliases": ["Pantuvarali"],
+      "arohana": ["Sa", "Ri1", "Ga3", "Ma2", "Pa", "Dha1", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha1", "Pa", "Ma2", "Ga3", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga3"],
+      "dha_ni": ["Dha1", "Ni3"]
+    },
+    {
+      "number": 52,
+      "name": "Ramapriya",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga3", "Ma2", "Pa", "Dha2", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha2", "Pa", "Ma2", "Ga3", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga3"],
+      "dha_ni": ["Dha2", "Ni2"]
+    },
+    {
+      "number": 53,
+      "name": "Gamanashrama",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga3", "Ma2", "Pa", "Dha2", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha2", "Pa", "Ma2", "Ga3", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga3"],
+      "dha_ni": ["Dha2", "Ni3"]
+    },
+    {
+      "number": 54,
+      "name": "Vishwambhari",
+      "aliases": [],
+      "arohana": ["Sa", "Ri1", "Ga3", "Ma2", "Pa", "Dha3", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha3", "Pa", "Ma2", "Ga3", "Ri1", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri1", "Ga3"],
+      "dha_ni": ["Dha3", "Ni3"]
+    },
+    {
+      "number": 55,
+      "name": "Shamalangi",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga2", "Ma2", "Pa", "Dha1", "Ni1", "Sa"],
+      "avarohana": ["Sa", "Ni1", "Dha1", "Pa", "Ma2", "Ga2", "Ri2", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri2", "Ga2"],
+      "dha_ni": ["Dha1", "Ni1"]
+    },
+    {
+      "number": 56,
+      "name": "Shanmukhapriya",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga2", "Ma2", "Pa", "Dha1", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha1", "Pa", "Ma2", "Ga2", "Ri2", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri2", "Ga2"],
+      "dha_ni": ["Dha1", "Ni2"]
+    },
+    {
+      "number": 57,
+      "name": "Simhendramadhyamam",
+      "aliases": ["Simhendramadhyama"],
+      "arohana": ["Sa", "Ri2", "Ga2", "Ma2", "Pa", "Dha1", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha1", "Pa", "Ma2", "Ga2", "Ri2", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri2", "Ga2"],
+      "dha_ni": ["Dha1", "Ni3"]
+    },
+    {
+      "number": 58,
+      "name": "Hemavati",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga2", "Ma2", "Pa", "Dha2", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha2", "Pa", "Ma2", "Ga2", "Ri2", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri2", "Ga2"],
+      "dha_ni": ["Dha2", "Ni2"]
+    },
+    {
+      "number": 59,
+      "name": "Dharmavati",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga2", "Ma2", "Pa", "Dha2", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha2", "Pa", "Ma2", "Ga2", "Ri2", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri2", "Ga2"],
+      "dha_ni": ["Dha2", "Ni3"]
+    },
+    {
+      "number": 60,
+      "name": "Neetimati",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga2", "Ma2", "Pa", "Dha3", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha3", "Pa", "Ma2", "Ga2", "Ri2", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri2", "Ga2"],
+      "dha_ni": ["Dha3", "Ni3"]
+    },
+    {
+      "number": 61,
+      "name": "Kantamani",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga3", "Ma2", "Pa", "Dha1", "Ni1", "Sa"],
+      "avarohana": ["Sa", "Ni1", "Dha1", "Pa", "Ma2", "Ga3", "Ri2", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri2", "Ga3"],
+      "dha_ni": ["Dha1", "Ni1"]
+    },
+    {
+      "number": 62,
+      "name": "Rishabhapriya",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga3", "Ma2", "Pa", "Dha1", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha1", "Pa", "Ma2", "Ga3", "Ri2", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri2", "Ga3"],
+      "dha_ni": ["Dha1", "Ni2"]
+    },
+    {
+      "number": 63,
+      "name": "Latangi",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga3", "Ma2", "Pa", "Dha1", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha1", "Pa", "Ma2", "Ga3", "Ri2", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri2", "Ga3"],
+      "dha_ni": ["Dha1", "Ni3"]
+    },
+    {
+      "number": 64,
+      "name": "Vachaspati",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga3", "Ma2", "Pa", "Dha2", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha2", "Pa", "Ma2", "Ga3", "Ri2", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri2", "Ga3"],
+      "dha_ni": ["Dha2", "Ni2"]
+    },
+    {
+      "number": 65,
+      "name": "Mechakalyani",
+      "aliases": ["Kalyani", "Yaman"],
+      "arohana": ["Sa", "Ri2", "Ga3", "Ma2", "Pa", "Dha2", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha2", "Pa", "Ma2", "Ga3", "Ri2", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri2", "Ga3"],
+      "dha_ni": ["Dha2", "Ni3"]
+    },
+    {
+      "number": 66,
+      "name": "Chitrambari",
+      "aliases": [],
+      "arohana": ["Sa", "Ri2", "Ga3", "Ma2", "Pa", "Dha3", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha3", "Pa", "Ma2", "Ga3", "Ri2", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri2", "Ga3"],
+      "dha_ni": ["Dha3", "Ni3"]
+    },
+    {
+      "number": 67,
+      "name": "Sucharitra",
+      "aliases": [],
+      "arohana": ["Sa", "Ri3", "Ga3", "Ma2", "Pa", "Dha1", "Ni1", "Sa"],
+      "avarohana": ["Sa", "Ni1", "Dha1", "Pa", "Ma2", "Ga3", "Ri3", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri3", "Ga3"],
+      "dha_ni": ["Dha1", "Ni1"]
+    },
+    {
+      "number": 68,
+      "name": "Jyotiswarupini",
+      "aliases": [],
+      "arohana": ["Sa", "Ri3", "Ga3", "Ma2", "Pa", "Dha1", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha1", "Pa", "Ma2", "Ga3", "Ri3", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri3", "Ga3"],
+      "dha_ni": ["Dha1", "Ni2"]
+    },
+    {
+      "number": 69,
+      "name": "Dhatuvardhini",
+      "aliases": [],
+      "arohana": ["Sa", "Ri3", "Ga3", "Ma2", "Pa", "Dha1", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha1", "Pa", "Ma2", "Ga3", "Ri3", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri3", "Ga3"],
+      "dha_ni": ["Dha1", "Ni3"]
+    },
+    {
+      "number": 70,
+      "name": "Nasikabhushani",
+      "aliases": [],
+      "arohana": ["Sa", "Ri3", "Ga3", "Ma2", "Pa", "Dha2", "Ni2", "Sa"],
+      "avarohana": ["Sa", "Ni2", "Dha2", "Pa", "Ma2", "Ga3", "Ri3", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri3", "Ga3"],
+      "dha_ni": ["Dha2", "Ni2"]
+    },
+    {
+      "number": 71,
+      "name": "Kosalam",
+      "aliases": [],
+      "arohana": ["Sa", "Ri3", "Ga3", "Ma2", "Pa", "Dha2", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha2", "Pa", "Ma2", "Ga3", "Ri3", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri3", "Ga3"],
+      "dha_ni": ["Dha2", "Ni3"]
+    },
+    {
+      "number": 72,
+      "name": "Rasikapriya",
+      "aliases": [],
+      "arohana": ["Sa", "Ri3", "Ga3", "Ma2", "Pa", "Dha3", "Ni3", "Sa"],
+      "avarohana": ["Sa", "Ni3", "Dha3", "Pa", "Ma2", "Ga3", "Ri3", "Sa"],
+      "ma_type": "prati",
+      "ri_ga": ["Ri3", "Ga3"],
+      "dha_ni": ["Dha3", "Ni3"]
+    }
+  ]
+}

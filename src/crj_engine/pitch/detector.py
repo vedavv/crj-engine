@@ -153,7 +153,10 @@ def detect_pitch_pyin(
     for i in range(len(f0)):
         timestamp = i * hop_ms
         freq = float(f0[i]) if not np.isnan(f0[i]) else 0.0
-        conf = float(voiced_probs[i]) if voiced_probs is not None else (1.0 if voiced_flag[i] else 0.0)
+        if voiced_probs is not None:
+            conf = float(voiced_probs[i])
+        else:
+            conf = 1.0 if voiced_flag[i] else 0.0
 
         if conf < min_confidence:
             freq = 0.0

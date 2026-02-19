@@ -7,8 +7,6 @@ import math
 from dataclasses import dataclass
 from pathlib import Path
 
-import numpy as np
-
 _CONFIGS_DIR = Path(__file__).resolve().parents[3] / "configs"
 
 # Western note names in chromatic order
