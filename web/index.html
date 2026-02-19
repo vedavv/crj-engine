@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRJ SoundScape — Audio Analysis</title>
+<link rel="stylesheet" href="/css/soundscape.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🎵</text></svg>">
+</head>
+<body>
+
+<!-- Animated background -->
+<div class="bg-canvas">
+    <div class="bg-orb bg-orb--1"></div>
+    <div class="bg-orb bg-orb--2"></div>
+    <div class="bg-orb bg-orb--3"></div>
+</div>
+<div class="bg-grid"></div>
+
+<div class="app-container">
+
+  <!-- Header -->
+  <header class="app-header">
+    <div class="brand-line">CRJ Studio &bull; Create &bull; Refine &bull; Jubilate</div>
+    <h1 class="app-title">SoundScape</h1>
+    <p class="app-subtitle">Detect swaras, gamakas &amp; ragas from audio</p>
+    <hr class="header-divider">
+  </header>
+
+  <!-- Settings -->
+  <section class="card card--delay-1" id="config-card">
+    <div class="card-header">
+      <div class="card-icon card-icon--settings">&#9881;</div>
+      <h2>Settings</h2>
+    </div>
+    <div class="config-grid">
+      <div class="field">
+        <label for="sa-preset">Reference Sa</label>
+        <select id="sa-preset"></select>
+        <input type="number" id="sa-custom" step="0.01" min="80" max="600"
+               placeholder="Custom Hz" style="display:none; margin-top:6px">
+      </div>
+      <div class="field">
+        <label for="algorithm">Algorithm</label>
+        <select id="algorithm">
+          <option value="pyin" selected>pYIN (fast)</option>
+          <option value="crepe">CREPE (accurate)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="script">Script</label>
+        <select id="script">
+          <option value="iast" selected>IAST (Roman)</option>
+          <option value="devanagari">Devanagari</option>
+          <option value="kannada">Kannada</option>
+          <option value="tamil">Tamil</option>
+          <option value="telugu">Telugu</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="source-type">Source</label>
+        <select id="source-type">
+          <option value="vocal" selected>Vocal</option>
+          <option value="instrument">Instrument</option>
+        </select>
+      </div>
+    </div>
+  </section>
+
+  <!-- Audio Input -->
+  <section class="card card--delay-2" id="input-card">
+    <div class="card-header">
+      <div class="card-icon card-icon--audio">&#9835;</div>
+      <h2>Audio Input</h2>
+    </div>
+    <p class="desc">Record from microphone (max 30 s) or upload a file (WAV, MP3, M4A, WebM)</p>
+    <div class="btn-row">
+      <button id="btn-record" class="btn btn-record">
+        <span class="btn-icon">&#9679;</span> Record
+      </button>
+      <button id="btn-stop" class="btn btn-stop" disabled>
+        <span class="btn-icon">&#9632;</span> Stop
+      </button>
+      <label class="btn btn-upload">
+        <span class="btn-icon">&#128193;</span> Upload File
+        <input type="file" id="file-input" accept="audio/*,.webm" hidden>
+      </label>
+    </div>
+
+    <!-- Recording indicator -->
+    <div class="record-indicator" id="record-indicator">
+      <span class="record-dot"></span>
+      <span class="record-timer" id="record-timer">0.0 s</span>
+      <span class="record-label">/ 30 s max</span>
+    </div>
+
+    <div id="recording-status" class="recording-status"></div>
+
+    <div class="waveform-container">
+      <canvas id="waveform" width="860" height="80"></canvas>
+      <div class="waveform-overlay"></div>
+    </div>
+  </section>
+
+  <!-- Processing -->
+  <section class="card" id="processing-card" style="display:none">
+    <div class="card-header">
+      <div class="card-icon card-icon--processing">&#9881;</div>
+      <h2>Analyzing</h2>
+    </div>
+    <div class="processing-content">
+      <div class="spinner">
+        <div class="spinner-ring spinner-ring--1"></div>
+        <div class="spinner-ring spinner-ring--2"></div>
+        <div class="spinner-ring spinner-ring--3"></div>
+      </div>
+      <div class="progress-bar">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <p id="processing-msg">Preparing audio&hellip;</p>
+    </div>
+  </section>
+
+  <!-- Results -->
+  <section class="card" id="results-card" style="display:none">
+    <div class="card-header">
+      <div class="card-icon card-icon--results">&#9733;</div>
+      <h2>Analysis Results</h2>
+    </div>
+
+    <!-- Tabs -->
+    <div class="results-tabs" id="results-tabs">
+      <button class="tab-btn active" data-tab="tab-summary">Summary</button>
+      <button class="tab-btn" data-tab="tab-notation">Notation</button>
+      <button class="tab-btn" data-tab="tab-phrases">Phrases</button>
+      <button class="tab-btn" data-tab="tab-ragas">Ragas</button>
+      <button class="tab-btn" data-tab="tab-gamakas">Gamakas</button>
+      <button class="tab-btn" data-tab="tab-contour">Contour</button>
+    </div>
+
+    <!-- Tab: Summary -->
+    <div class="tab-panel active" id="tab-summary">
+      <div id="summary"></div>
+      <div class="notation-section" style="margin-top:20px">
+        <h3>Compact Notation</h3>
+        <div id="notation-compact"></div>
+      </div>
+    </div>
+
+    <!-- Tab: Notation -->
+    <div class="tab-panel" id="tab-notation">
+      <h3>Full Notation</h3>
+      <div id="notation-full"></div>
+    </div>
+
+    <!-- Tab: Phrases -->
+    <div class="tab-panel" id="tab-phrases">
+      <h3>Swara Phrases</h3>
+      <div id="notation-phrases"></div>
+    </div>
+
+    <!-- Tab: Ragas -->
+    <div class="tab-panel" id="tab-ragas">
+      <h3>Raga Identification</h3>
+      <div id="raga-results"></div>
+    </div>
+
+    <!-- Tab: Gamakas -->
+    <div class="tab-panel" id="tab-gamakas">
+      <h3>Gamakas Detected</h3>
+      <div id="gamaka-results"></div>
+    </div>
+
+    <!-- Tab: Contour -->
+    <div class="tab-panel" id="tab-contour">
+      <h3>Pitch Contour</h3>
+      <div class="contour-container">
+        <canvas id="pitch-contour" width="860" height="200"></canvas>
+      </div>
+      <p class="desc" style="margin-top:10px">
+        Cyan line shows detected pitch (Hz). Vertical axis spans the active frequency range.
+      </p>
+    </div>
+
+    <div class="btn-row" style="margin-top:24px">
+      <button id="btn-new" class="btn btn-new">
+        <span class="btn-icon">&#9654;</span> New Analysis
+      </button>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-brand">CRJ Studio Mysore</div>
+    <div class="footer-tagline">Create &bull; Refine &bull; Jubilate</div>
+    <a href="https://vedavishtaram.in/crj" class="footer-link" target="_blank" rel="noopener">
+      vedavishtaram.in/crj
+    </a>
+  </footer>
+
+</div>
+
+<script src="/js/recorder.js"></script>
+<script src="/js/api-client.js"></script>
+<script src="/js/notation-display.js"></script>
+<script src="/js/ui.js"></script>
+</body>
+</html>

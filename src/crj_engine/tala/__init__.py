@@ -32,6 +32,12 @@ from crj_engine.tala.serializer import (
     load_composition,
     save_composition,
 )
+from crj_engine.tala.transcribe import (
+    Transcription,
+    render_transcription,
+    render_transcription_compact,
+    transcribe_contour,
+)
 
 __all__ = [
     "Bar",
@@ -44,6 +50,7 @@ __all__ = [
     "Speed",
     "SwaraNote",
     "TalaDefinition",
+    "Transcription",
     "get_tala",
     "load_tala_db",
     "load_composition",
@@ -51,5 +58,8 @@ __all__ = [
     "render_bar_saahitya",
     "render_bar_swaras",
     "render_swara",
+    "render_transcription",
+    "render_transcription_compact",
     "save_composition",
+    "transcribe_contour",
 ]
