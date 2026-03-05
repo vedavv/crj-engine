@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About – CRJ Soundscape</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family: 'Georgia', 'Garamond', serif;
+background:#0a0612;
+color:#e8e0d4;
+line-height:1.8;
+}
+
+.container{
+max-width:860px;
+margin:0 auto;
+padding:40px 24px 60px;
+}
+
+/* Header */
+.hero{
+text-align:center;
+padding:48px 0 32px;
+border-bottom:1px solid rgba(212,168,84,0.2);
+margin-bottom:40px;
+}
+
+.hero h1{
+font-family: 'Palatino Linotype', 'Book Antiqua', serif;
+font-size:32px;
+color:#d4a854;
+letter-spacing:3px;
+margin-bottom:8px;
+}
+
+.hero .tagline{
+font-size:15px;
+color:#9a8e7e;
+letter-spacing:2px;
+text-transform:uppercase;
+}
+
+.hero .sanskrit{
+font-size:18px;
+color:#d4a854;
+margin-top:16px;
+opacity:0.8;
+}
+
+/* Sections */
+h2{
+font-family: 'Palatino Linotype', 'Book Antiqua', serif;
+font-size:22px;
+color:#d4a854;
+letter-spacing:1px;
+margin:36px 0 16px;
+padding-bottom:8px;
+border-bottom:1px solid rgba(212,168,84,0.15);
+}
+
+h3{
+font-size:17px;
+color:#c8a960;
+margin:20px 0 10px;
+}
+
+p{
+margin-bottom:16px;
+color:#d0c8bc;
+font-size:16px;
+}
+
+/* Cards */
+.card{
+background:rgba(18,12,32,0.9);
+border:1px solid rgba(212,168,84,0.12);
+border-radius:8px;
+padding:24px;
+margin-bottom:20px;
+}
+
+.card-highlight{
+border-left:3px solid #d4a854;
+}
+
+/* Feature grid */
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+gap:16px;
+margin:20px 0;
+}
+
+.feature{
+background:rgba(18,12,32,0.7);
+border:1px solid rgba(212,168,84,0.1);
+border-radius:6px;
+padding:18px;
+}
+
+.feature .icon{
+font-size:24px;
+margin-bottom:8px;
+display:block;
+}
+
+.feature h4{
+color:#d4a854;
+font-size:14px;
+letter-spacing:1px;
+text-transform:uppercase;
+margin-bottom:6px;
+}
+
+.feature p{
+font-size:14px;
+color:#9a8e7e;
+margin:0;
+line-height:1.6;
+}
+
+/* Honors list */
+.honors{
+list-style:none;
+padding:0;
+}
+
+.honors li{
+padding:6px 0;
+color:#d0c8bc;
+font-size:15px;
+}
+
+.honors li::before{
+content:'✦ ';
+color:#d4a854;
+}
+
+/* Services list */
+.services-list{
+list-style:none;
+padding:0;
+}
+
+.services-list li{
+padding:8px 0 8px 20px;
+border-left:2px solid rgba(212,168,84,0.2);
+margin-bottom:8px;
+color:#d0c8bc;
+font-size:15px;
+}
+
+.services-list li strong{
+color:#c8a960;
+}
+
+/* Contact */
+.contact-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+gap:16px;
+margin:16px 0;
+}
+
+.contact-item{
+font-size:14px;
+color:#9a8e7e;
+}
+
+.contact-item strong{
+display:block;
+color:#d4a854;
+font-size:12px;
+letter-spacing:1px;
+text-transform:uppercase;
+margin-bottom:4px;
+}
+
+.contact-item a{
+color:#c8a960;
+text-decoration:none;
+}
+
+.contact-item a:hover{
+text-decoration:underline;
+}
+
+/* Dedication */
+.dedication{
+text-align:center;
+padding:32px 20px;
+margin-top:40px;
+border-top:1px solid rgba(212,168,84,0.2);
+font-style:italic;
+color:#9a8e7e;
+font-size:15px;
+}
+
+.dedication .name{
+color:#d4a854;
+font-style:normal;
+}
+
+/* Footer */
+footer{
+text-align:center;
+padding:24px 0;
+font-size:13px;
+color:#6a6050;
+border-top:1px solid rgba(212,168,84,0.1);
+}
+
+footer a{
+color:#9a8e7e;
+text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>CRJ SOUNDSCAPE</h1>
+    <div class="tagline">Create &bull; Refine &bull; Jubilate</div>
+    <div class="sanskrit">गायत्री छन्दसामहम् — श्रीमद्भगवद्गीता १०.३५</div>
+  </div>
+
+  <!-- ABOUT THE APP -->
+  <h2>About CRJ SoundScape</h2>
+  <p>
+    CRJ SoundScape is a sacred audio analysis and composition platform for
+    Indian classical music. It combines AI-powered pitch detection, swara
+    mapping, raga identification, gamaka classification, and audio synthesis
+    in a single application — purpose-built for Carnatic music study, practice,
+    and the preservation of Vedic oral traditions.
+  </p>
+  <p>
+    The engine converts audio frequencies into musical notation across multiple
+    Indian classical systems, with specialized support for Carnatic, Hindustani,
+    and Sāmaveda traditions. All notation is rendered in five scripts — IAST
+    (Roman), Devanāgarī, Kannaḍa, Tamil, and Telugu.
+  </p>
+
+  <!-- FEATURES -->
+  <div class="features">
+    <div class="feature">
+      <span class="icon">&#x1F3B6;</span>
+      <h4>Sacred Audio Player</h4>
+      <p>Curated archive of Sāmaveda Setu recitations with live waveform visualisation and variable-speed playback.</p>
+    </div>
+    <div class="feature">
+      <span class="icon">&#x1F3BC;</span>
+      <h4>Swara Analysis</h4>
+      <p>AI-powered pitch detection (CREPE &amp; pYIN) mapping frequencies to the 12 Carnatic swarasthānas with gamaka classification.</p>
+    </div>
+    <div class="feature">
+      <span class="icon">&#x1F3B9;</span>
+      <h4>Composition Tool</h4>
+      <p>Type notation, choose instruments, set tāla patterns, and render audio with shruti drone accompaniment.</p>
+    </div>
+    <div class="feature">
+      <span class="icon">&#x1F50D;</span>
+      <h4>Raga Identification</h4>
+      <p>Rule-based and ML-powered raga classification from detected swara sequences across the Carnatic repertoire.</p>
+    </div>
+    <div class="feature">
+      <span class="icon">&#x1F4D6;</span>
+      <h4>Multilingual Output</h4>
+      <p>Full notation in IAST, Devanāgarī, Kannaḍa, Tamil, and Telugu scripts with PDF export.</p>
+    </div>
+    <div class="feature">
+      <span class="icon">&#x1F3AF;</span>
+      <h4>35 Suladi Sapta Tālas</h4>
+      <p>Complete tāla system with 7 base patterns across 5 jātis for composition and practice.</p>
+    </div>
+  </div>
+
+  <!-- ABOUT THE CREATOR -->
+  <h2>About the Creator</h2>
+  <div class="card card-highlight">
+    <h3>Dr. Vamśīkṛṣṇa Ghanapāṭhī</h3>
+    <p style="color:#9a8e7e; font-size:15px; margin-bottom:12px;">
+      वेदनिधिः &bull; वाचस्पतिः &bull; ಡಾ. ವಂಶೀಕೃಷ್ಣ ಘನಪಾಠೀ
+    </p>
+    <p>
+      Dr. Vamśīkṛṣṇa Ghanapāṭhī is a Rigveda Ghanapāṭhī, Āyurveda researcher,
+      and Sanskrit scholar based in Mysore, India. He is the founder and guiding
+      force behind <strong>Veda Vijñāna Viśtāram</strong> (vedavishtaram.in) — an
+      Institution of Eminence dedicated to Vedic education, research, and the
+      preservation of India's oral scholarly traditions.
+    </p>
+    <p>
+      His vision bridges ancient Vedic knowledge with modern technology. Under
+      his guidance, CRJ Studio was established as a technical, multimedia, and
+      training hub to digitize, analyze, and propagate sacred audio traditions —
+      ensuring that the precision of Vedic recitation and Indian classical music
+      is preserved for future generations through AI-powered tools.
+    </p>
+    <p style="margin-bottom:0;">
+      The SoundScape platform curates sacred Sāmaveda Setu recitations and
+      provides analytical tools that serve scholars, musicians, students, and
+      devotees alike.
+    </p>
+  </div>
+
+  <!-- HONORS -->
+  <h3>Honors &amp; Titles</h3>
+  <ul class="honors">
+    <li>Vedanidhi (वेदनिधिः) — Treasury of Vedic Knowledge</li>
+    <li>Vāchaspati (वाचस्पतिः) — Master of Sacred Speech</li>
+    <li>Rigveda Ghanapāṭhī — Master of Ghanapāṭha recitation</li>
+  </ul>
+
+  <!-- CRJ STUDIO -->
+  <h2>CRJ Studio &mdash; Mysore</h2>
+  <p>
+    CRJ Studio operates under the philosophy of <strong>Create &bull; Refine &bull; Jubilate</strong>.
+    It is the technical and creative wing of Veda Vijñāna Viśtāram, delivering
+    professional services across audio production, app development, multimedia,
+    and scholarly training.
+  </p>
+
+  <ul class="services-list">
+    <li>
+      <strong>Audio Division</strong> — Recording and mastering of mantras, pūjā
+      procedures, and classical music. Noise restoration, multi-track mixing,
+      and archival mastering for sacred audio preservation.
+    </li>
+    <li>
+      <strong>App Development</strong> — AI-driven applications including CRJ
+      SoundScape (frequency recognition and classical notation) and the Mahaan
+      App for spiritual communities.
+    </li>
+    <li>
+      <strong>Multimedia &amp; Propagation</strong> — Video production for rituals,
+      cultural events, scholarly debates, and lecture demonstrations. Short-form
+      content for digital distribution.
+    </li>
+    <li>
+      <strong>Training Division</strong> — Internships for young scholars in
+      digital environments, training in content creation, and development of
+      multilingual public speakers.
+    </li>
+  </ul>
+
+  <!-- VEDA VIJNANA VISHTARAM -->
+  <h2>Veda Vijñāna Viśtāram</h2>
+  <p>
+    An Institution of Eminence for learning Veda, Vedāṅga, and Vedic Philosophy,
+    operating as a unit of Sanātana Guru Sampradāya Pratiṣṭhānam. The institution
+    runs schools for all four Vedas — Rigveda, Yajurveda, Sāmaveda, and Atharvaveda —
+    alongside specialized programs in Sanskrit, Jyotiṣa, Vyākaraṇa, and ritual studies.
+  </p>
+  <p>
+    Online courses are offered in Bhagavad Gītā, Rāmāyaṇa, Stotra, and Pūjā,
+    with academic partnerships with major Sanskrit universities across India.
+  </p>
+
+  <!-- CONTACT -->
+  <h2>Contact</h2>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <strong>Address</strong>
+      114 Ānanda Ghanam, Gundurao Nagara<br>
+      Mysore 570025, Karnataka, India
+    </div>
+    <div class="contact-item">
+      <strong>Email</strong>
+      <a href="mailto:crj@vedavishtaram.in">crj@vedavishtaram.in</a>
+    </div>
+    <div class="contact-item">
+      <strong>WhatsApp</strong>
+      +91 99000 82065
+    </div>
+    <div class="contact-item">
+      <strong>Web</strong>
+      <a href="https://vedavishtaram.in">vedavishtaram.in</a><br>
+      <a href="https://vedavishtaram.in/crj">vedavishtaram.in/crj</a>
+    </div>
+  </div>
+
+  <!-- DEDICATION -->
+  <div class="dedication">
+    Curated in loving memory of<br>
+    <span class="name">श्री चागण्टि रामयोगेश्वर राव</span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 <a href="https://vedavishtaram.in/crj">CRJ Studio</a>, Mysore &bull;
+    <a href="privacy.html">Privacy Policy</a>
+  </footer>
+
+</div>
+
+</body>
+</html>

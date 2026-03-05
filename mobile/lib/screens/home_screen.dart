@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../theme/soundscape_theme.dart';
 import 'analysis_screen.dart';
 import 'composer_screen.dart';
+import 'about_screen.dart';
 import 'manual_screen.dart';
 import 'player_screen.dart';
 
@@ -21,6 +22,7 @@ class _HomeScreenState extends State<HomeScreen> {
     ComposerScreen(),
     AnalysisScreen(),
     ManualScreen(),
+    AboutScreen(),
   ];
 
   @override
@@ -52,6 +54,10 @@ class _HomeScreenState extends State<HomeScreen> {
             BottomNavigationBarItem(
               icon: Icon(Icons.menu_book_rounded),
               label: 'MANUAL',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.info_outline_rounded),
+              label: 'ABOUT',
             ),
           ],
         ),
