@@ -28,6 +28,7 @@ from crj_engine.tala.notation import (
     render_bar_swaras,
     render_swara,
 )
+from crj_engine.tala.parser import parse_notation
 from crj_engine.tala.serializer import (
     load_composition,
     save_composition,
@@ -53,6 +54,7 @@ __all__ = [
     "Transcription",
     "get_tala",
     "load_tala_db",
+    "parse_notation",
     "load_composition",
     "render_bar",
     "render_bar_saahitya",

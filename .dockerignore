@@ -8,11 +8,11 @@ __pycache__
 data/training/
 data/models/
 data/peer-test/
-*.mp3
-*.wav
-*.m4a
 *.egg-info
 dist/
 build/
 node_modules/
 .env
+tests/
+docs/
+scripts/

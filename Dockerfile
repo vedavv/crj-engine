@@ -38,6 +38,7 @@ WORKDIR /app
 COPY src/ ./src/
 COPY configs/ ./configs/
 COPY web/ ./web/
+COPY data/lyrics/ ./data/lyrics/
 
 # Cloud Run injects PORT (default 8080)
 ENV PORT=8080

@@ -107,3 +107,101 @@ class SwarasthanaOut(BaseModel):
     full_names: dict[str, str]
     is_fixed: bool
     aliases: list[str]
+
+
+# ---------------------------------------------------------------------------
+# Composition models
+# ---------------------------------------------------------------------------
+
+
+class SwaraIn(BaseModel):
+    swara_id: str
+    octave: str = "madhya"
+
+
+class BarIn(BaseModel):
+    tala_id: str
+    speed: int = 1
+    swaras: list[SwaraIn | str]
+    saahitya: list[str] = []
+
+
+class LineIn(BaseModel):
+    bars: list[BarIn]
+    repeat: int = 2
+
+
+class SectionIn(BaseModel):
+    name: str
+    lines: list[LineIn]
+
+
+class CompositionIn(BaseModel):
+    """Input schema for creating/updating a composition."""
+
+    title: str
+    raga: str
+    tala_id: str
+    composer: str = ""
+    reference_sa_hz: float = 261.63
+    sections: list[SectionIn] = []
+
+
+class CompositionOut(BaseModel):
+    """Output schema for a composition."""
+
+    id: str
+    title: str
+    raga: str
+    tala_id: str
+    composer: str = ""
+    reference_sa_hz: float = 261.63
+    sections: list[SectionIn] = []
+
+
+# ---------------------------------------------------------------------------
+# Synthesis request models
+# ---------------------------------------------------------------------------
+
+
+class SynthesizeBarRequest(BaseModel):
+    """Request to render a single bar to WAV."""
+
+    bar: dict
+    reference_sa_hz: float = 261.63
+    tempo_bpm: float = 60.0
+    tone: str = "voice"
+
+
+class SynthesizeRequest(BaseModel):
+    """Request to render a full composition to WAV."""
+
+    composition: dict
+    tempo_bpm: float = 60.0
+    tone: str = "voice"
+    include_tanpura: bool = True
+
+
+# ---------------------------------------------------------------------------
+# Compose (text notation → audio) request model
+# ---------------------------------------------------------------------------
+
+
+class ToneChoice(StrEnum):
+    voice = "voice"
+    string = "string"
+    flute = "flute"
+    sine = "sine"
+
+
+class ComposeRequest(BaseModel):
+    """Request to synthesize audio from text notation."""
+
+    notation: str
+    reference_sa_hz: float = 261.63
+    tone: ToneChoice = ToneChoice.voice
+    tempo_bpm: float = 60.0
+    speed: int = 1
+    tala_id: str | None = None
+    include_tanpura: bool = False
+    include_click_track: bool = False

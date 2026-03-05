@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="sa">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRJ SoundScape | Composition Tool</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Sans+Devanagari:wght@300;400;500;600;700&family=Noto+Sans+Kannada:wght@400;600&family=Noto+Sans+Tamil:wght@400;600&family=Noto+Sans+Telugu:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/css/components.css">
+<style>
+@font-face {
+  font-family: 'Vijaya';
+  src: url('https://vedavishtaram.in/fonts/VIJAYADV.ttf') format('truetype');
+}
+
+:root {
+  --deep-sacred: #0a0612;
+  --twilight: #1a0f2e;
+  --amber-glow: #d4a854;
+  --warm-gold: #c5943a;
+  --sacred-saffron: #e8a031;
+  --flame-accent: #e87831;
+  --lotus-pink: #c4607a;
+  --sky-blue: #4a8fb8;
+  --pale-gold: #f5e6c8;
+  --muted-cream: #e8dcc8;
+  --text-light: #e8e0d4;
+  --text-muted: #9a8e7e;
+  --card-bg: rgba(18, 12, 32, 0.85);
+  --card-border: rgba(212, 168, 84, 0.15);
+  --glass: rgba(255, 255, 255, 0.03);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Cormorant Garamond', 'Noto Sans Devanagari', serif;
+  background: var(--deep-sacred);
+  color: var(--text-light);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* Cosmos background */
+.cosmos {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(74, 40, 120, 0.15) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(200, 140, 50, 0.08) 0%, transparent 40%),
+    radial-gradient(ellipse at 50% 80%, rgba(100, 50, 30, 0.1) 0%, transparent 50%),
+    linear-gradient(180deg, #060310 0%, #0a0612 30%, #120a1e 60%, #0a0612 100%);
+}
+
+.page-wrapper {
+  position: relative;
+  z-index: 1;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 20px 40px;
+}
+
+/* Header */
+.comp-page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 30px 0 20px;
+  border-bottom: 1px solid rgba(212, 168, 84, 0.1);
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.comp-page-header__left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.comp-page-header__om {
+  font-size: 1.8rem;
+  color: var(--amber-glow);
+  text-shadow: 0 0 20px rgba(212, 168, 84, 0.3);
+}
+
+.comp-page-header__title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  color: var(--amber-glow);
+  text-transform: uppercase;
+}
+
+.comp-page-header__subtitle {
+  font-family: 'Noto Sans Devanagari', 'Vijaya', serif;
+  font-size: 0.9rem;
+  color: var(--pale-gold);
+  margin-top: 2px;
+}
+
+.comp-page-header__nav {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.comp-nav-link {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 6px 14px;
+  border: 1px solid rgba(212, 168, 84, 0.1);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+  background: rgba(255,255,255,0.02);
+}
+
+.comp-nav-link:hover {
+  color: var(--amber-glow);
+  border-color: rgba(212, 168, 84, 0.4);
+  background: rgba(212, 168, 84, 0.06);
+}
+
+/* Script selector row */
+.comp-script-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.comp-script-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* Shruti row */
+.comp-shruti-row {
+  margin-bottom: 20px;
+}
+
+/* Main editor area */
+.comp-editor-card {
+  background:
+    linear-gradient(135deg, rgba(26, 15, 46, 0.9), rgba(18, 12, 32, 0.95)),
+    linear-gradient(45deg, rgba(212, 168, 84, 0.03), transparent);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 30px;
+  position: relative;
+  overflow: hidden;
+  backdrop-filter: blur(10px);
+}
+
+.comp-editor-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--amber-glow), transparent);
+  opacity: 0.4;
+}
+
+/* Saved compositions list */
+.comp-saved-section {
+  margin-top: 30px;
+}
+
+.comp-saved-title {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+  margin-bottom: 16px;
+}
+
+.comp-saved-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 12px;
+}
+
+.comp-saved-item {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 6px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.comp-saved-item:hover {
+  border-color: rgba(212, 168, 84, 0.3);
+  background: rgba(212, 168, 84, 0.04);
+}
+
+.comp-saved-item__title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  color: var(--pale-gold);
+  margin-bottom: 4px;
+}
+
+.comp-saved-item__meta {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+/* Footer */
+.comp-footer {
+  text-align: center;
+  padding: 30px 20px;
+  border-top: 1px solid rgba(212, 168, 84, 0.08);
+  margin-top: 40px;
+}
+
+.comp-footer__text {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .comp-editor-card { padding: 16px; }
+  .comp-page-header { padding: 20px 0 15px; }
+}
+</style>
+</head>
+<body>
+
+<div class="cosmos"></div>
+
+<div class="page-wrapper">
+
+  <!-- HEADER -->
+  <header class="comp-page-header">
+    <div class="comp-page-header__left">
+      <span class="comp-page-header__om">&#x0950;</span>
+      <div>
+        <div class="comp-page-header__title">Composition Tool</div>
+        <div class="comp-page-header__subtitle">रचना साधनम्</div>
+      </div>
+    </div>
+    <nav class="comp-page-header__nav">
+      <a href="/player.html" class="comp-nav-link">&#x25C0; SoundScape</a>
+      <a href="/" class="comp-nav-link">Analyzer</a>
+    </nav>
+  </header>
+
+  <!-- Script Selector -->
+  <div class="comp-script-row">
+    <span class="comp-script-label">Script</span>
+    <div id="compScriptSelector"></div>
+  </div>
+
+  <!-- Shruti / Drone Controls -->
+  <div class="comp-shruti-row" id="compShrutiControls"></div>
+
+  <!-- Main Editor -->
+  <div class="comp-editor-card">
+    <div id="compositionEditor"></div>
+  </div>
+
+  <!-- Saved Compositions -->
+  <section class="comp-saved-section">
+    <div class="comp-saved-title">Saved Compositions</div>
+    <div class="comp-saved-list" id="savedCompositions">
+      <div style="text-align:center;padding:20px;color:var(--text-muted);font-style:italic;grid-column:1/-1">
+        Loading...
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="comp-footer">
+    <div class="comp-footer__text">CRJ SoundScape &mdash; Composition Tool</div>
+  </footer>
+
+</div>
+
+<script src="/js/multilingual.js"></script>
+<script src="/js/shruti-drone.js"></script>
+<script src="/js/tala-bar-display.js"></script>
+<script src="/js/composition-tool.js"></script>
+<script>
+// ── Initialize components ──
+const drone = new ShrutiDrone({ referenceSaHz: 261.63, volume: 0.3 });
+let compTool = null;
+
+async function initComposer() {
+  // Initialize MultilingualDisplay
+  await MultilingualDisplay.init();
+  MultilingualDisplay.renderSelector(document.getElementById('compScriptSelector'));
+
+  // Render drone controls
+  drone.renderControls(document.getElementById('compShrutiControls'));
+
+  // Initialize composition tool
+  compTool = new CompositionTool(document.getElementById('compositionEditor'), { drone });
+  await compTool.init();
+
+  // Re-render on script change
+  MultilingualDisplay.onChange(() => {
+    MultilingualDisplay.renderSelector(document.getElementById('compScriptSelector'));
+    if (compTool) compTool.render();
+  });
+
+  // Load saved compositions
+  loadSavedCompositions();
+
+  // Check URL for composition ID to load
+  const params = new URLSearchParams(window.location.search);
+  const loadId = params.get('id');
+  if (loadId) {
+    try {
+      const res = await fetch(`/api/v1/compositions/${loadId}`);
+      if (res.ok) {
+        const data = await res.json();
+        compTool.loadComposition(data);
+      }
+    } catch {}
+  }
+}
+
+async function loadSavedCompositions() {
+  const container = document.getElementById('savedCompositions');
+  try {
+    const res = await fetch('/api/v1/compositions');
+    if (!res.ok) throw new Error(res.statusText);
+    const comps = await res.json();
+
+    if (!comps.length) {
+      container.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);font-style:italic;grid-column:1/-1">No saved compositions yet. Create one above!</div>';
+      return;
+    }
+
+    container.innerHTML = comps.map(c => `
+      <div class="comp-saved-item" onclick="loadSavedComposition('${c.id}')">
+        <div class="comp-saved-item__title">${escHtml(c.title || 'Untitled')}</div>
+        <div class="comp-saved-item__meta">
+          ${escHtml(c.raga || '')} &middot; ${escHtml(c.tala_id || '')}
+          ${c.composer ? '&middot; ' + escHtml(c.composer) : ''}
+        </div>
+      </div>
+    `).join('');
+  } catch {
+    container.innerHTML = '<div style="text-align:center;padding:20px;color:var(--text-muted);font-style:italic;grid-column:1/-1">Could not load compositions.</div>';
+  }
+}
+
+async function loadSavedComposition(id) {
+  try {
+    const res = await fetch(`/api/v1/compositions/${id}`);
+    if (!res.ok) throw new Error('Not found');
+    const data = await res.json();
+    compTool.loadComposition(data);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  } catch (err) {
+    alert('Failed to load composition: ' + err.message);
+  }
+}
+
+function escHtml(s) {
+  const d = document.createElement('div');
+  d.textContent = s;
+  return d.innerHTML;
+}
+
+initComposer();
+</script>
+
+</body>
+</html>

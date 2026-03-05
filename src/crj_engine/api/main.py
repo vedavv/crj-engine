@@ -9,7 +9,16 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 
-from crj_engine.api.routes import analyze, health, reference
+from crj_engine.api.routes import (
+    analyze,
+    compose,
+    compositions,
+    export,
+    health,
+    reference,
+    synthesis,
+    talas,
+)
 
 _WEB_DIR = Path(__file__).resolve().parents[3] / "web"
 
@@ -44,6 +53,11 @@ def create_app() -> FastAPI:
     app.include_router(health.router, prefix="/api/v1", tags=["health"])
     app.include_router(analyze.router, prefix="/api/v1", tags=["analyze"])
     app.include_router(reference.router, prefix="/api/v1", tags=["reference"])
+    app.include_router(talas.router, prefix="/api/v1", tags=["talas"])
+    app.include_router(compositions.router, prefix="/api/v1", tags=["compositions"])
+    app.include_router(synthesis.router, prefix="/api/v1", tags=["synthesis"])
+    app.include_router(compose.router, prefix="/api/v1", tags=["compose"])
+    app.include_router(export.router, prefix="/api/v1", tags=["export"])
 
     # Serve web UI — must come LAST so API routes take precedence
     if _WEB_DIR.exists():

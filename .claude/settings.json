@@ -16,7 +16,39 @@
       "Bash(firebase --version:*)",
       "Bash(export PATH=\"/opt/homebrew/share/google-cloud-sdk/bin:/opt/homebrew/bin:$PATH\")",
       "Bash(gcloud version:*)",
-      "Bash(gcloud config set:*)"
+      "Bash(gcloud config set:*)",
+      "Bash(flutter run -d 2BACA8DC-46C9-4629-9039-3EF7565F7E03 --no-hot)",
+      "Bash(flutter install -d 2BACA8DC-46C9-4629-9039-3EF7565F7E03)",
+      "Bash(xcrun simctl install 2BACA8DC-46C9-4629-9039-3EF7565F7E03 build/ios/iphonesimulator/Runner.app)",
+      "Bash(xcrun simctl launch 2BACA8DC-46C9-4629-9039-3EF7565F7E03 in.vedavishtaram.crj.crjSoundscape)",
+      "Bash(xcrun simctl get_app_container 2BACA8DC-46C9-4629-9039-3EF7565F7E03 in.vedavishtaram.crj.crjSoundscape app)",
+      "Bash(security find-identity -v -p codesigning)",
+      "Bash(xcrun altool --upload-app --type ios -f \"/Users/dharmaposhanam/Documents/GitHub/crj-engine/mobile/build/ios/ipa/CRJ SoundScape.ipa\" --asc-provider U6A8G5L3PZ)",
+      "Bash(xcrun altool --list-storedpasswords)",
+      "Bash(xcrun --find notarytool)",
+      "Bash(security find-generic-password -s \"altool\")",
+      "Bash(flutter build appbundle --release)",
+      "Bash(flutter build apk --release)",
+      "Bash(flutter doctor)",
+      "Read(//opt/homebrew/share/**)",
+      "Bash(export ANDROID_HOME=/opt/homebrew/share/android-commandlinetools)",
+      "Bash(sdkmanager --sdk_root=$ANDROID_HOME \"platform-tools\" \"platforms;android-34\" \"build-tools;34.0.0\")",
+      "Bash(export JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home)",
+      "Bash(export PATH=\"$JAVA_HOME/bin:$PATH\")",
+      "Bash(JAVA_HOME=/opt/homebrew/opt/openjdk@17/libexec/openjdk.jdk/Contents/Home PATH=\"/opt/homebrew/opt/openjdk@17/bin:$PATH\" ANDROID_HOME=/opt/homebrew/share/android-commandlinetools /opt/homebrew/bin/sdkmanager --sdk_root=/opt/homebrew/share/android-commandlinetools --install \"platform-tools\" \"platforms;android-34\" \"build-tools;34.0.0\")",
+      "Bash(export PATH=\"$JAVA_HOME/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/homebrew/bin:$PATH\")",
+      "Bash(sdkmanager --sdk_root=$ANDROID_HOME --install \"platform-tools\" \"platforms;android-34\" \"build-tools;34.0.0\")",
+      "Bash(flutter config --android-sdk /opt/homebrew/share/android-commandlinetools)",
+      "Bash(sdkmanager --sdk_root=$ANDROID_HOME --install \"platforms;android-36\" \"build-tools;36.0.0\")",
+      "Bash(sdkmanager --sdk_root=$ANDROID_HOME --list)",
+      "Bash(sdkmanager --sdk_root=$ANDROID_HOME \"platforms;android-36\" \"build-tools;36.0.0\")",
+      "Bash(flutter doctor --verbose)",
+      "Read(//Users/dharmaposhanam/Documents/GitHub/crj-engine/**)",
+      "Bash(git add mobile/.gitignore mobile/.metadata mobile/README.md mobile/analysis_options.yaml mobile/pubspec.yaml mobile/lib/ mobile/test/ mobile/assets/ mobile/ios/Podfile mobile/ios/Runner/Info.plist mobile/ios/Runner.xcodeproj/project.pbxproj mobile/ios/Runner.xcodeproj/project.xcworkspace/ mobile/ios/Runner.xcodeproj/xcshareddata/ mobile/ios/Runner/ mobile/ios/RunnerTests/ mobile/ios/Flutter/ mobile/android/app/build.gradle.kts mobile/android/app/src/ mobile/android/build.gradle.kts mobile/android/gradle.properties mobile/android/gradle/wrapper/gradle-wrapper.properties mobile/android/settings.gradle.kts mobile/android/.gitignore)",
+      "Bash(git add .dockerignore Dockerfile src/crj_engine/api/main.py src/crj_engine/api/schemas.py src/crj_engine/api/routes/compositions.py src/crj_engine/api/routes/synthesis.py src/crj_engine/api/routes/talas.py src/crj_engine/synthesis/render.py src/crj_engine/tala/__init__.py web/player.html web/composer.html web/css/components.css web/js/composition-tool.js web/js/lyrics-sync.js web/js/multilingual.js web/js/shruti-drone.js web/js/tala-bar-display.js cloudbuild.yaml data/lyrics/ firebase.json pyproject.toml .claude/settings.json)"
+    ],
+    "additionalDirectories": [
+      "/Users/dharmaposhanam/Documents/GitHub/crj-engine"
     ]
   }
 }

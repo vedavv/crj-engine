@@ -58,6 +58,7 @@ class ToneType(Enum):
     SINE = "sine"       # pure sine wave
     VOICE = "voice"     # harmonics + vibrato (vocal-like)
     STRING = "string"   # sawtooth + ADSR (veena/violin-like)
+    FLUTE = "flute"     # sine + breathy noise + gentle vibrato
 
 
 @dataclass
@@ -191,10 +192,42 @@ def _generate_string(
     return signal.astype(np.float32)
 
 
+def _generate_flute(
+    freq_hz: float, duration_s: float, sr: int,
+) -> np.ndarray:
+    """Flute-like tone: sine + weak harmonics + gentle vibrato + breathy noise."""
+    n = int(sr * duration_s)
+    t = np.linspace(0, duration_s, n, endpoint=False)
+
+    # Gentle vibrato: 4 Hz, ±6 cents
+    vibrato_hz = 4.0
+    vibrato_depth = freq_hz * (2 ** (6 / 1200.0) - 1)
+    vibrato = vibrato_depth * np.sin(2 * np.pi * vibrato_hz * t)
+
+    # Fundamental + weak harmonics
+    signal = np.zeros(n, dtype=np.float64)
+    signal += 1.0 * np.sin(2 * np.pi * (freq_hz + vibrato) * t)
+    signal += 0.15 * np.sin(2 * np.pi * 2 * (freq_hz + vibrato) * t)
+    signal += 0.05 * np.sin(2 * np.pi * 3 * (freq_hz + vibrato) * t)
+
+    # Breathy noise (low-amplitude)
+    rng = np.random.default_rng(42)
+    noise = rng.standard_normal(n) * 0.03
+    signal += noise
+
+    # Normalize
+    peak = np.max(np.abs(signal))
+    if peak > 0:
+        signal /= peak
+
+    return signal.astype(np.float32)
+
+
 _TONE_GENERATORS = {
     ToneType.SINE: _generate_sine,
     ToneType.VOICE: _generate_voice,
     ToneType.STRING: _generate_string,
+    ToneType.FLUTE: _generate_flute,
 }
 
 # Tone-specific ADSR presets
@@ -207,6 +240,9 @@ _ADSR_PRESETS = {
     ),
     ToneType.STRING: ADSREnvelope(
         attack=0.01, decay=0.15, sustain=0.6, release=0.2,
+    ),
+    ToneType.FLUTE: ADSREnvelope(
+        attack=0.06, decay=0.08, sustain=0.75, release=0.18,
     ),
 }
 
@@ -269,6 +305,79 @@ def generate_tanpura(
         drone = drone / peak * 0.5
 
     return drone.astype(np.float32)
+
+
+# ---------------------------------------------------------------------------
+# Click track (metronome)
+# ---------------------------------------------------------------------------
+
+def generate_click_track(
+    tala_id: str,
+    num_cycles: int,
+    tempo_bpm: float,
+    sr: int = 44100,
+    amplitude: float = 0.3,
+) -> np.ndarray:
+    """Generate a metronome click track for a tala pattern.
+
+    High tick (1kHz, 30ms) on the first beat of each component (sam/tali).
+    Low tick (800Hz, 20ms) on other aksharas.
+    Extra accent on the very first beat (sam) of each cycle.
+
+    Args:
+        tala_id: Tala identifier (e.g. "triputa_chatusra" for Adi).
+        num_cycles: Number of tala cycles.
+        tempo_bpm: Beats per minute.
+        sr: Sample rate.
+        amplitude: Click amplitude (0-1).
+
+    Returns:
+        Audio samples as float32 numpy array.
+    """
+    from crj_engine.tala.models import get_tala
+
+    tala = get_tala(tala_id)
+    beat_duration_s = 60.0 / tempo_bpm
+
+    # Build list of aksharas with their tick type
+    ticks: list[str] = []  # "sam", "tali", "beat"
+    for comp_idx, count in enumerate(tala.beat_pattern):
+        for beat_idx in range(count):
+            if comp_idx == 0 and beat_idx == 0:
+                ticks.append("sam")
+            elif beat_idx == 0:
+                ticks.append("tali")
+            else:
+                ticks.append("beat")
+
+    total_beats = len(ticks) * num_cycles
+    total_samples = int(total_beats * beat_duration_s * sr)
+    audio = np.zeros(total_samples, dtype=np.float32)
+
+    for cycle in range(num_cycles):
+        for i, tick_type in enumerate(ticks):
+            beat_idx = cycle * len(ticks) + i
+            start = int(beat_idx * beat_duration_s * sr)
+
+            if tick_type == "sam":
+                freq, dur_ms, amp_mult = 1200.0, 35, 1.0
+            elif tick_type == "tali":
+                freq, dur_ms, amp_mult = 1000.0, 30, 0.8
+            else:
+                freq, dur_ms, amp_mult = 800.0, 20, 0.5
+
+            dur_s = dur_ms / 1000.0
+            n = min(int(dur_s * sr), total_samples - start)
+            if n <= 0:
+                continue
+            t = np.linspace(0, dur_s, n, endpoint=False)
+            tick = np.sin(2 * np.pi * freq * t).astype(np.float32)
+            # Quick decay envelope
+            env = np.exp(-t * 40).astype(np.float32)
+            tick *= env * amplitude * amp_mult
+            audio[start:start + n] += tick
+
+    return audio
 
 
 # ---------------------------------------------------------------------------

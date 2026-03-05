@@ -1,0 +1,133 @@
+{
+  "track_id": "sama_1_setu",
+  "track_title": "Samaveda Setu 1",
+  "reference_sa_hz": 261.63,
+  "blocks": [
+    {
+      "id": "b001",
+      "start_ms": 0,
+      "end_ms": 2500,
+      "text": {
+        "devanagari": "ॐ अग्ने॑",
+        "telugu": "ఓం అగ్నే",
+        "kannada": "ಓಂ ಅಗ್ನೇ",
+        "tamil": "ஓம் அக்நே",
+        "iast": "om agne"
+      },
+      "swaras": ["Sa", "Ri2", "Sa"],
+      "section": "invocation"
+    },
+    {
+      "id": "b002",
+      "start_ms": 2500,
+      "end_ms": 5000,
+      "text": {
+        "devanagari": "आ या॑हि वी॒तये॑",
+        "telugu": "ఆ యాహి వీతయే",
+        "kannada": "ಆ ಯಾಹಿ ವೀತಯೇ",
+        "tamil": "ஆ யாஹி வீதயே",
+        "iast": "ā yāhi vītaye"
+      },
+      "swaras": ["Ri2", "Ga3", "Ri2", "Sa"],
+      "section": "invocation"
+    },
+    {
+      "id": "b003",
+      "start_ms": 5000,
+      "end_ms": 8000,
+      "text": {
+        "devanagari": "गृ॒णा॒नो ह॒व्यदा॑तये",
+        "telugu": "గృణానో హవ్యదాతయే",
+        "kannada": "ಗೃಣಾನೋ ಹವ್ಯದಾತಯೇ",
+        "tamil": "க்ருணாநோ ஹவ்யதாதயே",
+        "iast": "gṛṇāno havyadātaye"
+      },
+      "swaras": ["Sa", "Ri2", "Ga3", "Ri2"],
+      "section": "verse"
+    },
+    {
+      "id": "b004",
+      "start_ms": 8000,
+      "end_ms": 11000,
+      "text": {
+        "devanagari": "नि हो॒ता स॑त्सि ब॒र्हिषि॑",
+        "telugu": "ని హోతా సత్సి బర్హిషి",
+        "kannada": "ನಿ ಹೋತಾ ಸತ್ಸಿ ಬರ್ಹಿಷಿ",
+        "tamil": "நி ஹோதா ஸத்ஸி பர்ஹிஷி",
+        "iast": "ni hotā satsi barhiṣi"
+      },
+      "swaras": ["Ga3", "Ri2", "Sa", "Ri2"],
+      "section": "verse"
+    },
+    {
+      "id": "b005",
+      "start_ms": 11000,
+      "end_ms": 14500,
+      "text": {
+        "devanagari": "अग्ने॑ सु॒श्रवा॑",
+        "telugu": "అగ్నే సుశ్రవా",
+        "kannada": "ಅಗ್ನೇ ಸುಶ್ರವಾ",
+        "tamil": "அக்நே ஸுஸ்ரவா",
+        "iast": "agne suśravā"
+      },
+      "swaras": ["Sa", "Ri2", "Ga3"],
+      "section": "verse"
+    },
+    {
+      "id": "b006",
+      "start_ms": 14500,
+      "end_ms": 18000,
+      "text": {
+        "devanagari": "दे॒वो मर्ते॑भिः",
+        "telugu": "దేవో మర్తేభిః",
+        "kannada": "ದೇವೋ ಮರ್ತೇಭಿಃ",
+        "tamil": "தேவோ மர்தேபிஃ",
+        "iast": "devo martebhiḥ"
+      },
+      "swaras": ["Ri2", "Ga3", "Ma1", "Ga3"],
+      "section": "verse"
+    },
+    {
+      "id": "b007",
+      "start_ms": 18000,
+      "end_ms": 22000,
+      "text": {
+        "devanagari": "स धा॒तु र॒यिम॑",
+        "telugu": "స ధాతు రయిమ్",
+        "kannada": "ಸ ಧಾತು ರಯಿಮ್",
+        "tamil": "ஸ தாது ரயிம்",
+        "iast": "sa dhātu rayim"
+      },
+      "swaras": ["Ga3", "Ri2", "Sa"],
+      "section": "verse"
+    },
+    {
+      "id": "b008",
+      "start_ms": 22000,
+      "end_ms": 26000,
+      "text": {
+        "devanagari": "वी॒रव॒त्तम॑म्",
+        "telugu": "వీరవత్తమమ్",
+        "kannada": "ವೀರವತ್ತಮಮ್",
+        "tamil": "வீரவத்தமம்",
+        "iast": "vīravattamam"
+      },
+      "swaras": ["Ri2", "Sa", "Sa"],
+      "section": "verse"
+    },
+    {
+      "id": "b009",
+      "start_ms": 26000,
+      "end_ms": 30000,
+      "text": {
+        "devanagari": "ॐ शान्तिः शान्तिः शान्तिः",
+        "telugu": "ఓం శాంతిః శాంతిః శాంతిః",
+        "kannada": "ಓಂ ಶಾಂತಿಃ ಶಾಂತಿಃ ಶಾಂತಿಃ",
+        "tamil": "ஓம் ஷாந்திஃ ஷாந்திஃ ஷாந்திஃ",
+        "iast": "om śāntiḥ śāntiḥ śāntiḥ"
+      },
+      "swaras": ["Sa", "Sa", "Sa"],
+      "section": "closing"
+    }
+  ]
+}
