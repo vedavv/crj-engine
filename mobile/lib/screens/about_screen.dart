@@ -124,9 +124,11 @@ class AboutScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 14),
                 _bodyText(
-                  'Dr. Vamśīkṛṣṇa Ghanapāṭhī is a Rigveda Ghanapāṭhī, '
-                  'Āyurveda researcher, and Sanskrit scholar based in Mysore, India. '
-                  'He is the founder and guiding force behind Veda Vijñāna Viśtāram '
+                  'Dr. Vamśīkṛṣṇa Ghanapāṭhī is a Yajurveda Ghanapāṭhī, '
+                  'Chaturvedī, author, and Sanskrit scholar based in Mysore, India. '
+                  'He is the Founder of CRJ Studio and Director of SVAMI '
+                  '(Saṁskṛta Veda Adhyayana Mandira Institute). He is also the '
+                  'founder and guiding force behind Veda Vijñāna Viśtāram '
                   '(vedavishtaram.in) — an Institution of Eminence dedicated to '
                   'Vedic education, research, and the preservation of India\'s oral '
                   'scholarly traditions.',
@@ -149,7 +151,11 @@ class AboutScreen extends StatelessWidget {
           const SizedBox(height: 12),
           _honorRow('Vedanidhi (वेदनिधिः)', 'Treasury of Vedic Knowledge'),
           _honorRow('Vāchaspati (वाचस्पतिः)', 'Master of Sacred Speech'),
-          _honorRow('Rigveda Ghanapāṭhī', 'Master of Ghanapāṭha recitation'),
+          _honorRow('Yajurveda Ghanapāṭhī', 'Master of Ghanapāṭha recitation'),
+          _honorRow('Chaturvedī', 'Scholar of all four Vedas'),
+          _honorRow('Founder', 'CRJ Studio, Mysore'),
+          _honorRow('Author', ''),
+          _honorRow('Director', 'SVAMI (Saṁskṛta Veda Adhyayana Mandira Institute)'),
           const SizedBox(height: 24),
 
           // CRJ Studio
@@ -355,7 +361,7 @@ class AboutScreen extends StatelessWidget {
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    TextSpan(
+                    if (desc.isNotEmpty) TextSpan(
                       text: ' — $desc',
                       style: GoogleFonts.cormorantGaramond(
                         fontSize: 15,
