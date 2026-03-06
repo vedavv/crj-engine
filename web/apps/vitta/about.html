@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About – Vitta (Expend)</title>
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family: Georgia, 'Garamond', serif;
+background:#0a0f16;
+color:#e0e4e8;
+line-height:1.8;
+}
+
+.container{
+max-width:860px;
+margin:0 auto;
+padding:40px 24px 60px;
+}
+
+.hero{
+text-align:center;
+padding:48px 0 32px;
+border-bottom:1px solid rgba(76,140,200,0.2);
+margin-bottom:40px;
+}
+
+.hero h1{
+font-family: 'Palatino Linotype', 'Book Antiqua', serif;
+font-size:32px;
+color:#4c8cc8;
+letter-spacing:3px;
+margin-bottom:8px;
+}
+
+.hero .tagline{
+font-size:14px;
+color:#8a9aaa;
+letter-spacing:2px;
+text-transform:uppercase;
+}
+
+.hero .sanskrit{
+font-size:18px;
+color:#4c8cc8;
+margin-top:16px;
+opacity:0.8;
+}
+
+h2{
+font-family: 'Palatino Linotype', 'Book Antiqua', serif;
+font-size:22px;
+color:#4c8cc8;
+letter-spacing:1px;
+margin:36px 0 16px;
+padding-bottom:8px;
+border-bottom:1px solid rgba(76,140,200,0.15);
+}
+
+h3{
+font-size:17px;
+color:#6aaddf;
+margin:20px 0 10px;
+}
+
+p{
+margin-bottom:16px;
+color:#c0c8d0;
+font-size:16px;
+}
+
+.card{
+background:rgba(12,18,28,0.9);
+border:1px solid rgba(76,140,200,0.12);
+border-radius:8px;
+padding:24px;
+margin-bottom:20px;
+}
+
+.card-highlight{
+border-left:3px solid #4c8cc8;
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+gap:16px;
+margin:20px 0;
+}
+
+.feature{
+background:rgba(12,18,28,0.7);
+border:1px solid rgba(76,140,200,0.1);
+border-radius:6px;
+padding:18px;
+}
+
+.feature h4{
+color:#4c8cc8;
+font-size:14px;
+letter-spacing:1px;
+text-transform:uppercase;
+margin-bottom:6px;
+}
+
+.feature p{
+font-size:14px;
+color:#8a9aaa;
+margin:0;
+line-height:1.6;
+}
+
+.hierarchy{
+background:rgba(12,18,28,0.8);
+border:1px solid rgba(76,140,200,0.15);
+border-radius:8px;
+padding:20px;
+margin:16px 0;
+font-family:monospace;
+font-size:14px;
+color:#6aaddf;
+line-height:2;
+white-space:pre;
+overflow-x:auto;
+}
+
+.reports-list{
+list-style:none;
+padding:0;
+}
+
+.reports-list li{
+padding:8px 0 8px 20px;
+border-left:2px solid rgba(76,140,200,0.2);
+margin-bottom:8px;
+color:#c0c8d0;
+font-size:15px;
+}
+
+.reports-list li strong{
+color:#6aaddf;
+}
+
+.honors{
+list-style:none;
+padding:0;
+}
+
+.honors li{
+padding:6px 0;
+color:#c0c8d0;
+font-size:15px;
+}
+
+.honors li::before{
+content:'✦ ';
+color:#4c8cc8;
+}
+
+.contact-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+gap:16px;
+margin:16px 0;
+}
+
+.contact-item{
+font-size:14px;
+color:#8a9aaa;
+}
+
+.contact-item strong{
+display:block;
+color:#4c8cc8;
+font-size:12px;
+letter-spacing:1px;
+text-transform:uppercase;
+margin-bottom:4px;
+}
+
+.contact-item a{
+color:#6aaddf;
+text-decoration:none;
+}
+
+footer{
+text-align:center;
+padding:24px 0;
+font-size:13px;
+color:#5a6878;
+border-top:1px solid rgba(76,140,200,0.1);
+}
+
+footer a{
+color:#8a9aaa;
+text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>VITTA</h1>
+    <div class="tagline">Expend &bull; Financial Management System</div>
+    <div class="sanskrit">वित्त — Wealth &bull; Finance &bull; Stewardship</div>
+  </div>
+
+  <!-- ABOUT THE APP -->
+  <h2>About Vitta</h2>
+  <p>
+    Vitta (Expend) is a multi-organisation financial management system built
+    for the VKG Group — a consortium of 7 entities comprising nonprofits and
+    for-profit organisations based in Mysore. It provides end-to-end financial
+    tracking from bank statement ingestion to Indian-standard financial
+    reporting.
+  </p>
+  <p>
+    Designed with a mobile-first interface for trustees, accountants, and
+    data entry operators, Vitta brings transparency and accountability to
+    the financial stewardship of institutions dedicated to Vedic education
+    and cultural preservation.
+  </p>
+
+  <!-- ORG HIERARCHY -->
+  <h2>Organisation Structure</h2>
+  <div class="hierarchy">VKG Group (Root)
+├── Organisation 1 (Trust A)
+│   ├── Unit 1.1 (branch / programme)
+│   ├── Unit 1.2
+│   └── Main Accounts (HQ)
+├── Organisation 2 (Trust B)
+│   ├── Unit 2.1
+│   └── Main Accounts
+...
+└── Organisation 7 (for-profit entity)</div>
+  <p>
+    Each organisation maps to one legal entity (PAN, TAN, registration number).
+    Each unit maintains independent financials with consolidation rolling up
+    to the organisation and group levels.
+  </p>
+
+  <!-- FEATURES -->
+  <h2>Key Features</h2>
+  <div class="features">
+    <div class="feature">
+      <h4>Bank Statement Ingestion</h4>
+      <p>Upload periodic bank statements (PDF/CSV) from multiple accounts. Automatic extraction and categorisation of transactions.</p>
+    </div>
+    <div class="feature">
+      <h4>OCR Cheque Scanning</h4>
+      <p>Camera-based OCR scanning of vendor cheques and outgoing cheques for automated data entry.</p>
+    </div>
+    <div class="feature">
+      <h4>Transaction Categorisation</h4>
+      <p>Intelligent categorisation of income and expenditure with manual override and custom category support.</p>
+    </div>
+    <div class="feature">
+      <h4>Multi-Account Support</h4>
+      <p>Savings, current, overdraft, and fixed deposit accounts across multiple banks and organisations.</p>
+    </div>
+    <div class="feature">
+      <h4>Role-Based Access</h4>
+      <p>Trustees, accountants, and data entry operators — each with appropriate access levels and audit trails.</p>
+    </div>
+    <div class="feature">
+      <h4>Sub-Unit Financials</h4>
+      <p>Independent I&amp;E statements, receipts &amp; payments, and balance sheets for each unit within an organisation.</p>
+    </div>
+  </div>
+
+  <!-- REPORTS -->
+  <h2>Financial Reports</h2>
+  <p>Indian-standard financial reports generated at unit, organisation, and group levels:</p>
+  <ul class="reports-list">
+    <li><strong>Income &amp; Expenditure Statement</strong> — Period-wise income vs. expenditure with category breakdown</li>
+    <li><strong>Receipts &amp; Payments</strong> — Cash-flow based reporting for trust/society compliance</li>
+    <li><strong>Trial Balance</strong> — Verification of double-entry bookkeeping accuracy</li>
+    <li><strong>Balance Sheet</strong> — Assets, liabilities, and fund positions</li>
+    <li><strong>Consolidated Reports</strong> — Roll-up from units to organisation to group level</li>
+  </ul>
+
+  <!-- TECH -->
+  <h2>Technology</h2>
+  <p>
+    Vitta is built as a mobile-first web application with a responsive interface
+    optimised for data entry on phones and tablets. The backend API handles
+    secure financial data processing with encrypted storage and role-based
+    access control.
+  </p>
+
+  <!-- ABOUT THE CREATOR -->
+  <h2>About the Creator</h2>
+  <div class="card card-highlight">
+    <h3>Dr. Vamśīkṛṣṇa Ghanapāṭhī</h3>
+    <p style="color:#8a9aaa; font-size:15px; margin-bottom:12px;">
+      वेदनिधिः &bull; वाचस्पतिः &bull; ಡಾ. ವಂಶೀಕೃಷ್ಣ ಘನಪಾಠೀ
+    </p>
+    <p>
+      Dr. Vamśīkṛṣṇa Ghanapāṭhī is a Yajurveda Ghanapāṭhī, Chaturvedī,
+      author, and Sanskrit scholar based in Mysore, India. He is the Founder of
+      <strong>CRJ Studio</strong> and Director of <strong>SVAMI</strong>
+      (Saṁskṛta Veda Adhyayana Mandira Institute). He is the founder and
+      guiding force behind <strong>Veda Vijñāna Viśtāram</strong>
+      (vedavishtaram.in) — an Institution of Eminence dedicated to Vedic
+      education, research, and the preservation of India's oral scholarly
+      traditions.
+    </p>
+    <p style="margin-bottom:0;">
+      Vitta was created to bring modern financial transparency to the
+      institutional ecosystem supporting Vedic education across India.
+    </p>
+  </div>
+
+  <h3>Honors &amp; Titles</h3>
+  <ul class="honors">
+    <li>Vedanidhi (वेदनिधिः) — Treasury of Vedic Knowledge</li>
+    <li>Vāchaspati (वाचस्पतिः) — Master of Sacred Speech</li>
+    <li>Yajurveda Ghanapāṭhī — Master of Ghanapāṭha recitation</li>
+    <li>Chaturvedī — Scholar of all four Vedas</li>
+    <li>Founder — CRJ Studio, Mysore</li>
+    <li>Author</li>
+    <li>Director — SVAMI (Saṁskṛta Veda Adhyayana Mandira Institute)</li>
+  </ul>
+
+  <!-- CONTACT -->
+  <h2>Contact</h2>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <strong>Address</strong>
+      114 Ānanda Ghanam, Gundurao Nagara<br>
+      Mysore 570025, Karnataka, India
+    </div>
+    <div class="contact-item">
+      <strong>Email</strong>
+      <a href="mailto:crj@vedavishtaram.in">crj@vedavishtaram.in</a>
+    </div>
+    <div class="contact-item">
+      <strong>WhatsApp</strong>
+      +91 99000 82065
+    </div>
+    <div class="contact-item">
+      <strong>Web</strong>
+      <a href="https://vedavishtaram.in">vedavishtaram.in</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 <a href="https://vedavishtaram.in/crj">CRJ Studio</a>, Mysore &bull;
+    <a href="../privacy.html">Privacy Policy</a>
+  </footer>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About – MAP-Rudram</title>
+
+<style>
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+font-family: Georgia, 'Garamond', serif;
+background:#0d0a14;
+color:#e8e0d4;
+line-height:1.8;
+}
+
+.container{
+max-width:860px;
+margin:0 auto;
+padding:40px 24px 60px;
+}
+
+/* Header */
+.hero{
+text-align:center;
+padding:48px 0 32px;
+border-bottom:1px solid rgba(192,140,64,0.2);
+margin-bottom:40px;
+}
+
+.hero h1{
+font-family: 'Palatino Linotype', 'Book Antiqua', serif;
+font-size:32px;
+color:#c08c40;
+letter-spacing:3px;
+margin-bottom:8px;
+}
+
+.hero .tagline{
+font-size:14px;
+color:#9a8e7e;
+letter-spacing:2px;
+text-transform:uppercase;
+}
+
+.hero .sanskrit{
+font-size:18px;
+color:#c08c40;
+margin-top:16px;
+opacity:0.8;
+}
+
+h2{
+font-family: 'Palatino Linotype', 'Book Antiqua', serif;
+font-size:22px;
+color:#c08c40;
+letter-spacing:1px;
+margin:36px 0 16px;
+padding-bottom:8px;
+border-bottom:1px solid rgba(192,140,64,0.15);
+}
+
+h3{
+font-size:17px;
+color:#d4a854;
+margin:20px 0 10px;
+}
+
+p{
+margin-bottom:16px;
+color:#d0c8bc;
+font-size:16px;
+}
+
+.card{
+background:rgba(18,12,32,0.9);
+border:1px solid rgba(192,140,64,0.12);
+border-radius:8px;
+padding:24px;
+margin-bottom:20px;
+}
+
+.card-highlight{
+border-left:3px solid #c08c40;
+}
+
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+gap:16px;
+margin:20px 0;
+}
+
+.feature{
+background:rgba(18,12,32,0.7);
+border:1px solid rgba(192,140,64,0.1);
+border-radius:6px;
+padding:18px;
+}
+
+.feature h4{
+color:#c08c40;
+font-size:14px;
+letter-spacing:1px;
+text-transform:uppercase;
+margin-bottom:6px;
+}
+
+.feature p{
+font-size:14px;
+color:#9a8e7e;
+margin:0;
+line-height:1.6;
+}
+
+.content-table{
+width:100%;
+border-collapse:collapse;
+margin:16px 0;
+font-size:14px;
+}
+
+.content-table th{
+background:rgba(192,140,64,0.1);
+text-align:left;
+padding:8px 12px;
+color:#c08c40;
+border:1px solid rgba(192,140,64,0.15);
+font-size:12px;
+letter-spacing:1px;
+text-transform:uppercase;
+}
+
+.content-table td{
+padding:8px 12px;
+border:1px solid rgba(192,140,64,0.1);
+color:#d0c8bc;
+}
+
+.scripts{
+display:flex;
+flex-wrap:wrap;
+gap:10px;
+margin:12px 0;
+}
+
+.script-badge{
+background:rgba(192,140,64,0.1);
+border:1px solid rgba(192,140,64,0.2);
+border-radius:20px;
+padding:6px 16px;
+font-size:14px;
+color:#c08c40;
+}
+
+.honors{
+list-style:none;
+padding:0;
+}
+
+.honors li{
+padding:6px 0;
+color:#d0c8bc;
+font-size:15px;
+}
+
+.honors li::before{
+content:'✦ ';
+color:#c08c40;
+}
+
+.contact-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+gap:16px;
+margin:16px 0;
+}
+
+.contact-item{
+font-size:14px;
+color:#9a8e7e;
+}
+
+.contact-item strong{
+display:block;
+color:#c08c40;
+font-size:12px;
+letter-spacing:1px;
+text-transform:uppercase;
+margin-bottom:4px;
+}
+
+.contact-item a{
+color:#d4a854;
+text-decoration:none;
+}
+
+.dedication{
+text-align:center;
+padding:32px 20px;
+margin-top:40px;
+border-top:1px solid rgba(192,140,64,0.2);
+font-style:italic;
+color:#9a8e7e;
+font-size:15px;
+}
+
+.dedication .name{
+color:#c08c40;
+font-style:normal;
+}
+
+footer{
+text-align:center;
+padding:24px 0;
+font-size:13px;
+color:#6a6050;
+border-top:1px solid rgba(192,140,64,0.1);
+}
+
+footer a{
+color:#9a8e7e;
+text-decoration:none;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>MAP-RUDRAM</h1>
+    <div class="tagline">Mantra &bull; Annotation &bull; Presentation</div>
+    <div class="sanskrit">नमस्ते रुद्र मन्यव उतो त इषवे नमः</div>
+  </div>
+
+  <!-- ABOUT THE APP -->
+  <h2>About MAP-Rudram</h2>
+  <p>
+    MAP-Rudram is a Vedic learning application for Sri Rudram (Rudra Adhyaya)
+    from the Taittiriya Samhita, 4th Kanda. It presents the complete Namakam
+    (11 Anuvakas) and Chamakam (11 Anuvakas) through the three-tier MAP
+    framework — <strong>Mantra</strong> (text), <strong>Annotation</strong>
+    (meaning), and <strong>Presentation</strong> (interactive UI).
+  </p>
+  <p>
+    The app serves students, scholars, and practitioners seeking to learn
+    Sri Rudram with proper pronunciation, word-by-word meanings, traditional
+    commentary, grammatical analysis, and audio-synchronized recitation.
+  </p>
+
+  <!-- MAP FRAMEWORK -->
+  <h2>The MAP Framework</h2>
+
+  <div class="features">
+    <div class="feature">
+      <h4>M — Mantra (Text Layer)</h4>
+      <p>
+        Samhita Patha (continuous recitation) and Pada Patha (word-by-word)
+        with Vedic svara accents rendered via VijayaDV font. Multi-script
+        support across four scripts.
+      </p>
+    </div>
+    <div class="feature">
+      <h4>A — Annotation (Meaning)</h4>
+      <p>
+        Pratipadaartha (word meanings), Sanskrit Bhashya (Sayana, Bhatta Bhaskara),
+        English &amp; Telugu translations, Anvaya-Krama, Sandhi analysis, and
+        morphological breakdown.
+      </p>
+    </div>
+    <div class="feature">
+      <h4>P — Presentation (UI)</h4>
+      <p>
+        Tappable words for instant meanings, dual-language mode, script switcher,
+        audio-synced word highlighting, ritual context images, autoplay, and
+        bookmarks.
+      </p>
+    </div>
+  </div>
+
+  <!-- SCRIPTS -->
+  <h3>Supported Scripts</h3>
+  <div class="scripts">
+    <span class="script-badge">देवनागरी</span>
+    <span class="script-badge">తెలుగు</span>
+    <span class="script-badge">ಕನ್ನಡ</span>
+    <span class="script-badge">IAST</span>
+  </div>
+
+  <!-- CONTENT -->
+  <h2>Content</h2>
+
+  <h3>Namakam — 11 Anuvakas</h3>
+  <table class="content-table">
+    <tr><th>Anuvaka</th><th>Theme</th></tr>
+    <tr><td>1</td><td>Invocation — Shiva's fierce and benign forms</td></tr>
+    <tr><td>2</td><td>Shiva in forests, paths, and fields</td></tr>
+    <tr><td>3</td><td>Shiva as lord of beings, thieves, and warriors</td></tr>
+    <tr><td>4</td><td>Shiva in various occupations and forms</td></tr>
+    <tr><td>5</td><td>Shiva's cosmic manifestations</td></tr>
+    <tr><td>6</td><td>Namaskara to Shiva's weapons and forms</td></tr>
+    <tr><td>7–11</td><td>Prayers for protection, healing, and liberation</td></tr>
+  </table>
+
+  <h3>Chamakam — 11 Anuvakas</h3>
+  <p>
+    Systematic enumeration of all things desired for a fulfilling life —
+    material, intellectual, and spiritual — with the refrain "cha me" (and may
+    I have).
+  </p>
+
+  <!-- FEATURES -->
+  <h2>Key Features</h2>
+  <div class="features">
+    <div class="feature">
+      <h4>Tappable Words</h4>
+      <p>Tap any word in Samhita or Pada Patha to see its meaning, grammar, root, and morphology.</p>
+    </div>
+    <div class="feature">
+      <h4>Audio Sync</h4>
+      <p>Word-by-word highlighting synchronized with audio playback of traditional recitation.</p>
+    </div>
+    <div class="feature">
+      <h4>Dual Language</h4>
+      <p>View annotations in English and Telugu simultaneously for comprehensive understanding.</p>
+    </div>
+    <div class="feature">
+      <h4>Sandhi Analysis</h4>
+      <p>Phonetic junction rules with Paninian sutras for each sandhi in the text.</p>
+    </div>
+    <div class="feature">
+      <h4>Ritual Context</h4>
+      <p>Images showing the ritual context — Abhishekam, Homam, and ceremonial practices.</p>
+    </div>
+    <div class="feature">
+      <h4>Bookmarks &amp; Notes</h4>
+      <p>Save your learning progress and add personal study notes at any point.</p>
+    </div>
+  </div>
+
+  <!-- PLATFORMS -->
+  <h2>Platforms</h2>
+  <p>
+    MAP-Rudram is available on <strong>Android</strong> (Kotlin/Jetpack Compose),
+    <strong>Web</strong> (HTML5/JavaScript), and <strong>iOS</strong> (planned).
+  </p>
+
+  <!-- ABOUT THE CREATOR -->
+  <h2>About the Creator</h2>
+  <div class="card card-highlight">
+    <h3>Dr. Vamśīkṛṣṇa Ghanapāṭhī</h3>
+    <p style="color:#9a8e7e; font-size:15px; margin-bottom:12px;">
+      वेदनिधिः &bull; वाचस्पतिः &bull; ಡಾ. ವಂಶೀಕೃಷ್ಣ ಘನಪಾಠೀ
+    </p>
+    <p>
+      Dr. Vamśīkṛṣṇa Ghanapāṭhī is a Yajurveda Ghanapāṭhī, Chaturvedī,
+      author, and Sanskrit scholar based in Mysore, India. He is the Founder of
+      <strong>CRJ Studio</strong> and Director of <strong>SVAMI</strong>
+      (Saṁskṛta Veda Adhyayana Mandira Institute). He is the founder and
+      guiding force behind <strong>Veda Vijñāna Viśtāram</strong>
+      (vedavishtaram.in) — an Institution of Eminence dedicated to Vedic
+      education, research, and the preservation of India's oral scholarly
+      traditions.
+    </p>
+  </div>
+
+  <h3>Honors &amp; Titles</h3>
+  <ul class="honors">
+    <li>Vedanidhi (वेदनिधिः) — Treasury of Vedic Knowledge</li>
+    <li>Vāchaspati (वाचस्पतिः) — Master of Sacred Speech</li>
+    <li>Yajurveda Ghanapāṭhī — Master of Ghanapāṭha recitation</li>
+    <li>Chaturvedī — Scholar of all four Vedas</li>
+    <li>Founder — CRJ Studio, Mysore</li>
+    <li>Author</li>
+    <li>Director — SVAMI (Saṁskṛta Veda Adhyayana Mandira Institute)</li>
+  </ul>
+
+  <!-- CONTACT -->
+  <h2>Contact</h2>
+  <div class="contact-grid">
+    <div class="contact-item">
+      <strong>Address</strong>
+      114 Ānanda Ghanam, Gundurao Nagara<br>
+      Mysore 570025, Karnataka, India
+    </div>
+    <div class="contact-item">
+      <strong>Email</strong>
+      <a href="mailto:crj@vedavishtaram.in">crj@vedavishtaram.in</a>
+    </div>
+    <div class="contact-item">
+      <strong>WhatsApp</strong>
+      +91 99000 82065
+    </div>
+    <div class="contact-item">
+      <strong>Web</strong>
+      <a href="https://vedavishtaram.in">vedavishtaram.in</a>
+    </div>
+  </div>
+
+  <!-- DEDICATION -->
+  <div class="dedication">
+    <span class="name">ॐ नमः शिवाय</span>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 <a href="https://vedavishtaram.in/crj">CRJ Studio</a>, Mysore &bull;
+    <a href="../privacy.html">Privacy Policy</a>
+  </footer>
+
+</div>
+
+</body>
+</html>
