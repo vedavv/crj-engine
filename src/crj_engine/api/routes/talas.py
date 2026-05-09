@@ -16,8 +16,11 @@ _LYRICS_DIR = _DATA_DIR / "lyrics"
 
 
 @router.get("/talas")
-async def get_talas() -> list[dict]:
-    """Return all 35 Carnatic talas."""
+async def get_talas(tradition: str | None = None) -> list[dict]:
+    """Return all talas across Carnatic, Hindustani, and Dhrupad traditions.
+
+    Optional ?tradition=carnatic|hindustani|dhrupad filter.
+    """
     db = load_tala_db()
     return [
         {
@@ -29,9 +32,12 @@ async def get_talas() -> list[dict]:
             "components": t.components,
             "total_aksharas": t.total_aksharas,
             "beat_pattern": t.beat_pattern,
+            "tradition": t.tradition,
+            "vibhag_marks": t.vibhag_marks,
             "aliases": t.aliases,
         }
         for t in db.values()
+        if tradition is None or t.tradition == tradition
     ]
 
 

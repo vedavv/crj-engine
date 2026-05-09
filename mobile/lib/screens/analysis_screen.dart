@@ -13,12 +13,14 @@ import '../models/swara.dart';
 import '../services/api_client.dart';
 import '../services/audio_service.dart';
 import '../services/shruti_service.dart';
+import '../services/tala_service.dart';
 import '../theme/soundscape_theme.dart';
 import '../widgets/raga_card.dart';
 import '../widgets/sa_selector.dart';
 import '../widgets/sa_suggestion_dialog.dart';
 import '../widgets/script_selector.dart';
 import '../widgets/swara_chip.dart';
+import '../widgets/tala_selector.dart';
 
 class AnalysisScreen extends StatefulWidget {
   const AnalysisScreen({super.key});
@@ -43,19 +45,38 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
   double _saHz = _defaultSaHz;
   List<TuningPreset> _presets = const [];
 
+  static const _talaIdPrefKey = 'crj.analysis.tala_id';
+  static const _talaInstrumentPrefKey = 'crj.analysis.tala_instrument';
+  static const _talaTempoPrefKey = 'crj.analysis.tala_tempo';
+  static const _defaultTalaId = 'triputa_chatusra';
+  static const _defaultTalaInstrument = 'mridangam';
+  static const _defaultTempoBpm = 80;
+
   String _shrutiPattern = _defaultShrutiPattern;
   bool _shrutiPlaying = false;
   bool _shrutiLoading = false;
   bool _autoDetectSa = true;
 
+  String _talaId = _defaultTalaId;
+  String _talaInstrument = _defaultTalaInstrument;
+  int _tempoBpm = _defaultTempoBpm;
+  bool _talaPlaying = false;
+  bool _talaLoading = false;
+
   late final ShrutiService _shruti;
+  late final TalaService _tala;
 
   @override
   void initState() {
     super.initState();
-    _shruti = ShrutiService(apiClient: context.read<ApiClient>());
+    final api = context.read<ApiClient>();
+    _shruti = ShrutiService(apiClient: api);
     _shruti.playingStream.listen((p) {
       if (mounted) setState(() => _shrutiPlaying = p);
+    });
+    _tala = TalaService(apiClient: api);
+    _tala.playingStream.listen((p) {
+      if (mounted) setState(() => _talaPlaying = p);
     });
     _loadSaPreference();
     _loadPresets();
@@ -64,6 +85,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
   @override
   void dispose() {
     _shruti.dispose();
+    _tala.dispose();
     super.dispose();
   }
 
@@ -72,12 +94,79 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
     final storedSa = prefs.getDouble(_saHzPrefKey);
     final storedPattern = prefs.getString(_shrutiPatternPrefKey);
     final storedAuto = prefs.getBool(_autoDetectSaPrefKey);
+    final storedTalaId = prefs.getString(_talaIdPrefKey);
+    final storedTalaInst = prefs.getString(_talaInstrumentPrefKey);
+    final storedTempo = prefs.getInt(_talaTempoPrefKey);
     if (mounted) {
       setState(() {
         if (storedSa != null) _saHz = storedSa;
         if (storedPattern != null) _shrutiPattern = storedPattern;
         if (storedAuto != null) _autoDetectSa = storedAuto;
+        if (storedTalaId != null) _talaId = storedTalaId;
+        if (storedTalaInst != null) _talaInstrument = storedTalaInst;
+        if (storedTempo != null) _tempoBpm = storedTempo;
       });
+    }
+  }
+
+  Future<void> _setTalaId(String id) async {
+    setState(() => _talaId = id);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_talaIdPrefKey, id);
+    if (_talaPlaying) {
+      try {
+        await _tala.play(
+          talaId: id,
+          instrument: _talaInstrument,
+          tempoBpm: _tempoBpm,
+        );
+      } catch (_) {/* ignore */}
+    }
+  }
+
+  Future<void> _setTalaInstrument(String inst) async {
+    setState(() => _talaInstrument = inst);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_talaInstrumentPrefKey, inst);
+    if (_talaPlaying) {
+      try {
+        await _tala.play(
+          talaId: _talaId,
+          instrument: inst,
+          tempoBpm: _tempoBpm,
+        );
+      } catch (_) {/* ignore */}
+    }
+  }
+
+  Future<void> _setTempo(int bpm) async {
+    setState(() => _tempoBpm = bpm);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_talaTempoPrefKey, bpm);
+    // Don't auto-restart on every slider tick — wait for the user to release
+    // the slider. _toggleTala or explicit play() will pick up the new tempo.
+  }
+
+  Future<void> _toggleTala() async {
+    if (_talaPlaying) {
+      await _tala.stop();
+      return;
+    }
+    setState(() => _talaLoading = true);
+    try {
+      await _tala.play(
+        talaId: _talaId,
+        instrument: _talaInstrument,
+        tempoBpm: _tempoBpm,
+      );
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Tala error: $e')),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _talaLoading = false);
     }
   }
 
@@ -184,9 +273,12 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
       }
       return;
     }
-    // Fade out Shruti so it doesn't bleed into the recording.
+    // Fade out Shruti + Tala so they don't bleed into the recording.
     if (_shrutiPlaying) {
       await _shruti.fadeOutAndStop();
+    }
+    if (_talaPlaying) {
+      await _tala.fadeOutAndStop();
     }
     await audio.startRecording();
     setState(() => _recording = true);
@@ -368,6 +460,48 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
           _label('SHRUTI'),
           const SizedBox(height: 8),
           _buildShrutiRow(),
+          const SizedBox(height: 16),
+
+          // Tala control
+          Row(
+            children: [
+              Expanded(child: _label('TALA')),
+              SizedBox(
+                height: 32,
+                child: ElevatedButton.icon(
+                  onPressed: _talaLoading ? null : _toggleTala,
+                  icon: _talaLoading
+                      ? const SizedBox(
+                          width: 12,
+                          height: 12,
+                          child: CircularProgressIndicator(
+                            strokeWidth: 2,
+                            color: SoundScapeTheme.deepSacred,
+                          ),
+                        )
+                      : Icon(
+                          _talaPlaying
+                              ? Icons.stop_rounded
+                              : Icons.play_arrow_rounded,
+                          size: 14,
+                        ),
+                  label: Text(_talaPlaying ? 'STOP' : 'PLAY'),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(horizontal: 10),
+                  ),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          TalaSelector(
+            selectedTalaId: _talaId,
+            selectedInstrument: _talaInstrument,
+            tempoBpm: _tempoBpm,
+            onTalaChanged: _setTalaId,
+            onInstrumentChanged: _setTalaInstrument,
+            onTempoChanged: _setTempo,
+          ),
           const SizedBox(height: 16),
 
           // Auto-detect toggle

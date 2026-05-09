@@ -1,0 +1,137 @@
+{
+  "_doc": "Stroke pattern per (tala_id × instrument). One stroke per matra (speed_1x). Accent values: 2=sam (loud), 1=tali/normal, 0=khali (soft).",
+  "patterns": [
+    {
+      "tala_id": "triputa_chatusra",
+      "instrument": "mridangam",
+      "strokes": ["ta", "ki", "ta", "ka", "thom", "ki", "ta", "ka"],
+      "accents": [2, 1, 1, 1, 1, 1, 1, 1]
+    },
+    {
+      "tala_id": "triputa_chatusra",
+      "instrument": "tabla",
+      "strokes": ["dha", "dhin", "dhin", "ta", "dha", "dhin", "dhin", "ta"],
+      "accents": [2, 1, 1, 1, 1, 1, 1, 1]
+    },
+    {
+      "tala_id": "triputa_chatusra",
+      "instrument": "pakhavaj",
+      "strokes": ["dha", "dhin", "ga", "dha", "tat", "dhin", "ga", "dha"],
+      "accents": [2, 1, 1, 1, 1, 1, 1, 1]
+    },
+
+    {
+      "tala_id": "rupaka_chatusra",
+      "instrument": "mridangam",
+      "strokes": ["thom", "nam", "ta", "ki", "ta", "ka"],
+      "accents": [2, 1, 1, 1, 1, 1]
+    },
+    {
+      "tala_id": "rupaka_chatusra",
+      "instrument": "tabla",
+      "strokes": ["dha", "dhin", "na", "ta", "dhin", "na"],
+      "accents": [2, 1, 1, 1, 1, 1]
+    },
+    {
+      "tala_id": "rupaka_chatusra",
+      "instrument": "pakhavaj",
+      "strokes": ["dha", "dhin", "ga", "tat", "dhin", "ga"],
+      "accents": [2, 1, 1, 1, 1, 1]
+    },
+
+    {
+      "tala_id": "triputa_tisra",
+      "instrument": "mridangam",
+      "strokes": ["ta", "ki", "ta", "thom", "ki", "ta", "ka"],
+      "accents": [2, 1, 1, 1, 1, 1, 1]
+    },
+    {
+      "tala_id": "triputa_tisra",
+      "instrument": "tabla",
+      "strokes": ["dha", "dhin", "ta", "dha", "dhin", "ta", "ge"],
+      "accents": [2, 1, 1, 1, 1, 1, 1]
+    },
+    {
+      "tala_id": "triputa_tisra",
+      "instrument": "pakhavaj",
+      "strokes": ["dha", "dhin", "ga", "dha", "tat", "dhin", "ga"],
+      "accents": [2, 1, 1, 1, 1, 1, 1]
+    },
+
+    {
+      "tala_id": "teentaal",
+      "instrument": "tabla",
+      "strokes": ["dha", "dhin", "dhin", "dha", "dha", "dhin", "dhin", "dha", "dha", "tin", "tin", "ta", "ta", "dhin", "dhin", "dha"],
+      "accents": [2, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1]
+    },
+    {
+      "tala_id": "teentaal",
+      "instrument": "mridangam",
+      "strokes": ["thom", "ki", "ta", "ka", "thom", "ki", "ta", "ka", "ta", "ki", "ta", "ka", "ta", "ki", "ta", "ka"],
+      "accents": [2, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1]
+    },
+    {
+      "tala_id": "teentaal",
+      "instrument": "pakhavaj",
+      "strokes": ["dha", "dhin", "ga", "dha", "dha", "dhin", "ga", "dha", "tat", "kat", "tat", "kat", "dha", "dhin", "ga", "dha"],
+      "accents": [2, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1]
+    },
+
+    {
+      "tala_id": "ektaal",
+      "instrument": "tabla",
+      "strokes": ["dhin", "dhin", "dhage", "terekita", "tin", "na", "ke", "ta", "dhage", "terekita", "dhin", "na"],
+      "accents": [2, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1]
+    },
+    {
+      "tala_id": "ektaal",
+      "instrument": "mridangam",
+      "strokes": ["thom", "nam", "ta", "ki", "ta", "ka", "ta", "ki", "ta", "ka", "thom", "nam"],
+      "accents": [2, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1]
+    },
+    {
+      "tala_id": "ektaal",
+      "instrument": "pakhavaj",
+      "strokes": ["dha", "dhin", "ga", "terekita", "tat", "kat", "kat", "tat", "ga", "terekita", "dhin", "ga"],
+      "accents": [2, 1, 0, 0, 1, 1, 1, 1, 0, 0, 1, 1]
+    },
+
+    {
+      "tala_id": "dadra",
+      "instrument": "tabla",
+      "strokes": ["dha", "dhin", "na", "dha", "tin", "na"],
+      "accents": [2, 1, 1, 0, 0, 0]
+    },
+    {
+      "tala_id": "dadra",
+      "instrument": "mridangam",
+      "strokes": ["thom", "nam", "ta", "ta", "ki", "ta"],
+      "accents": [2, 1, 1, 0, 0, 0]
+    },
+    {
+      "tala_id": "dadra",
+      "instrument": "pakhavaj",
+      "strokes": ["dha", "dhin", "ga", "tat", "kat", "ga"],
+      "accents": [2, 1, 1, 0, 0, 0]
+    },
+
+    {
+      "tala_id": "chautal",
+      "instrument": "pakhavaj",
+      "strokes": ["dha", "dha", "dhin", "ga", "tat", "tat", "kat", "kat", "terekita", "ga", "dha", "dha"],
+      "accents": [2, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1]
+    },
+    {
+      "tala_id": "chautal",
+      "instrument": "tabla",
+      "strokes": ["dha", "dha", "dhin", "ge", "tin", "tin", "ke", "ke", "terekita", "ge", "dha", "dha"],
+      "accents": [2, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1]
+    },
+    {
+      "tala_id": "chautal",
+      "instrument": "mridangam",
+      "strokes": ["thom", "thom", "nam", "ki", "ta", "ta", "ki", "ki", "ta", "ki", "thom", "thom"],
+      "accents": [2, 1, 1, 1, 0, 0, 1, 1, 0, 0, 1, 1]
+    }
+  ]
+}

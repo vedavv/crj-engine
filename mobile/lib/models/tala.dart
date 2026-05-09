@@ -7,6 +7,8 @@ class Tala {
   final List<String> components;
   final List<int> beatPattern;
   final int totalAksharas;
+  final String tradition;
+  final List<String>? vibhagMarks;
   final List<String> aliases;
 
   const Tala({
@@ -18,6 +20,8 @@ class Tala {
     required this.components,
     required this.beatPattern,
     required this.totalAksharas,
+    this.tradition = 'carnatic',
+    this.vibhagMarks,
     this.aliases = const [],
   });
 
@@ -30,6 +34,10 @@ class Tala {
         components: List<String>.from(json['components'] ?? []),
         beatPattern: List<int>.from(json['beat_pattern'] ?? []),
         totalAksharas: json['total_aksharas'] as int,
+        tradition: json['tradition'] as String? ?? 'carnatic',
+        vibhagMarks: json['vibhag_marks'] == null
+            ? null
+            : List<String>.from(json['vibhag_marks'] as List),
         aliases: List<String>.from(json['aliases'] ?? []),
       );
 }

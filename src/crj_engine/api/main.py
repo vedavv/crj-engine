@@ -19,6 +19,7 @@ from crj_engine.api.routes import (
     reference,
     shruti,
     synthesis,
+    tala_loop,
     talas,
 )
 
@@ -62,6 +63,7 @@ def create_app() -> FastAPI:
     app.include_router(export.router, prefix="/api/v1", tags=["export"])
     app.include_router(shruti.router, prefix="/api/v1", tags=["shruti"])
     app.include_router(detect_sa.router, prefix="/api/v1", tags=["detect-sa"])
+    app.include_router(tala_loop.router, prefix="/api/v1", tags=["tala-loop"])
 
     # Serve web UI — must come LAST so API routes take precedence
     if _WEB_DIR.exists():

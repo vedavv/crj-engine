@@ -1,0 +1,50 @@
+{
+  "metadata": {
+    "description": "Common Hindustani classical talas",
+    "system": "Hindustani",
+    "vibhag_marks": {
+      "sam": "Clap on first beat (cycle start)",
+      "tali": "Clap (filled / accented vibhag)",
+      "khali": "Wave (empty / unaccented vibhag)"
+    }
+  },
+  "tradition": "hindustani",
+  "talas": [
+    {
+      "id": "teentaal",
+      "name": "Teentaal",
+      "base_tala": "Teentaal",
+      "jati": "chatusra",
+      "jati_count": 4,
+      "components": ["vibhag", "vibhag", "vibhag", "vibhag"],
+      "beat_pattern": [4, 4, 4, 4],
+      "vibhag_marks": ["sam", "tali", "khali", "tali"],
+      "total_aksharas": 16,
+      "aliases": ["Tintal", "Tintaal", "Tritaal", "Trital"]
+    },
+    {
+      "id": "ektaal",
+      "name": "Ektaal",
+      "base_tala": "Ektaal",
+      "jati": "chatusra",
+      "jati_count": 2,
+      "components": ["vibhag", "vibhag", "vibhag", "vibhag", "vibhag", "vibhag"],
+      "beat_pattern": [2, 2, 2, 2, 2, 2],
+      "vibhag_marks": ["sam", "khali", "tali", "tali", "khali", "tali"],
+      "total_aksharas": 12,
+      "aliases": ["Ektal", "Ektaala"]
+    },
+    {
+      "id": "dadra",
+      "name": "Dadra",
+      "base_tala": "Dadra",
+      "jati": "tisra",
+      "jati_count": 3,
+      "components": ["vibhag", "vibhag"],
+      "beat_pattern": [3, 3],
+      "vibhag_marks": ["sam", "khali"],
+      "total_aksharas": 6,
+      "aliases": ["Dadara"]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "metadata": {
+    "description": "Dhrupad / Pakhavaj talas",
+    "system": "Dhrupad",
+    "vibhag_marks": {
+      "sam": "Clap on first beat (cycle start)",
+      "tali": "Clap (filled vibhag)",
+      "khali": "Wave (empty vibhag)"
+    }
+  },
+  "tradition": "dhrupad",
+  "talas": [
+    {
+      "id": "chautal",
+      "name": "Chautal",
+      "base_tala": "Chautal",
+      "jati": "chatusra",
+      "jati_count": 2,
+      "components": ["vibhag", "vibhag", "vibhag", "vibhag", "vibhag", "vibhag"],
+      "beat_pattern": [2, 2, 2, 2, 2, 2],
+      "vibhag_marks": ["sam", "tali", "khali", "tali", "khali", "tali"],
+      "total_aksharas": 12,
+      "aliases": ["Chartaal", "Chartal", "Chowtal"]
+    }
+  ]
+}

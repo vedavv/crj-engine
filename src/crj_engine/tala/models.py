@@ -46,17 +46,24 @@ class Jati(Enum):
 
 @dataclass
 class TalaDefinition:
-    """A tala from the Suladi Sapta Tala system.
+    """A tala definition spanning Carnatic, Hindustani, and Dhrupad traditions.
 
     Attributes:
-        id: Unique identifier (e.g. "triputa_chatusra").
-        name: Display name (e.g. "Adi Tala (Chatusra)").
-        base_tala: One of the 7 base talas.
-        jati: The jati determining laghu count.
-        components: Ordered list of tala components
-            (laghu, drutam, anudrutam).
-        total_aksharas: Total aksharas in one cycle.
-        beat_pattern: Aksharas per component.
+        id: Unique identifier (e.g. "triputa_chatusra", "teentaal").
+        name: Display name.
+        base_tala: For Carnatic: one of the 7 base talas. For Hindustani/
+            Dhrupad: the tala's own name (Teentaal, Chautal, etc.).
+        jati: The jati determining laghu count (Carnatic) or matras-per-vibhag
+            for Hindustani approximation.
+        components: Ordered list of tala components — for Carnatic these are
+            (laghu, drutam, anudrutam); for Hindustani/Dhrupad they are vibhags.
+        total_aksharas: Total beats in one cycle.
+        beat_pattern: Aksharas/matras per component.
+        tradition: "carnatic" | "hindustani" | "dhrupad". Determines how the
+            tala displays and which percussion instrument is the conventional
+            default.
+        vibhag_marks: For Hindustani/Dhrupad — sam/tali/khali per vibhag,
+            aligned 1:1 with beat_pattern. None for Carnatic.
         aliases: Common alternative names.
     """
 
@@ -67,6 +74,8 @@ class TalaDefinition:
     components: list[str]
     total_aksharas: int
     beat_pattern: list[int]
+    tradition: str = "carnatic"
+    vibhag_marks: list[str] | None = None
     aliases: list[str] = field(default_factory=list)
 
 
@@ -196,42 +205,79 @@ class Composition:
 _TALA_DB_CACHE: dict[str, TalaDefinition] | None = None
 
 
-def load_tala_db(
-    path: Path | None = None,
-) -> dict[str, TalaDefinition]:
-    """Load the Suladi Sapta Tala database from JSON.
+def _talas_from_file(path: Path) -> list[TalaDefinition]:
+    """Load tala definitions from a single JSON file.
 
-    Returns a dict mapping tala id to TalaDefinition.
-    Results are cached after first load.
+    The file may declare a top-level "tradition" string that all talas inherit;
+    individual tala entries can override via their own "tradition" field.
+
+    Files without a top-level "talas" key are silently skipped — keeps
+    sibling config files (e.g. stroke_patterns.json) co-located in the
+    talas/ directory without confusing the loader.
     """
-    global _TALA_DB_CACHE  # noqa: PLW0603
-    if _TALA_DB_CACHE is not None and path is None:
-        return _TALA_DB_CACHE
-
-    if path is None:
-        path = _CONFIGS_DIR / "talas" / "carnatic_35.json"
-
     with open(path, encoding="utf-8") as f:
         data = json.load(f)
 
-    db: dict[str, TalaDefinition] = {}
+    if "talas" not in data:
+        return []
+
+    file_tradition = data.get("tradition", "carnatic")
+    out: list[TalaDefinition] = []
     for entry in data["talas"]:
-        jati = Jati[entry["jati"].upper()]
-        tala = TalaDefinition(
-            id=entry["id"],
-            name=entry["name"],
-            base_tala=entry["base_tala"],
-            jati=jati,
-            components=entry["components"],
-            total_aksharas=entry["total_aksharas"],
-            beat_pattern=entry["beat_pattern"],
-            aliases=entry.get("aliases", []),
+        # Default jati for non-Carnatic talas where the concept doesn't apply
+        # cleanly: we still need *something* in the field so existing callers
+        # don't break. Chatusra (4) is the safest default.
+        jati_str = entry.get("jati", "chatusra")
+        jati = Jati[jati_str.upper()]
+        out.append(
+            TalaDefinition(
+                id=entry["id"],
+                name=entry["name"],
+                base_tala=entry["base_tala"],
+                jati=jati,
+                components=entry["components"],
+                total_aksharas=entry["total_aksharas"],
+                beat_pattern=entry["beat_pattern"],
+                tradition=entry.get("tradition", file_tradition),
+                vibhag_marks=entry.get("vibhag_marks"),
+                aliases=entry.get("aliases", []),
+            )
         )
-        db[tala.id] = tala
+    return out
 
-    if path is None or path == _CONFIGS_DIR / "talas" / "carnatic_35.json":
-        _TALA_DB_CACHE = db
 
+def load_tala_db(
+    path: Path | None = None,
+) -> dict[str, TalaDefinition]:
+    """Load all tala databases under configs/talas/ and merge them.
+
+    When called with no `path`, every `*.json` file in `configs/talas/` is
+    loaded and merged. The result is cached after the first call.
+    Pass an explicit `path` to load a single file (no caching).
+    """
+    global _TALA_DB_CACHE  # noqa: PLW0603
+
+    if path is not None:
+        db: dict[str, TalaDefinition] = {}
+        for tala in _talas_from_file(path):
+            db[tala.id] = tala
+        return db
+
+    if _TALA_DB_CACHE is not None:
+        return _TALA_DB_CACHE
+
+    talas_dir = _CONFIGS_DIR / "talas"
+    db = {}
+    for json_path in sorted(talas_dir.glob("*.json")):
+        for tala in _talas_from_file(json_path):
+            if tala.id in db:
+                # Skip duplicate ids — first file wins. carnatic_35.json comes
+                # alphabetically before hindustani.json/dhrupad.json so it's
+                # naturally given precedence on collisions.
+                continue
+            db[tala.id] = tala
+
+    _TALA_DB_CACHE = db
     return db
 
 
