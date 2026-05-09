@@ -211,7 +211,7 @@ def load_tala_db(
     if path is None:
         path = _CONFIGS_DIR / "talas" / "carnatic_35.json"
 
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         data = json.load(f)
 
     db: dict[str, TalaDefinition] = {}

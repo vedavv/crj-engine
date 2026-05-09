@@ -16,7 +16,7 @@ _PROJECT_ROOT = Path(__file__).resolve().parents[2]
 
 
 def _load_config() -> dict:
-    with open(_CONFIGS_DIR / "notify.json") as f:
+    with open(_CONFIGS_DIR / "notify.json", encoding="utf-8") as f:
         return json.load(f)
 
 

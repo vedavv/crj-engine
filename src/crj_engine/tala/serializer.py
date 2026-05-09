@@ -111,7 +111,7 @@ def save_composition(comp: Composition, path: str | Path) -> None:
     path = Path(path)
     path.parent.mkdir(parents=True, exist_ok=True)
     data = composition_to_dict(comp)
-    with open(path, "w") as f:
+    with open(path, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=2, ensure_ascii=False)
 
 
@@ -130,6 +130,6 @@ def load_composition(path: str | Path) -> Composition:
     path = Path(path)
     if not path.exists():
         raise FileNotFoundError(f"Composition file not found: {path}")
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         data = json.load(f)
     return composition_from_dict(data)

@@ -74,7 +74,7 @@ class RagaMatcher:
 
     def _load_database(self, path: Path) -> None:
         """Load the Melakarta raga database from JSON."""
-        with open(path) as f:
+        with open(path, encoding="utf-8") as f:
             data = json.load(f)
 
         for entry in data["ragas"]:

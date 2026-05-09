@@ -138,6 +138,6 @@ def freq_to_swara(
 def _load_swarasthanas() -> list[dict]:
     """Load swarasthana definitions from the config file."""
     config_path = _CONFIGS_DIR / "swarasthanas.json"
-    with open(config_path) as f:
+    with open(config_path, encoding="utf-8") as f:
         data = json.load(f)
     return data["swarasthanas"]

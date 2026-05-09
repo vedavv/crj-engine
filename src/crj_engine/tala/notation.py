@@ -37,7 +37,7 @@ def _load_swara_names() -> dict[str, dict[str, str]]:
         return _SWARA_NAMES_CACHE
 
     config_path = _CONFIGS_DIR / "swarasthanas.json"
-    with open(config_path) as f:
+    with open(config_path, encoding="utf-8") as f:
         data = json.load(f)
 
     names: dict[str, dict[str, str]] = {}

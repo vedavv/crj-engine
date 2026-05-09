@@ -37,7 +37,7 @@ def _load_swara_cents() -> dict[str, float]:
         return _SWARA_CENTS
 
     path = _CONFIGS_DIR / "swarasthanas.json"
-    with open(path) as f:
+    with open(path, encoding="utf-8") as f:
         data = json.load(f)
 
     cents = {}

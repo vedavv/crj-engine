@@ -14,7 +14,7 @@ _CONFIGS_DIR = Path(__file__).resolve().parents[3] / "configs"
 def load_config(config_name: str = "tuning.json") -> dict:
     """Load a JSON config file from the configs/ directory."""
     config_path = _CONFIGS_DIR / config_name
-    with open(config_path) as f:
+    with open(config_path, encoding="utf-8") as f:
         return json.load(f)
 
 

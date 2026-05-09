@@ -145,7 +145,7 @@ class TestAnalyzeEndpoint:
         assert body["pitch_contour"] is None
 
     def test_rejects_oversized_file(self, client):
-        big = b"\x00" * (11 * 1024 * 1024)
+        big = b"\x00" * (26 * 1024 * 1024)
         r = client.post(
             "/api/v1/analyze",
             files={"file": ("big.wav", big, "audio/wav")},
