@@ -21,8 +21,8 @@ gcloud run deploy crj-engine \
   --platform managed \
   --memory 4Gi \
   --cpu 2 \
-  --timeout 120 \
-  --concurrency 4 \
+  --timeout 600 \
+  --concurrency 3 \
   --min-instances 0 \
   --max-instances 10 \
   --cpu-boost \
