@@ -78,7 +78,13 @@ class ApiClient {
       ..fields['script'] = script
       ..files.add(await http.MultipartFile.fromPath('file', audioFile.path));
 
-    final streamed = await _client.send(request);
+    final streamed = await _client.send(request).timeout(
+      const Duration(minutes: 10),
+      onTimeout: () => throw ApiException(
+        408,
+        'Analysis timed out after 10 minutes. Try a shorter clip.',
+      ),
+    );
     final resp = await http.Response.fromStream(streamed);
     _check(resp);
     return AnalysisResult.fromJson(

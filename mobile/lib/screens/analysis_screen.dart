@@ -6,12 +6,15 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:share_plus/share_plus.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../models/analysis_result.dart';
+import '../models/swara.dart';
 import '../services/api_client.dart';
 import '../services/audio_service.dart';
 import '../theme/soundscape_theme.dart';
 import '../widgets/raga_card.dart';
+import '../widgets/sa_selector.dart';
 import '../widgets/script_selector.dart';
 import '../widgets/swara_chip.dart';
 
@@ -23,11 +26,80 @@ class AnalysisScreen extends StatefulWidget {
 }
 
 class _AnalysisScreenState extends State<AnalysisScreen> {
+  static const _saHzPrefKey = 'crj.analysis.reference_sa_hz';
+  static const _defaultSaHz = 261.63;
+
   String _algorithm = 'crepe';
   String _script = 'iast';
   bool _recording = false;
   bool _analyzing = false;
   AnalysisResult? _result;
+
+  double _saHz = _defaultSaHz;
+  List<TuningPreset> _presets = const [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadSaPreference();
+    _loadPresets();
+  }
+
+  Future<void> _loadSaPreference() async {
+    final prefs = await SharedPreferences.getInstance();
+    final stored = prefs.getDouble(_saHzPrefKey);
+    if (stored != null && mounted) setState(() => _saHz = stored);
+  }
+
+  Future<void> _loadPresets() async {
+    try {
+      final api = context.read<ApiClient>();
+      final presets = await api.getTuningPresets();
+      if (mounted) setState(() => _presets = presets);
+    } catch (_) {
+      // Fall back to a hardcoded preset list if API is unreachable.
+      if (mounted) {
+        setState(() => _presets = const [
+              TuningPreset(
+                id: 'concert_a',
+                description: 'A3',
+                referenceSaHz: 220.0,
+                westernReference: 'A3',
+              ),
+              TuningPreset(
+                id: 'b_flat',
+                description: 'Bb3',
+                referenceSaHz: 233.08,
+                westernReference: 'Bb3',
+              ),
+              TuningPreset(
+                id: 'concert_c',
+                description: 'C4',
+                referenceSaHz: 261.63,
+                westernReference: 'C4',
+              ),
+              TuningPreset(
+                id: 'c_sharp',
+                description: 'C#4',
+                referenceSaHz: 277.18,
+                westernReference: 'C#4',
+              ),
+              TuningPreset(
+                id: 'd_sharp',
+                description: 'D#4',
+                referenceSaHz: 311.13,
+                westernReference: 'D#4',
+              ),
+            ]);
+      }
+    }
+  }
+
+  Future<void> _setSaHz(double hz) async {
+    setState(() => _saHz = hz);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setDouble(_saHzPrefKey, hz);
+  }
 
   Future<void> _startRecording() async {
     final audio = context.read<AudioService>();
@@ -68,6 +140,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
         file,
         algorithm: _algorithm,
         script: _script,
+        saHz: _saHz,
       );
       setState(() => _result = r);
     } catch (e) {
@@ -154,6 +227,22 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
+          // Sa (tonic) selector
+          _label('REFERENCE Sa'),
+          const SizedBox(height: 8),
+          if (_presets.isNotEmpty)
+            SaSelector(
+              selectedHz: _saHz,
+              presets: _presets,
+              onChanged: _setSaHz,
+            )
+          else
+            Text(
+              'Loading tuning presets…',
+              style: Theme.of(context).textTheme.bodyMedium,
+            ),
+          const SizedBox(height: 20),
+
           // Algorithm selector
           _label('ALGORITHM'),
           const SizedBox(height: 8),

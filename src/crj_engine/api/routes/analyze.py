@@ -13,15 +13,18 @@ from crj_engine.api.schemas import (
     PitchAlgorithmChoice,
     PitchFrameOut,
     RagaCandidateOut,
+    SeparatorEventOut,
     ScriptChoice,
+    SRTUnitOut,
     TranscribedNoteOut,
     TranscribedPhraseOut,
 )
 
 router = APIRouter()
 
-MAX_FILE_SIZE_BYTES = 10 * 1024 * 1024  # 10 MB
-MAX_DURATION_S = 30.0  # Phase 1 limit (bump to 120 later)
+MAX_FILE_SIZE_BYTES = 25 * 1024 * 1024  # 25 MB — fits 180s mono WAV @ 44.1 kHz
+MAX_DURATION_S = 180.0  # Phase 2: support up to 3-minute sessions
+ALGO_AUTO_PYIN_THRESHOLD_S = 60.0  # CREPE too slow on Cloud Run 2-vCPU beyond this
 ALLOWED_EXTENSIONS = {
     ".wav", ".mp3", ".m4a", ".aac", ".ogg", ".flac", ".webm",
 }
@@ -55,6 +58,11 @@ _ALGO_PARAM = Form(PitchAlgorithmChoice.pyin, description="Pitch detection algor
 _SCRIPT_PARAM = Form(ScriptChoice.iast, description="Notation script")
 _CONTOUR_PARAM = Form(False, description="Include raw pitch contour")
 _TOL_PARAM = Form(40.0, description="Swara matching tolerance")
+_SRT_CONTENT_PARAM = Form(None, description="Optional SRT content for unit sync")
+_SEPARATOR_MODE_PARAM = Form(
+    "auto",
+    description="Separator strategy: auto | silence | bell | double_beep",
+)
 
 
 @router.post("/analyze", response_model=AnalysisResponse)
@@ -66,6 +74,8 @@ async def analyze_audio(
     script: ScriptChoice = _SCRIPT_PARAM,
     include_contour: bool = _CONTOUR_PARAM,
     tolerance_cents: float = _TOL_PARAM,
+    srt_content: str | None = _SRT_CONTENT_PARAM,
+    separator_mode: str = _SEPARATOR_MODE_PARAM,
 ) -> AnalysisResponse:
     """Run the full CRJ Engine analysis pipeline on uploaded audio.
 
@@ -80,6 +90,11 @@ async def analyze_audio(
         render_transcription,
         render_transcription_compact,
         transcribe_contour,
+    )
+    from crj_engine.tala.srt_sync import (
+        build_srt_units,
+        detect_separator_events,
+        parse_srt,
     )
 
     # --- 1. Read and validate upload ---
@@ -110,6 +125,8 @@ async def analyze_audio(
         if algorithm == PitchAlgorithmChoice.crepe
         else PitchAlgorithm.PYIN
     )
+    if algo == PitchAlgorithm.CREPE and duration_s > ALGO_AUTO_PYIN_THRESHOLD_S:
+        algo = PitchAlgorithm.PYIN
     contour = detect_pitch(audio, sr, algorithm=algo)
 
     # --- 3. Transcribe to notation ---
@@ -118,6 +135,19 @@ async def analyze_audio(
         reference_sa_hz=reference_sa_hz,
         tolerance_cents=tolerance_cents,
         min_confidence=0.3,
+    )
+
+    # --- 3b. Optional separator-based sync units ---
+    separator_events_raw = detect_separator_events(
+        audio,
+        sr,
+        mode=separator_mode,
+    )
+    srt_entries = parse_srt(srt_content or "")
+    srt_units_raw = build_srt_units(
+        entries=srt_entries,
+        separator_events=separator_events_raw,
+        duration_ms=duration_s * 1000.0,
     )
 
     # --- 4. Gamaka classification ---
@@ -209,4 +239,23 @@ async def analyze_audio(
         gamakas=gamakas,
         raga_candidates=raga_candidates,
         pitch_contour=contour_out,
+        separator_events=[
+            SeparatorEventOut(
+                event_type=e.event_type,
+                start_ms=e.start_ms,
+                end_ms=e.end_ms,
+                confidence=e.confidence,
+            )
+            for e in separator_events_raw
+        ],
+        srt_units=[
+            SRTUnitOut(
+                index=u.index,
+                text=u.text,
+                start_ms=u.start_ms,
+                end_ms=u.end_ms,
+                source=u.source,
+            )
+            for u in srt_units_raw
+        ],
     )

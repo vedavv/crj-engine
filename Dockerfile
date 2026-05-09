@@ -49,4 +49,4 @@ ENV MKL_NUM_THREADS=2
 
 EXPOSE ${PORT}
 
-CMD ["sh", "-c", "uvicorn crj_engine.api.main:app --host 0.0.0.0 --port ${PORT} --workers 1 --timeout-keep-alive 120"]
+CMD ["sh", "-c", "uvicorn crj_engine.api.main:app --host 0.0.0.0 --port ${PORT} --workers 1 --timeout-keep-alive 600"]

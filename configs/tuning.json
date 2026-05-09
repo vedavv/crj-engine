@@ -1,24 +1,29 @@
 {
   "presets": {
-    "concert_c": {
-      "description": "Sa = Middle C (C4), standard for many Carnatic vocalists",
-      "reference_sa_hz": 261.63,
-      "western_reference": "C4"
-    },
     "concert_a": {
-      "description": "Sa = A3 (220 Hz), common for male vocalists",
+      "description": "Sa = A3 (220 Hz) — common for low male vocalists",
       "reference_sa_hz": 220.0,
       "western_reference": "A3"
     },
-    "d_sharp": {
-      "description": "Sa = D#4, common for female Carnatic vocalists",
-      "reference_sa_hz": 311.13,
-      "western_reference": "D#4"
-    },
     "b_flat": {
-      "description": "Sa = Bb3, common for Hindustani vocalists",
+      "description": "Sa = Bb3 (233.08 Hz) — common for Hindustani vocalists",
       "reference_sa_hz": 233.08,
       "western_reference": "Bb3"
+    },
+    "concert_c": {
+      "description": "Sa = Middle C (C4) — standard for many Carnatic vocalists",
+      "reference_sa_hz": 261.63,
+      "western_reference": "C4"
+    },
+    "c_sharp": {
+      "description": "Sa = C#4 (277.18 Hz) — mid-range male / low female vocalists",
+      "reference_sa_hz": 277.18,
+      "western_reference": "C#4"
+    },
+    "d_sharp": {
+      "description": "Sa = D#4 (311.13 Hz) — common for female Carnatic vocalists",
+      "reference_sa_hz": 311.13,
+      "western_reference": "D#4"
     }
   },
   "defaults": {
