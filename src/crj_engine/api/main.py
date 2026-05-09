@@ -13,9 +13,11 @@ from crj_engine.api.routes import (
     analyze,
     compose,
     compositions,
+    detect_sa,
     export,
     health,
     reference,
+    shruti,
     synthesis,
     talas,
 )
@@ -58,6 +60,8 @@ def create_app() -> FastAPI:
     app.include_router(synthesis.router, prefix="/api/v1", tags=["synthesis"])
     app.include_router(compose.router, prefix="/api/v1", tags=["compose"])
     app.include_router(export.router, prefix="/api/v1", tags=["export"])
+    app.include_router(shruti.router, prefix="/api/v1", tags=["shruti"])
+    app.include_router(detect_sa.router, prefix="/api/v1", tags=["detect-sa"])
 
     # Serve web UI — must come LAST so API routes take precedence
     if _WEB_DIR.exists():

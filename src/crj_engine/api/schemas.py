@@ -205,3 +205,23 @@ class ComposeRequest(BaseModel):
     tala_id: str | None = None
     include_tanpura: bool = False
     include_click_track: bool = False
+
+
+# ---------------------------------------------------------------------------
+# Sa (tonic) auto-detection
+# ---------------------------------------------------------------------------
+
+
+class TonicCandidateOut(BaseModel):
+    sa_hz: float
+    western_label: str
+    confidence: float
+    has_perfect_fifth: bool
+
+
+class TonicDetectionResponse(BaseModel):
+    suggested_sa_hz: float
+    western_label: str
+    confidence: float
+    candidates: list[TonicCandidateOut]
+    voiced_frame_count: int

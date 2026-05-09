@@ -251,35 +251,54 @@ _ADSR_PRESETS = {
 # Tanpura drone
 # ---------------------------------------------------------------------------
 
+_SHRUTI_PATTERN_CENTS = {
+    "sa_pa": 700,   # Sa-Pa-Sa-Sa (perfect 5th, default for most ragas)
+    "sa_ma": 500,   # Sa-Ma-Sa-Sa (perfect 4th, for ragas without Pa: Marwa, Puriya, etc.)
+    "sa_ni": 1100,  # Sa-Ni-Sa-Sa (kakali Ni3, used in some Hindustani styles)
+}
+
+
 def generate_tanpura(
     reference_sa_hz: float = 261.63,
     duration_s: float = 10.0,
     sr: int = 44100,
+    pattern: str = "sa_pa",
 ) -> np.ndarray:
-    """Generate a tanpura-like drone (Sa-Pa-Sa-Sa pattern).
+    """Generate a tanpura-like drone with a chosen pluck pattern.
 
-    The tanpura provides the tonal foundation with Sa and Pa
-    as continuous drones with rich harmonics.
+    The first string of the tanpura is tuned to one of three positions
+    relative to Sa, depending on raga conventions:
+      sa_pa — Pa (700 cents above Sa). Default for most ragas.
+      sa_ma — Ma (500 cents). Used when the raga omits Pa (Marwa, Puriya).
+      sa_ni — Ni3 (1100 cents). Some Hindustani styles.
 
     Args:
         reference_sa_hz: The Sa frequency in Hz.
         duration_s: Duration of drone in seconds.
         sr: Sample rate.
+        pattern: One of "sa_pa", "sa_ma", "sa_ni".
 
     Returns:
         Audio samples as float32 numpy array.
     """
+    if pattern not in _SHRUTI_PATTERN_CENTS:
+        raise ValueError(
+            f"Unknown shruti pattern: {pattern}. "
+            f"Expected one of {list(_SHRUTI_PATTERN_CENTS)}."
+        )
+
     n = int(sr * duration_s)
     t = np.linspace(0, duration_s, n, endpoint=False)
 
-    pa_hz = reference_sa_hz * (2 ** (700 / 1200.0))  # Pa = 700 cents
+    first_string_cents = _SHRUTI_PATTERN_CENTS[pattern]
+    first_string_hz = reference_sa_hz * (2 ** (first_string_cents / 1200.0))
     sa_upper = reference_sa_hz * 2  # upper octave Sa
 
     drone = np.zeros(n, dtype=np.float64)
 
-    # 4 strings of tanpura: Pa, Sa(upper), Sa(upper), Sa(lower)
+    # 4 strings of tanpura: <pattern>, Sa(upper), Sa(upper), Sa(lower)
     strings = [
-        (pa_hz, 0.3),
+        (first_string_hz, 0.3),
         (sa_upper, 0.35),
         (sa_upper, 0.35),
         (reference_sa_hz, 0.25),

@@ -12,9 +12,11 @@ import '../models/analysis_result.dart';
 import '../models/swara.dart';
 import '../services/api_client.dart';
 import '../services/audio_service.dart';
+import '../services/shruti_service.dart';
 import '../theme/soundscape_theme.dart';
 import '../widgets/raga_card.dart';
 import '../widgets/sa_selector.dart';
+import '../widgets/sa_suggestion_dialog.dart';
 import '../widgets/script_selector.dart';
 import '../widgets/swara_chip.dart';
 
@@ -27,7 +29,10 @@ class AnalysisScreen extends StatefulWidget {
 
 class _AnalysisScreenState extends State<AnalysisScreen> {
   static const _saHzPrefKey = 'crj.analysis.reference_sa_hz';
+  static const _shrutiPatternPrefKey = 'crj.analysis.shruti_pattern';
+  static const _autoDetectSaPrefKey = 'crj.analysis.auto_detect_sa';
   static const _defaultSaHz = 261.63;
+  static const _defaultShrutiPattern = 'sa_pa';
 
   String _algorithm = 'crepe';
   String _script = 'iast';
@@ -38,17 +43,42 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
   double _saHz = _defaultSaHz;
   List<TuningPreset> _presets = const [];
 
+  String _shrutiPattern = _defaultShrutiPattern;
+  bool _shrutiPlaying = false;
+  bool _shrutiLoading = false;
+  bool _autoDetectSa = true;
+
+  late final ShrutiService _shruti;
+
   @override
   void initState() {
     super.initState();
+    _shruti = ShrutiService(apiClient: context.read<ApiClient>());
+    _shruti.playingStream.listen((p) {
+      if (mounted) setState(() => _shrutiPlaying = p);
+    });
     _loadSaPreference();
     _loadPresets();
   }
 
+  @override
+  void dispose() {
+    _shruti.dispose();
+    super.dispose();
+  }
+
   Future<void> _loadSaPreference() async {
     final prefs = await SharedPreferences.getInstance();
-    final stored = prefs.getDouble(_saHzPrefKey);
-    if (stored != null && mounted) setState(() => _saHz = stored);
+    final storedSa = prefs.getDouble(_saHzPrefKey);
+    final storedPattern = prefs.getString(_shrutiPatternPrefKey);
+    final storedAuto = prefs.getBool(_autoDetectSaPrefKey);
+    if (mounted) {
+      setState(() {
+        if (storedSa != null) _saHz = storedSa;
+        if (storedPattern != null) _shrutiPattern = storedPattern;
+        if (storedAuto != null) _autoDetectSa = storedAuto;
+      });
+    }
   }
 
   Future<void> _loadPresets() async {
@@ -99,6 +129,48 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
     setState(() => _saHz = hz);
     final prefs = await SharedPreferences.getInstance();
     await prefs.setDouble(_saHzPrefKey, hz);
+    // If Shruti is playing, restart it at the new pitch.
+    if (_shrutiPlaying) {
+      try {
+        await _shruti.play(saHz: hz, pattern: _shrutiPattern);
+      } catch (_) {/* ignore — UI already shows current state */}
+    }
+  }
+
+  Future<void> _setShrutiPattern(String pattern) async {
+    setState(() => _shrutiPattern = pattern);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(_shrutiPatternPrefKey, pattern);
+    if (_shrutiPlaying) {
+      try {
+        await _shruti.play(saHz: _saHz, pattern: pattern);
+      } catch (_) {/* ignore */}
+    }
+  }
+
+  Future<void> _setAutoDetectSa(bool value) async {
+    setState(() => _autoDetectSa = value);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_autoDetectSaPrefKey, value);
+  }
+
+  Future<void> _toggleShruti() async {
+    if (_shrutiPlaying) {
+      await _shruti.stop();
+      return;
+    }
+    setState(() => _shrutiLoading = true);
+    try {
+      await _shruti.play(saHz: _saHz, pattern: _shrutiPattern);
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Shruti error: $e')),
+        );
+      }
+    } finally {
+      if (mounted) setState(() => _shrutiLoading = false);
+    }
   }
 
   Future<void> _startRecording() async {
@@ -112,6 +184,10 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
       }
       return;
     }
+    // Fade out Shruti so it doesn't bleed into the recording.
+    if (_shrutiPlaying) {
+      await _shruti.fadeOutAndStop();
+    }
     await audio.startRecording();
     setState(() => _recording = true);
   }
@@ -120,19 +196,64 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
     final audio = context.read<AudioService>();
     final path = await audio.stopRecording();
     setState(() => _recording = false);
-    if (path != null) _analyze(File(path));
+    if (path == null) return;
+
+    final file = File(path);
+    if (_autoDetectSa) {
+      await _confirmSaThenAnalyze(file);
+    } else {
+      _analyze(file);
+    }
+  }
+
+  Future<void> _confirmSaThenAnalyze(File file) async {
+    setState(() => _analyzing = true);
+    TonicSuggestion? suggestion;
+    try {
+      final api = context.read<ApiClient>();
+      suggestion = await api.detectSa(file);
+    } catch (e) {
+      // Sa detection failure is non-fatal — fall back to current Sa.
+      if (mounted) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Sa detection skipped: $e')),
+        );
+      }
+    }
+    if (!mounted) return;
+    setState(() => _analyzing = false);
+
+    double saHzToUse = _saHz;
+    if (suggestion != null) {
+      final chosen = await showSaSuggestionDialog(
+        context,
+        suggestion: suggestion,
+        currentSaHz: _saHz,
+      );
+      if (chosen != null) {
+        await _setSaHz(chosen);
+        saHzToUse = chosen;
+      } else {
+        return; // user dismissed without choosing
+      }
+    }
+    await _analyze(file, overrideSaHz: saHzToUse);
   }
 
   Future<void> _pickFile() async {
     final result = await FilePicker.platform.pickFiles(
       type: FileType.audio,
     );
-    if (result != null && result.files.single.path != null) {
-      _analyze(File(result.files.single.path!));
+    if (result == null || result.files.single.path == null) return;
+    final file = File(result.files.single.path!);
+    if (_autoDetectSa) {
+      await _confirmSaThenAnalyze(file);
+    } else {
+      await _analyze(file);
     }
   }
 
-  Future<void> _analyze(File file) async {
+  Future<void> _analyze(File file, {double? overrideSaHz}) async {
     setState(() => _analyzing = true);
     try {
       final api = context.read<ApiClient>();
@@ -140,7 +261,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
         file,
         algorithm: _algorithm,
         script: _script,
-        saHz: _saHz,
+        saHz: overrideSaHz ?? _saHz,
       );
       setState(() => _result = r);
     } catch (e) {
@@ -241,7 +362,33 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
               'Loading tuning presets…',
               style: Theme.of(context).textTheme.bodyMedium,
             ),
-          const SizedBox(height: 20),
+          const SizedBox(height: 16),
+
+          // Shruti control
+          _label('SHRUTI'),
+          const SizedBox(height: 8),
+          _buildShrutiRow(),
+          const SizedBox(height: 16),
+
+          // Auto-detect toggle
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  'Auto-detect Sa from recording',
+                  style: GoogleFonts.cormorantGaramond(
+                    fontSize: 14,
+                    color: SoundScapeTheme.textLight,
+                  ),
+                ),
+              ),
+              Switch(
+                value: _autoDetectSa,
+                onChanged: _setAutoDetectSa,
+              ),
+            ],
+          ),
+          const SizedBox(height: 16),
 
           // Algorithm selector
           _label('ALGORITHM'),
@@ -549,4 +696,83 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
           fontWeight: FontWeight.w500,
         ),
       );
+
+  Widget _buildShrutiRow() {
+    const patterns = [
+      ('sa_pa', 'Sa-Pa-Sa-Sa'),
+      ('sa_ma', 'Sa-Ma-Sa-Sa'),
+      ('sa_ni', 'Sa-Ni-Sa-Sa'),
+    ];
+    return Row(
+      children: [
+        Expanded(
+          child: Wrap(
+            spacing: 6,
+            runSpacing: 6,
+            children: patterns.map((p) {
+              final isActive = p.$1 == _shrutiPattern;
+              return GestureDetector(
+                onTap: () => _setShrutiPattern(p.$1),
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 10,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: isActive
+                        ? SoundScapeTheme.amberGlow.withValues(alpha: 0.2)
+                        : Colors.transparent,
+                    borderRadius: BorderRadius.circular(4),
+                    border: Border.all(
+                      color: isActive
+                          ? SoundScapeTheme.amberGlow
+                          : SoundScapeTheme.cardBorder,
+                    ),
+                  ),
+                  child: Text(
+                    p.$2,
+                    style: GoogleFonts.cinzel(
+                      fontSize: 10,
+                      letterSpacing: 1,
+                      color: isActive
+                          ? SoundScapeTheme.amberGlow
+                          : SoundScapeTheme.textLight,
+                      fontWeight:
+                          isActive ? FontWeight.w600 : FontWeight.w400,
+                    ),
+                  ),
+                ),
+              );
+            }).toList(),
+          ),
+        ),
+        const SizedBox(width: 8),
+        SizedBox(
+          height: 36,
+          child: ElevatedButton.icon(
+            onPressed: _shrutiLoading ? null : _toggleShruti,
+            icon: _shrutiLoading
+                ? const SizedBox(
+                    width: 14,
+                    height: 14,
+                    child: CircularProgressIndicator(
+                      strokeWidth: 2,
+                      color: SoundScapeTheme.deepSacred,
+                    ),
+                  )
+                : Icon(
+                    _shrutiPlaying
+                        ? Icons.stop_rounded
+                        : Icons.play_arrow_rounded,
+                    size: 16,
+                  ),
+            label: Text(_shrutiPlaying ? 'STOP' : 'PLAY'),
+            style: ElevatedButton.styleFrom(
+              padding: const EdgeInsets.symmetric(horizontal: 12),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
 }

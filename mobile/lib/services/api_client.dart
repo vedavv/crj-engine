@@ -10,12 +10,15 @@ import '../models/swara.dart';
 import '../models/tala.dart';
 
 class ApiClient {
-  static const baseUrl =
+  static const _defaultBaseUrl =
       'https://crj-engine-179031859093.asia-south1.run.app/api/v1';
 
   final http.Client _client;
+  final String baseUrl;
 
-  ApiClient({http.Client? client}) : _client = client ?? http.Client();
+  ApiClient({http.Client? client, String? baseUrl})
+      : _client = client ?? http.Client(),
+        baseUrl = baseUrl ?? _defaultBaseUrl;
 
   // ── Health ──────────────────────────────────────────────────────────────
 
@@ -91,6 +94,27 @@ class ApiClient {
         jsonDecode(resp.body) as Map<String, dynamic>);
   }
 
+  // ── Sa auto-detection ─────────────────────────────────────────────────
+
+  Future<TonicSuggestion> detectSa(File audioFile) async {
+    final uri = Uri.parse('$baseUrl/detect-sa');
+    final request = http.MultipartRequest('POST', uri)
+      ..files.add(await http.MultipartFile.fromPath('file', audioFile.path));
+
+    final streamed = await _client.send(request).timeout(
+          const Duration(minutes: 2),
+          onTimeout: () => throw ApiException(
+            408,
+            'Sa detection timed out.',
+          ),
+        );
+    final resp = await http.Response.fromStream(streamed);
+    _check(resp);
+    return TonicSuggestion.fromJson(
+      jsonDecode(resp.body) as Map<String, dynamic>,
+    );
+  }
+
   // ── Compose (text notation → WAV) ─────────────────────────────────────
 
   Future<Uint8List> compose(
@@ -155,4 +179,51 @@ class ApiException implements Exception {
 
   @override
   String toString() => 'ApiException($statusCode): $body';
+}
+
+class TonicCandidate {
+  final double saHz;
+  final String westernLabel;
+  final double confidence;
+  final bool hasPerfectFifth;
+
+  const TonicCandidate({
+    required this.saHz,
+    required this.westernLabel,
+    required this.confidence,
+    required this.hasPerfectFifth,
+  });
+
+  factory TonicCandidate.fromJson(Map<String, dynamic> j) => TonicCandidate(
+        saHz: (j['sa_hz'] as num).toDouble(),
+        westernLabel: j['western_label'] as String,
+        confidence: (j['confidence'] as num).toDouble(),
+        hasPerfectFifth: j['has_perfect_fifth'] as bool? ?? false,
+      );
+}
+
+class TonicSuggestion {
+  final double suggestedSaHz;
+  final String westernLabel;
+  final double confidence;
+  final List<TonicCandidate> candidates;
+  final int voicedFrameCount;
+
+  const TonicSuggestion({
+    required this.suggestedSaHz,
+    required this.westernLabel,
+    required this.confidence,
+    required this.candidates,
+    required this.voicedFrameCount,
+  });
+
+  factory TonicSuggestion.fromJson(Map<String, dynamic> j) => TonicSuggestion(
+        suggestedSaHz: (j['suggested_sa_hz'] as num).toDouble(),
+        westernLabel: j['western_label'] as String,
+        confidence: (j['confidence'] as num).toDouble(),
+        candidates: (j['candidates'] as List)
+            .map((e) => TonicCandidate.fromJson(e as Map<String, dynamic>))
+            .toList(),
+        voicedFrameCount: j['voiced_frame_count'] as int,
+      );
 }

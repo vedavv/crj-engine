@@ -125,6 +125,8 @@ def detect_pitch_pyin(
     sr: int = 16000,
     hop_ms: float = 10.0,
     min_confidence: float = 0.5,
+    fmin: float = 50.0,
+    fmax: float = 2000.0,
 ) -> PitchContour:
     """Detect pitch using pYIN (via librosa).
 
@@ -133,6 +135,9 @@ def detect_pitch_pyin(
         sr: Sample rate of the audio.
         hop_ms: Hop size in milliseconds between frames.
         min_confidence: Minimum confidence threshold.
+        fmin: Lowest pitch (Hz) pYIN will consider — raise this for tonic
+              detection on harmonic-rich signals to avoid sub-octave errors.
+        fmax: Highest pitch (Hz) pYIN will consider.
 
     Returns:
         PitchContour with detected F0 values.
@@ -143,8 +148,8 @@ def detect_pitch_pyin(
 
     f0, voiced_flag, voiced_probs = librosa.pyin(
         audio,
-        fmin=50,
-        fmax=2000,
+        fmin=fmin,
+        fmax=fmax,
         sr=sr,
         hop_length=hop_length,
     )
