@@ -63,30 +63,27 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
   bool _talaPlaying = false;
   bool _talaLoading = false;
 
-  late final ShrutiService _shruti;
-  late final TalaService _tala;
+  ShrutiService get _shruti => context.read<ShrutiService>();
+  TalaService get _tala => context.read<TalaService>();
 
   @override
   void initState() {
     super.initState();
-    final api = context.read<ApiClient>();
-    _shruti = ShrutiService(apiClient: api);
-    _shruti.playingStream.listen((p) {
-      if (mounted) setState(() => _shrutiPlaying = p);
-    });
-    _tala = TalaService(apiClient: api);
-    _tala.playingStream.listen((p) {
-      if (mounted) setState(() => _talaPlaying = p);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      _shruti.playingStream.listen((p) {
+        if (mounted) setState(() => _shrutiPlaying = p);
+      });
+      _tala.playingStream.listen((p) {
+        if (mounted) setState(() => _talaPlaying = p);
+      });
+      setState(() {
+        _shrutiPlaying = _shruti.isPlaying;
+        _talaPlaying = _tala.isPlaying;
+      });
     });
     _loadSaPreference();
     _loadPresets();
-  }
-
-  @override
-  void dispose() {
-    _shruti.dispose();
-    _tala.dispose();
-    super.dispose();
   }
 
   Future<void> _loadSaPreference() async {

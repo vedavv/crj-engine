@@ -6,6 +6,7 @@ import 'composer_screen.dart';
 import 'about_screen.dart';
 import 'manual_screen.dart';
 import 'player_screen.dart';
+import 'session_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,6 +21,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final _screens = const [
     PlayerScreen(),
     ComposerScreen(),
+    SessionScreen(),
     AnalysisScreen(),
     ManualScreen(),
     AboutScreen(),
@@ -46,6 +48,10 @@ class _HomeScreenState extends State<HomeScreen> {
             BottomNavigationBarItem(
               icon: Icon(Icons.edit_note_rounded),
               label: 'COMPOSE',
+            ),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.headset_mic_rounded),
+              label: 'SESSION',
             ),
             BottomNavigationBarItem(
               icon: Icon(Icons.graphic_eq_rounded),
