@@ -307,6 +307,26 @@ body {
     -webkit-appearance: none;
 }
 
+.field textarea {
+    width: 100%;
+    padding: 10px 12px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-subtle);
+    background: var(--bg-input);
+    color: var(--text-primary);
+    font-size: 13px;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1.5;
+    resize: vertical;
+    min-height: 100px;
+}
+
+.field textarea:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px var(--gold-glow);
+}
+
 .field select {
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23786e60' stroke-width='2.5' stroke-linecap='round'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");
     background-repeat: no-repeat;
@@ -631,6 +651,101 @@ body {
     overflow-x: auto;
 }
 
+.sync-controls {
+    background: var(--bg-input);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 14px;
+    margin: 8px 0 12px;
+}
+
+.sync-meta {
+    margin: 10px 0 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+}
+
+#sync-seek {
+    width: 100%;
+    accent-color: var(--gold);
+    cursor: pointer;
+}
+
+#sync-seek:disabled {
+    cursor: default;
+    opacity: 0.4;
+}
+
+.notation-sync-line {
+    font-family: 'JetBrains Mono', 'Noto Sans Devanagari', 'Noto Sans Kannada',
+                 'Noto Sans Tamil', 'Noto Sans Telugu', monospace;
+    font-size: 18px;
+    line-height: 1.9;
+    background: var(--bg-input);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 16px 18px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.notation-token {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: var(--radius-sm);
+    border: 1px solid transparent;
+    transition: all var(--transition-fast);
+}
+
+.notation-token.is-sync-active {
+    background: rgba(197, 160, 89, 0.14);
+    border-color: var(--border-gold);
+    box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.1);
+    transform: translateY(-1px);
+}
+
+.srt-units-list {
+    background: var(--bg-input);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: 12px;
+    display: grid;
+    gap: 8px;
+}
+
+.srt-unit {
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: var(--radius-sm);
+    padding: 10px;
+    transition: all var(--transition-fast);
+}
+
+.srt-unit-head {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+    color: var(--text-muted);
+    font-size: 11px;
+    margin-bottom: 4px;
+}
+
+.srt-unit-text {
+    color: var(--text-secondary);
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.srt-unit.is-sync-active {
+    border-color: var(--border-gold);
+    background: rgba(197, 160, 89, 0.08);
+    box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.1);
+}
+
 /* ══════════════════════════════════════════
    Swara Phrases
    ══════════════════════════════════════════ */
@@ -680,6 +795,12 @@ body {
     background: rgba(255, 255, 255, 0.08);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.swara-note.is-sync-active {
+    background: rgba(197, 160, 89, 0.14);
+    border-color: var(--border-gold);
+    box-shadow: 0 0 0 2px rgba(197, 160, 89, 0.1);
 }
 
 .swara-note.octave-low {

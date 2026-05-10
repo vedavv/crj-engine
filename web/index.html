@@ -64,6 +64,19 @@
           <option value="instrument">Instrument</option>
         </select>
       </div>
+      <div class="field">
+        <label for="separator-mode">Separator Mode</label>
+        <select id="separator-mode">
+          <option value="auto" selected>Auto (silence + markers)</option>
+          <option value="silence">Silence</option>
+          <option value="bell">Bell</option>
+          <option value="double_beep">Double Beep</option>
+        </select>
+      </div>
+    </div>
+    <div class="field" style="margin-top:12px">
+      <label for="srt-content">SRT Units (optional)</label>
+      <textarea id="srt-content" rows="6" placeholder="1&#10;00:00:00,000 --> 00:00:03,000&#10;First unit text&#10;&#10;2&#10;00:00:03,000 --> 00:00:06,000&#10;Second unit text"></textarea>
     </div>
   </section>
 
@@ -151,6 +164,27 @@
     <div class="tab-panel" id="tab-notation">
       <h3>Full Notation</h3>
       <div id="notation-full"></div>
+      <h3>Synced Notation Flow</h3>
+      <div class="sync-controls">
+        <div class="btn-row">
+          <button id="btn-sync-play" class="btn btn-upload" disabled>
+            <span class="btn-icon">&#9654;</span> Play Sync
+          </button>
+          <button id="btn-sync-reset" class="btn btn-stop" disabled>
+            <span class="btn-icon">&#8634;</span> Reset
+          </button>
+        </div>
+        <div class="sync-meta">
+          <span>Current: <strong id="sync-current">--</strong></span>
+          <span id="sync-time">0:00</span>
+          <span>/</span>
+          <span id="sync-duration">0:00</span>
+        </div>
+        <input id="sync-seek" type="range" min="0" max="1" value="0" step="10" disabled>
+      </div>
+      <div id="notation-synced"></div>
+      <h3>SRT Unit Progression</h3>
+      <div id="srt-units"></div>
     </div>
 
     <!-- Tab: Phrases -->

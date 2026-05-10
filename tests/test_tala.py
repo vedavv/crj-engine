@@ -37,9 +37,10 @@ from crj_engine.tala.serializer import (
 # ---------------------------------------------------------------------------
 
 class TestTalaDatabase:
-    def test_loads_35_talas(self):
+    def test_loads_35_carnatic_talas(self):
         db = load_tala_db()
-        assert len(db) == 35
+        carnatic = {k: v for k, v in db.items() if v.tradition == "carnatic"}
+        assert len(carnatic) == 35
 
     def test_adi_tala_is_triputa_chatusra(self):
         tala = get_tala("triputa_chatusra")
@@ -83,19 +84,23 @@ class TestTalaDatabase:
         with pytest.raises(KeyError):
             get_tala("nonexistent_tala")
 
-    def test_7_base_talas_present(self):
+    def test_7_carnatic_base_talas_present(self):
         db = load_tala_db()
-        base_talas = {t.base_tala for t in db.values()}
+        base_talas = {
+            t.base_tala for t in db.values() if t.tradition == "carnatic"
+        }
         expected = {
             "Eka", "Rupaka", "Triputa",
             "Matya", "Jhampa", "Dhruva", "Ata",
         }
         assert base_talas == expected
 
-    def test_5_jatis_per_base_tala(self):
+    def test_5_jatis_per_carnatic_base_tala(self):
         db = load_tala_db()
         base_groups: dict[str, set] = {}
         for tala in db.values():
+            if tala.tradition != "carnatic":
+                continue
             base_groups.setdefault(tala.base_tala, set()).add(tala.jati)
         for base, jatis in base_groups.items():
             assert len(jatis) == 5, (

@@ -23,9 +23,26 @@ document.addEventListener('DOMContentLoaded', async () => {
     const recordIndicator = document.getElementById('record-indicator');
     const recordTimer = document.getElementById('record-timer');
     const contourCanvas = document.getElementById('pitch-contour');
+    const separatorMode = document.getElementById('separator-mode');
+    const srtContent = document.getElementById('srt-content');
+    const btnSyncPlay = document.getElementById('btn-sync-play');
+    const btnSyncReset = document.getElementById('btn-sync-reset');
+    const syncSeek = document.getElementById('sync-seek');
+    const syncCurrent = document.getElementById('sync-current');
+    const syncTime = document.getElementById('sync-time');
+    const syncDuration = document.getElementById('sync-duration');
 
     let recorder = null;
     let lastResult = null;   // store for contour re-rendering
+    const syncState = {
+        notes: [],
+        totalMs: 0,
+        elapsedMs: 0,
+        rafId: null,
+        isPlaying: false,
+        playStartPerfMs: 0,
+        srtUnits: [],
+    };
 
     // --- Load tuning presets ---
     try {
@@ -77,6 +94,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             algorithm: document.getElementById('algorithm').value,
             script: document.getElementById('script').value,
             includeContour: true,   // always request contour for visualization
+            separatorMode: separatorMode ? separatorMode.value : 'auto',
+            srtContent: srtContent ? srtContent.value : '',
         };
     }
 
@@ -114,6 +133,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             progressFill.style.width = '0%';
             processingMsg.textContent = '';
             recordTimer.textContent = '0.0 s';
+            stopSync();
+            resetSync();
 
             // Reset to summary tab
             const firstTab = tabs && tabs.querySelector('.tab-btn');
@@ -226,6 +247,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             document.getElementById('notation-phrases')
         );
 
+        // Synced notation line
+        const syncNotes = NotationRenderer.flattenPhraseNotes(result.phrases);
+        NotationRenderer.renderSyncedNotation(
+            syncNotes,
+            document.getElementById('notation-synced')
+        );
+        NotationRenderer.renderSrtUnits(
+            result.srt_units || [],
+            document.getElementById('srt-units')
+        );
+        initSync(syncNotes, result.duration_s, result.srt_units || []);
+
         // Full rendered notation in chosen script
         const fullEl = document.getElementById('notation-full');
         fullEl.innerHTML = '<pre class="notation-pre">' +
@@ -253,6 +286,130 @@ document.addEventListener('DOMContentLoaded', async () => {
         } else if (contourCanvas) {
             NotationRenderer.renderContour(null, 0, contourCanvas);
         }
+    }
+
+    function initSync(notes, durationS, srtUnits) {
+        stopSync();
+        syncState.notes = notes || [];
+        syncState.srtUnits = srtUnits || [];
+
+        const timedEnd = syncState.notes.length
+            ? Math.max(...syncState.notes.map(n => n.end_ms || 0))
+            : 0;
+        syncState.totalMs = Math.max(timedEnd, (durationS || 0) * 1000);
+        syncState.elapsedMs = 0;
+
+        if (syncSeek) {
+            syncSeek.min = '0';
+            syncSeek.max = String(Math.max(1, Math.round(syncState.totalMs)));
+            syncSeek.value = '0';
+            syncSeek.disabled = !syncState.notes.length;
+        }
+
+        if (btnSyncPlay) {
+            btnSyncPlay.disabled = !syncState.notes.length;
+            btnSyncPlay.textContent = 'Play Sync';
+        }
+        if (btnSyncReset) btnSyncReset.disabled = !syncState.notes.length;
+
+        updateSyncUi(0);
+        NotationRenderer.setSyncActiveIndex(-1);
+        NotationRenderer.setSyncActiveSrtIndex(-1);
+    }
+
+    function formatMs(ms) {
+        const totalS = Math.max(0, Math.round(ms / 1000));
+        const min = Math.floor(totalS / 60);
+        const sec = totalS % 60;
+        return min + ':' + String(sec).padStart(2, '0');
+    }
+
+    function findActiveNoteIndex(timeMs) {
+        if (!syncState.notes.length) return -1;
+        for (let i = 0; i < syncState.notes.length; i++) {
+            const n = syncState.notes[i];
+            if (timeMs >= n.start_ms && timeMs <= n.end_ms) return i;
+        }
+        for (let i = syncState.notes.length - 1; i >= 0; i--) {
+            if (timeMs >= syncState.notes[i].start_ms) return i;
+        }
+        return -1;
+    }
+
+    function updateSyncUi(timeMs) {
+        const activeIdx = findActiveNoteIndex(timeMs);
+        NotationRenderer.setSyncActiveIndex(activeIdx);
+
+        let activeSrtIdx = -1;
+        for (let i = 0; i < syncState.srtUnits.length; i++) {
+            const u = syncState.srtUnits[i];
+            if (timeMs >= u.start_ms && timeMs <= u.end_ms) {
+                activeSrtIdx = i;
+                break;
+            }
+        }
+        NotationRenderer.setSyncActiveSrtIndex(activeSrtIdx);
+
+        if (syncSeek) syncSeek.value = String(Math.round(timeMs));
+        if (syncCurrent) {
+            if (activeSrtIdx >= 0) {
+                syncCurrent.textContent = 'SRT ' + syncState.srtUnits[activeSrtIdx].index;
+            } else {
+                syncCurrent.textContent = activeIdx >= 0
+                    ? syncState.notes[activeIdx].swara_id
+                    : '--';
+            }
+        }
+        if (syncTime) syncTime.textContent = formatMs(timeMs);
+        if (syncDuration) syncDuration.textContent = formatMs(syncState.totalMs);
+    }
+
+    function syncTick() {
+        if (!syncState.isPlaying) return;
+
+        const delta = performance.now() - syncState.playStartPerfMs;
+        const currentMs = Math.min(syncState.totalMs, syncState.elapsedMs + delta);
+        updateSyncUi(currentMs);
+
+        if (currentMs >= syncState.totalMs) {
+            syncState.elapsedMs = syncState.totalMs;
+            stopSync();
+            if (btnSyncPlay) btnSyncPlay.textContent = 'Replay Sync';
+            return;
+        }
+
+        syncState.rafId = requestAnimationFrame(syncTick);
+    }
+
+    function startSync() {
+        if (!syncState.notes.length || syncState.isPlaying) return;
+        if (syncState.elapsedMs >= syncState.totalMs) {
+            syncState.elapsedMs = 0;
+            updateSyncUi(0);
+        }
+
+        syncState.isPlaying = true;
+        syncState.playStartPerfMs = performance.now();
+        if (btnSyncPlay) btnSyncPlay.textContent = 'Pause Sync';
+        syncState.rafId = requestAnimationFrame(syncTick);
+    }
+
+    function stopSync() {
+        if (!syncState.isPlaying) return;
+        const delta = performance.now() - syncState.playStartPerfMs;
+        syncState.elapsedMs = Math.min(syncState.totalMs, syncState.elapsedMs + delta);
+        syncState.isPlaying = false;
+        if (syncState.rafId) {
+            cancelAnimationFrame(syncState.rafId);
+            syncState.rafId = null;
+        }
+        if (btnSyncPlay) btnSyncPlay.textContent = 'Play Sync';
+    }
+
+    function resetSync() {
+        stopSync();
+        syncState.elapsedMs = 0;
+        updateSyncUi(0);
     }
 
     function escapeHtml(str) {
@@ -316,6 +473,30 @@ document.addEventListener('DOMContentLoaded', async () => {
         clearWaveform();
         lastResult = null;
     });
+
+    if (btnSyncPlay) {
+        btnSyncPlay.addEventListener('click', () => {
+            if (syncState.isPlaying) stopSync();
+            else startSync();
+        });
+    }
+
+    if (btnSyncReset) {
+        btnSyncReset.addEventListener('click', resetSync);
+    }
+
+    if (syncSeek) {
+        syncSeek.addEventListener('input', (e) => {
+            const newMs = Number(e.target.value) || 0;
+            if (syncState.isPlaying) {
+                syncState.elapsedMs = newMs;
+                syncState.playStartPerfMs = performance.now();
+            } else {
+                syncState.elapsedMs = newMs;
+            }
+            updateSyncUi(newMs);
+        });
+    }
 
     // --- Init ---
     setState('idle');

@@ -21,6 +21,7 @@ const NotationRenderer = {
     /* ─── Swara Phrases ─── */
     renderPhrases(phrases, container) {
         container.innerHTML = '';
+        let noteIndex = 0;
         phrases.forEach((phrase, i) => {
             const div = document.createElement('div');
             div.className = 'phrase';
@@ -38,6 +39,7 @@ const NotationRenderer = {
                 const span = document.createElement('span');
                 span.className = 'swara-note';
                 span.textContent = note.swara_id;
+                span.dataset.noteIndex = String(noteIndex++);
                 span.style.color = this.SWARA_COLORS[note.swara_id] || '#b0a898';
                 if (note.octave === 'mandra') span.classList.add('octave-low');
                 if (note.octave === 'tara') span.classList.add('octave-high');
@@ -54,6 +56,91 @@ const NotationRenderer = {
             });
             div.appendChild(notes);
             container.appendChild(div);
+        });
+    },
+
+    renderSyncedNotation(notes, container) {
+        container.innerHTML = '';
+        if (!notes || !notes.length) {
+            container.innerHTML = '<p style="color:var(--text-muted)">No timed note data available.</p>';
+            return;
+        }
+
+        const line = document.createElement('div');
+        line.className = 'notation-sync-line';
+
+        notes.forEach((note, i) => {
+            const token = document.createElement('span');
+            token.className = 'notation-token';
+            token.dataset.noteIndex = String(i);
+            token.textContent = note.swara_id;
+            token.style.color = this.SWARA_COLORS[note.swara_id] || '#b0a898';
+            line.appendChild(token);
+        });
+
+        container.appendChild(line);
+    },
+
+    renderSrtUnits(units, container) {
+        container.innerHTML = '';
+        if (!units || !units.length) {
+            container.innerHTML = '<p style="color:var(--text-muted)">No SRT units provided.</p>';
+            return;
+        }
+
+        const list = document.createElement('div');
+        list.className = 'srt-units-list';
+
+        units.forEach((unit, i) => {
+            const item = document.createElement('div');
+            item.className = 'srt-unit';
+            item.dataset.srtIndex = String(i);
+
+            const head = document.createElement('div');
+            head.className = 'srt-unit-head';
+            head.innerHTML =
+                '<span>Unit ' + unit.index + ' [' +
+                (unit.start_ms / 1000).toFixed(2) + 's - ' +
+                (unit.end_ms / 1000).toFixed(2) + 's]</span>' +
+                '<span>' + this._esc(unit.source) + '</span>';
+
+            const text = document.createElement('div');
+            text.className = 'srt-unit-text';
+            text.textContent = unit.text;
+
+            item.appendChild(head);
+            item.appendChild(text);
+            list.appendChild(item);
+        });
+
+        container.appendChild(list);
+    },
+
+    flattenPhraseNotes(phrases) {
+        const flat = [];
+        phrases.forEach((phrase, phraseIndex) => {
+            phrase.notes.forEach((note, phraseNoteIndex) => {
+                flat.push({
+                    phraseIndex,
+                    phraseNoteIndex,
+                    start_ms: note.start_ms,
+                    end_ms: note.end_ms,
+                    swara_id: note.swara_id,
+                });
+            });
+        });
+        return flat;
+    },
+
+    setSyncActiveIndex(noteIndex) {
+        document.querySelectorAll('[data-note-index]').forEach((el) => {
+            el.classList.toggle('is-sync-active', el.dataset.noteIndex === String(noteIndex));
+        });
+    },
+
+    setSyncActiveSrtIndex(srtIndex) {
+        document.querySelectorAll('[data-srt-index]').forEach((el) => {
+            el.classList.toggle('is-sync-active', el.dataset.srtIndex === String(srtIndex));
         });
     },
 

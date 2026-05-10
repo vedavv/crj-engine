@@ -4,7 +4,7 @@ from __future__ import annotations
 
 from enum import StrEnum
 
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 
 class PitchAlgorithmChoice(StrEnum):
@@ -62,6 +62,21 @@ class RagaCandidateOut(BaseModel):
     avarohana: list[str]
 
 
+class SeparatorEventOut(BaseModel):
+    event_type: str
+    start_ms: float
+    end_ms: float
+    confidence: float
+
+
+class SRTUnitOut(BaseModel):
+    index: int
+    text: str
+    start_ms: float
+    end_ms: float
+    source: str
+
+
 class AnalysisResponse(BaseModel):
     """Full analysis result from the /analyze endpoint."""
 
@@ -83,6 +98,8 @@ class AnalysisResponse(BaseModel):
     raga_candidates: list[RagaCandidateOut]
 
     pitch_contour: list[PitchFrameOut] | None = None
+    separator_events: list[SeparatorEventOut] = Field(default_factory=list)
+    srt_units: list[SRTUnitOut] = Field(default_factory=list)
 
 
 class HealthResponse(BaseModel):

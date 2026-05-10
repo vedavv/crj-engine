@@ -16,6 +16,10 @@ const CRJApi = {
         formData.append('script', options.script || 'iast');
         formData.append('tolerance_cents', options.toleranceCents || 40);
         formData.append('include_contour', options.includeContour || false);
+        formData.append('separator_mode', options.separatorMode || 'auto');
+        if (options.srtContent && options.srtContent.trim()) {
+            formData.append('srt_content', options.srtContent);
+        }
 
         const r = await fetch(this.baseUrl + '/analyze', {
             method: 'POST',
@@ -36,6 +40,10 @@ const CRJApi = {
         formData.append('script', options.script || 'iast');
         formData.append('tolerance_cents', options.toleranceCents || 40);
         formData.append('include_contour', options.includeContour || false);
+        formData.append('separator_mode', options.separatorMode || 'auto');
+        if (options.srtContent && options.srtContent.trim()) {
+            formData.append('srt_content', options.srtContent);
+        }
 
         const r = await fetch(this.baseUrl + '/analyze', {
             method: 'POST',
