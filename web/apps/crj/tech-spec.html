@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Technical Specification – CRJ Engine</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family: 'Georgia', 'Garamond', serif;
+background:#0a0612;
+color:#e8e0d4;
+line-height:1.8;
+}
+
+.container{
+max-width:960px;
+margin:0 auto;
+padding:40px 24px 60px;
+}
+
+/* Header */
+.hero{
+text-align:center;
+padding:48px 0 32px;
+border-bottom:1px solid rgba(212,168,84,0.2);
+margin-bottom:40px;
+}
+
+.hero h1{
+font-family: 'Palatino Linotype', 'Book Antiqua', serif;
+font-size:32px;
+color:#d4a854;
+letter-spacing:3px;
+margin-bottom:8px;
+}
+
+.hero .tagline{
+font-size:15px;
+color:#9a8e7e;
+letter-spacing:2px;
+text-transform:uppercase;
+}
+
+.hero .version{
+font-size:13px;
+color:#6a6050;
+margin-top:12px;
+}
+
+/* Section headers */
+h2{
+font-family: 'Palatino Linotype', 'Book Antiqua', serif;
+font-size:22px;
+color:#d4a854;
+letter-spacing:1px;
+margin:36px 0 16px;
+padding-bottom:8px;
+border-bottom:1px solid rgba(212,168,84,0.15);
+}
+
+h3{
+font-size:17px;
+color:#c8a960;
+margin:20px 0 10px;
+}
+
+h4{
+font-size:15px;
+color:#b8a070;
+margin:16px 0 8px;
+}
+
+p{
+margin-bottom:16px;
+color:#d0c8bc;
+font-size:16px;
+}
+
+/* Cards */
+.card{
+background:rgba(18,12,32,0.9);
+border:1px solid rgba(212,168,84,0.12);
+border-radius:8px;
+padding:24px;
+margin-bottom:20px;
+}
+
+.card-highlight{
+border-left:3px solid #d4a854;
+}
+
+/* Tables */
+.spec-table{
+width:100%;
+border-collapse:collapse;
+margin:16px 0 24px;
+font-size:15px;
+}
+
+.spec-table th{
+background:rgba(212,168,84,0.12);
+color:#d4a854;
+padding:10px 14px;
+text-align:left;
+font-size:13px;
+letter-spacing:1px;
+text-transform:uppercase;
+border:1px solid rgba(212,168,84,0.1);
+}
+
+.spec-table td{
+padding:10px 14px;
+border:1px solid rgba(212,168,84,0.08);
+color:#d0c8bc;
+vertical-align:top;
+}
+
+.spec-table tr:nth-child(even){
+background:rgba(18,12,32,0.5);
+}
+
+.spec-table strong{
+color:#c8a960;
+}
+
+.spec-table code{
+font-family:'Courier New', monospace;
+background:rgba(212,168,84,0.08);
+padding:2px 6px;
+border-radius:3px;
+font-size:13px;
+color:#d4a854;
+}
+
+/* Code blocks */
+pre{
+background:rgba(13,22,36,0.8);
+border:1px solid rgba(212,168,84,0.1);
+border-radius:6px;
+padding:18px 20px;
+overflow-x:auto;
+font-family:'Courier New', monospace;
+font-size:14px;
+color:#d0c8bc;
+line-height:1.6;
+margin:12px 0 20px;
+}
+
+pre .keyword{color:#d4a854;}
+pre .comment{color:#6a6050;font-style:italic;}
+pre .string{color:#5dba6a;}
+pre .number{color:#5cc8d4;}
+
+code{
+font-family:'Courier New', monospace;
+background:rgba(212,168,84,0.08);
+padding:2px 6px;
+border-radius:3px;
+font-size:14px;
+color:#d4a854;
+}
+
+/* Math formulas */
+.formula{
+background:rgba(18,12,32,0.7);
+border-left:3px solid #d4a854;
+padding:16px 20px;
+margin:16px 0;
+font-family:'Courier New', monospace;
+font-size:16px;
+color:#d4a854;
+letter-spacing:1px;
+}
+
+.formula .desc{
+display:block;
+font-family:'Georgia', serif;
+font-size:14px;
+color:#9a8e7e;
+margin-top:6px;
+letter-spacing:0;
+}
+
+/* Lists */
+ul.spec-list{
+list-style:none;
+padding:0;
+margin:12px 0 20px;
+}
+
+ul.spec-list li{
+padding:6px 0 6px 20px;
+border-left:2px solid rgba(212,168,84,0.2);
+margin-bottom:6px;
+color:#d0c8bc;
+font-size:15px;
+}
+
+ul.spec-list li strong{
+color:#c8a960;
+}
+
+/* Stack grid */
+.stack-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+gap:16px;
+margin:16px 0 28px;
+}
+
+.stack-item{
+background:rgba(18,12,32,0.7);
+border:1px solid rgba(212,168,84,0.1);
+border-radius:6px;
+padding:16px;
+}
+
+.stack-item h4{
+color:#d4a854;
+font-size:13px;
+letter-spacing:1px;
+text-transform:uppercase;
+margin:0 0 8px;
+}
+
+.stack-item p{
+font-size:14px;
+color:#9a8e7e;
+margin:0;
+line-height:1.5;
+}
+
+/* Phase timeline */
+.phase{
+margin-bottom:28px;
+padding-left:20px;
+border-left:3px solid rgba(212,168,84,0.3);
+}
+
+.phase-title{
+font-weight:bold;
+color:#c8a960;
+font-size:16px;
+margin-bottom:6px;
+}
+
+.phase-list{
+margin:0;
+padding-left:20px;
+list-style:none;
+}
+
+.phase-list li{
+padding:4px 0;
+color:#d0c8bc;
+font-size:15px;
+}
+
+.phase-list li::before{
+content:'\2726 ';
+color:#d4a854;
+margin-right:4px;
+}
+
+/* Footer */
+footer{
+text-align:center;
+padding:24px 0;
+font-size:13px;
+color:#6a6050;
+border-top:1px solid rgba(212,168,84,0.1);
+margin-top:40px;
+}
+
+footer a{
+color:#9a8e7e;
+text-decoration:none;
+}
+
+footer a:hover{
+text-decoration:underline;
+}
+
+/* Responsive */
+@media(max-width:600px){
+  .stack-grid{grid-template-columns:1fr;}
+  .spec-table th,.spec-table td{padding:8px 10px;font-size:13px;}
+  pre{font-size:12px;padding:12px;}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>CRJ ENGINE</h1>
+    <div class="tagline">Technical Specification &bull; Audio &amp; Frequency Processing</div>
+    <div class="version">Version 1.2 &bull; Project Documentation &bull; 2026</div>
+  </div>
+
+  <!-- ===== SECTION 1: TECHNOLOGY STACK ===== -->
+  <h2>1. Technology Stack</h2>
+  <p>
+    A hybrid stack balancing low-latency performance (C++) with rapid AI development (Python),
+    cross-platform mobile delivery (Flutter), and web-based notation rendering.
+  </p>
+
+  <div class="stack-grid">
+    <div class="stack-item">
+      <h4>Real-time Audio Core</h4>
+      <p>C++ with JUCE Framework &mdash; low-latency buffers, VST/AU plugin hosting, raw PCM processing.</p>
+    </div>
+    <div class="stack-item">
+      <h4>Analysis / AI</h4>
+      <p>Python: Librosa, CREPE, Essentia, PyTorch &mdash; spectral analysis, gamaka recognition models.</p>
+    </div>
+    <div class="stack-item">
+      <h4>Mobile Frontend</h4>
+      <p>Flutter &mdash; cross-platform iOS/Android UI for Mahaan and CRJ Apps.</p>
+    </div>
+    <div class="stack-item">
+      <h4>Notation Engine</h4>
+      <p>VexFlow (JS) / LilyPond &mdash; rendering frequencies into classical notation and multilingual scripts.</p>
+    </div>
+    <div class="stack-item">
+      <h4>Backend / Cloud</h4>
+      <p>FastAPI + PostgreSQL &mdash; SwaDharma database, scholar profiles, API endpoints.</p>
+    </div>
+    <div class="stack-item">
+      <h4>Web Prototype</h4>
+      <p>Web Audio API + Essentia.js &mdash; browser-based pitch detection and real-time analysis.</p>
+    </div>
+  </div>
+
+  <!-- ===== SECTION 2: AUDIO CAPTURE ===== -->
+  <h2>2. High-Fidelity Capture Specifications</h2>
+  <p>
+    All incoming audio must meet these standards to preserve the vibrational sanctity of
+    Vedic rituals and the precision required for frequency analysis.
+  </p>
+
+  <table class="spec-table">
+    <tr><th>Parameter</th><th>Specification</th><th>Rationale</th></tr>
+    <tr>
+      <td><strong>Sample Rate</strong></td>
+      <td><code>96 kHz</code> minimum</td>
+      <td>Captures ultrasonic harmonics of bells and high-frequency Vedic sibilants.</td>
+    </tr>
+    <tr>
+      <td><strong>Bit Depth</strong></td>
+      <td><code>24-bit</code> or <code>32-bit float</code></td>
+      <td>High dynamic range for loud ritualistic sequences (Maha Mangalarati).</td>
+    </tr>
+    <tr>
+      <td><strong>Transduction</strong></td>
+      <td>Large-diaphragm condenser</td>
+      <td>Flat frequency response: 20 Hz &ndash; 20 kHz &plusmn;1 dB for Mantra capture.</td>
+    </tr>
+    <tr>
+      <td><strong>Analysis Rate</strong></td>
+      <td><code>16 kHz</code> (CREPE input)</td>
+      <td>CREPE neural network expects 16 kHz mono input for pitch estimation.</td>
+    </tr>
+    <tr>
+      <td><strong>Hop Size</strong></td>
+      <td><code>10 ms</code></td>
+      <td>Sufficient temporal resolution for gamaka detection.</td>
+    </tr>
+  </table>
+
+  <!-- ===== SECTION 3: PROCESSING WORKFLOW ===== -->
+  <h2>3. Ritual Audio Processing Workflow</h2>
+  <p>Vedic audio requires a "Surgical but Transparent" approach to processing.</p>
+
+  <h3>A. Harmonic Restoration &amp; EQ</h3>
+  <ul class="spec-list">
+    <li><strong>High-pass filter at 80 Hz</strong> &mdash; removes Homam fire rumble and structural vibrations without thinning the Vedic "Ghosha" (resonance).</li>
+    <li><strong>Harmonic excitement: 3&ndash;5 kHz</strong> &mdash; subtle saturation to enhance clarity of Sanskrit Aksharas.</li>
+    <li><strong>De-esser at 6 kHz</strong> &mdash; controls sibilants ("S" sounds) in Sanskrit chanting.</li>
+    <li><strong>Vedic Ghosha prominence: 300&ndash;800 Hz</strong> &mdash; spectral balance ensuring resonance quality.</li>
+  </ul>
+
+  <h3>B. Dynamic Range Management</h3>
+  <ul class="spec-list">
+    <li><strong>Serial compression</strong> &mdash; slow-attack compressor for vocal chant cohesion, followed by fast limiter for sudden percussion peaks (Ghante/Shanka).</li>
+    <li><strong>Convolution reverb</strong> &mdash; using Garbhagudi (sanctum) impulse responses for authentic atmosphere. Minimal artificial reverb.</li>
+    <li><strong>Phase correlation &gt; 0.5</strong> &mdash; mandatory for multi-mic recordings to prevent cancellation on mono playback (phone speakers).</li>
+  </ul>
+
+  <!-- ===== SECTION 4: FREQUENCY ENGINE ===== -->
+  <h2>4. CRJ Frequency Engine &mdash; Core Algorithms</h2>
+  <p>
+    The heart of the CRJ App: the transition from <strong>Sound Wave &rarr; Frequency &rarr; Gamaka &rarr; Notation</strong>.
+  </p>
+
+  <h3>A. Pitch Detection: pYIN Algorithm</h3>
+  <p>
+    Standard FFT is too "jittery" for Indian Classical music. The engine implements
+    pYIN (Probabilistic YIN) to estimate the fundamental frequency (f&#8320;) while
+    ignoring background noise from rituals.
+  </p>
+
+  <div class="formula">
+    d<sub>t</sub>(&tau;) = &sum;<sub>j=1..W</sub> (x<sub>j</sub> &minus; x<sub>j+&tau;</sub>)&sup2;
+    <span class="desc">YIN difference function &mdash; finds periodicity by measuring signal self-similarity</span>
+  </div>
+
+  <ul class="spec-list">
+    <li><strong>Window size:</strong> 4096 samples at 96 kHz &mdash; captures microtonal nuances of Veena pulling string.</li>
+    <li><strong>Voice Activity Detection (VAD):</strong> prevents notation of background ritual noise or Homam fire.</li>
+    <li><strong>Viterbi smoothing:</strong> temporal continuity across detected pitch values.</li>
+  </ul>
+
+  <h3>B. CREPE Deep Learning Model</h3>
+  <p>
+    For noise-robust pitch tracking (especially in ritual environments), CREPE provides
+    a pre-trained convolutional neural network that outperforms traditional algorithms.
+  </p>
+  <ul class="spec-list">
+    <li><strong>Input:</strong> 16 kHz mono audio</li>
+    <li><strong>Output:</strong> time, frequency, confidence, activation</li>
+    <li><strong>Confidence threshold:</strong> &gt; 0.8 for reliable frequency acceptance</li>
+    <li><strong>Model export:</strong> ONNX / TorchScript for C++ deployment via ONNX Runtime or LibTorch</li>
+  </ul>
+
+  <h3>C. Microtonal Cent Mapping</h3>
+  <p>
+    Indian Classical Music requires resolution across 22 Shrutis (vs. 12 Western semitones).
+    Every detected frequency is mapped to a cent value relative to the performer's Adhara Shadja.
+  </p>
+
+  <div class="formula">
+    cents = 1200 &times; log&#8322;(f<sub>detected</sub> / f<sub>ref</sub>)
+    <span class="desc">Where f<sub>ref</sub> is the performer's chosen Shadja (Sa) frequency</span>
+  </div>
+
+  <table class="spec-table">
+    <tr><th>Index</th><th>Swara</th><th>Cents</th><th>Western</th><th>Ratio</th><th>Sanskrit Name</th></tr>
+    <tr><td>1</td><td><strong>Sa</strong></td><td>0</td><td>C</td><td>1/1</td><td>Shadja (fixed)</td></tr>
+    <tr><td>2</td><td><strong>Ri&#8321;</strong></td><td>100</td><td>Db</td><td>256/243</td><td>Shuddha Rishabha</td></tr>
+    <tr><td>3</td><td><strong>Ri&#8322;</strong> / Ga&#8321;</td><td>200</td><td>D</td><td>9/8</td><td>Chatusshruti Rishabha</td></tr>
+    <tr><td>4</td><td><strong>Ga&#8322;</strong> / Ri&#8323;</td><td>300</td><td>Eb</td><td>32/27</td><td>Sadharana Gandhara</td></tr>
+    <tr><td>5</td><td><strong>Ga&#8323;</strong></td><td>400</td><td>E</td><td>81/64</td><td>Antara Gandhara</td></tr>
+    <tr><td>6</td><td><strong>Ma&#8321;</strong></td><td>500</td><td>F</td><td>4/3</td><td>Shuddha Madhyama</td></tr>
+    <tr><td>7</td><td><strong>Ma&#8322;</strong></td><td>600</td><td>F#</td><td>729/512</td><td>Prati Madhyama</td></tr>
+    <tr><td>8</td><td><strong>Pa</strong></td><td>700</td><td>G</td><td>3/2</td><td>Panchama (fixed)</td></tr>
+    <tr><td>9</td><td><strong>Dha&#8321;</strong></td><td>800</td><td>Ab</td><td>128/81</td><td>Shuddha Dhaivata</td></tr>
+    <tr><td>10</td><td><strong>Dha&#8322;</strong> / Ni&#8321;</td><td>900</td><td>A</td><td>27/16</td><td>Chatusshruti Dhaivata</td></tr>
+    <tr><td>11</td><td><strong>Ni&#8322;</strong> / Dha&#8323;</td><td>1000</td><td>Bb</td><td>16/9</td><td>Kaisiki Nishada</td></tr>
+    <tr><td>12</td><td><strong>Ni&#8323;</strong></td><td>1100</td><td>B</td><td>243/128</td><td>Kakali Nishada</td></tr>
+  </table>
+
+  <h3>D. Gamaka Recognition via DTW</h3>
+  <p>
+    To recognize specific Gamakas (Kampita, Jaru, Sphuritham, Meend), the engine compares
+    the live "Pitch Curve" against a library of "Gold Standard" curves using
+    Dynamic Time Warping (DTW). DTW recognizes patterns even when played at different speeds.
+  </p>
+  <ul class="spec-list">
+    <li><strong>Comparison window:</strong> last 500 ms of pitch curve</li>
+    <li><strong>Template library:</strong> master musician recordings (Veena, Venu, vocal)</li>
+    <li><strong>Tolerance:</strong> &plusmn;25 cents for swarasthana matching</li>
+    <li><strong>Track pitch curves (Meend)</strong> rather than static points for accurate Veena/Venu transcription</li>
+  </ul>
+
+  <!-- ===== SECTION 5: CONVERSION SCHEMA ===== -->
+  <h2>5. Conversion Schema &amp; Multilingual Transliteration</h2>
+
+  <h3>A. Western Note Detection (Absolute)</h3>
+  <p>Anchored to A4 = 440 Hz. Frequency is converted to MIDI pitch number, then mapped to note name.</p>
+
+  <div class="formula">
+    p = 69 + 12 &times; log&#8322;(f / 440.0)
+    <span class="desc">If p = 60, the output is C4 (Middle C)</span>
+  </div>
+
+  <h3>B. Indian Swara Detection (Relative)</h3>
+  <p>Relative to the performer's chosen Shadja. The engine identifies the Adhara Shadja first, then maps all frequencies relative to it.</p>
+
+  <div class="formula">
+    cents = 1200 &times; log&#8322;(f<sub>detected</sub> / f<sub>ref</sub>)
+    <span class="desc">Cent value is matched against the 12 swarasthana ranges (&plusmn;25 cent tolerance)</span>
+  </div>
+
+  <h3>C. Multilingual Script Output</h3>
+  <p>
+    The notation engine supports five scripts. Once the engine identifies a swara code (e.g., "Ri1"),
+    it passes through a transliteration dictionary stored in <code>configs/swarasthanas.json</code>.
+  </p>
+
+  <table class="spec-table">
+    <tr><th>Swara</th><th>IAST</th><th>Devanagari</th><th>Kannada</th><th>Tamil</th><th>Telugu</th></tr>
+    <tr><td><strong>Sa</strong></td><td>Sa</td><td>&#x0938;</td><td>&#x0CB8;</td><td>&#x0B9A;</td><td>&#x0C38;</td></tr>
+    <tr><td><strong>Ri&#8321;</strong></td><td>Ri&#8321;</td><td>&#x0930;&#x093F;&#x2081;</td><td>&#x0CB0;&#x0CBF;&#x2081;</td><td>&#x0BB0;&#x0BBF;&#x2081;</td><td>&#x0C30;&#x0C3F;&#x2081;</td></tr>
+    <tr><td><strong>Ga&#8323;</strong></td><td>Ga&#8323;</td><td>&#x0917;&#x2083;</td><td>&#x0C97;&#x2083;</td><td>&#x0B95;&#x2083;</td><td>&#x0C17;&#x2083;</td></tr>
+    <tr><td><strong>Ma&#8321;</strong></td><td>Ma&#8321;</td><td>&#x092E;&#x2081;</td><td>&#x0CAE;&#x2081;</td><td>&#x0BAE;&#x2081;</td><td>&#x0C2E;&#x2081;</td></tr>
+    <tr><td><strong>Pa</strong></td><td>Pa</td><td>&#x092A;</td><td>&#x0CAA;</td><td>&#x0BAA;</td><td>&#x0C2A;</td></tr>
+    <tr><td><strong>Dha&#8322;</strong></td><td>Dha&#8322;</td><td>&#x0927;&#x2082;</td><td>&#x0CA7;&#x2082;</td><td>&#x0BA4;&#x2082;</td><td>&#x0C27;&#x2082;</td></tr>
+    <tr><td><strong>Ni&#8323;</strong></td><td>Ni&#8323;</td><td>&#x0928;&#x093F;&#x2083;</td><td>&#x0CA8;&#x0CBF;&#x2083;</td><td>&#x0BA8;&#x0BBF;&#x2083;</td><td>&#x0C28;&#x0C3F;&#x2083;</td></tr>
+  </table>
+
+  <h3>D. Configurable Base Pitch (Shruti Presets)</h3>
+  <table class="spec-table">
+    <tr><th>Preset</th><th>Sa Frequency</th><th>Note</th><th>Use Case</th></tr>
+    <tr><td><strong>concert_c</strong></td><td>261.63 Hz</td><td>C4</td><td>Standard reference (default)</td></tr>
+    <tr><td><strong>concert_a</strong></td><td>220.0 Hz</td><td>A3</td><td>Male vocalists, Hindustani</td></tr>
+    <tr><td><strong>d_sharp</strong></td><td>311.13 Hz</td><td>D#4</td><td>Female Carnatic vocalists</td></tr>
+    <tr><td><strong>b_flat</strong></td><td>233.08 Hz</td><td>Bb3</td><td>Hindustani instrumental</td></tr>
+  </table>
+
+  <!-- ===== SECTION 6: OUTPUT STANDARDS ===== -->
+  <h2>6. Output &amp; Mastering Standards</h2>
+
+  <table class="spec-table">
+    <tr><th>Channel</th><th>Format</th><th>Sample / Bit</th><th>Loudness</th></tr>
+    <tr><td><strong>Archival</strong></td><td>WAV (BWF)</td><td>96 kHz / 24-bit</td><td>&minus;1.0 dB True Peak</td></tr>
+    <tr><td><strong>Social Media</strong></td><td>AAC / MP4</td><td>48 kHz / 16-bit</td><td>&minus;14 LUFS (target)</td></tr>
+    <tr><td><strong>Broadcast (TV)</strong></td><td>PCM</td><td>48 kHz / 24-bit</td><td>&minus;23 LUFS (EBU R128)</td></tr>
+    <tr><td><strong>Mahaan App</strong></td><td>OPUS</td><td>Variable Bitrate</td><td>Optimized for mobile data</td></tr>
+  </table>
+
+  <h3>Metadata Requirements (ID3/XMP)</h3>
+  <ul class="spec-list">
+    <li><strong>Raga / Deity</strong> &mdash; e.g., Raga Shankarabharanam or Lord Shiva</li>
+    <li><strong>Veda / Shakha</strong> &mdash; e.g., Krishna Yajur Veda / Taittiriya</li>
+    <li><strong>Location</strong> &mdash; e.g., Mysore, Ananda Ghanam</li>
+    <li><strong>Engineer ID</strong> &mdash; for post-production traceability</li>
+  </ul>
+
+  <!-- ===== SECTION 7: C++ CLASS STRUCTURE ===== -->
+  <h2>7. C++ Pitch Detection Module</h2>
+  <p>Designed for integration into JUCE or VST/AU frameworks with O(N log N) time complexity.</p>
+
+  <div class="card card-highlight">
+<pre>
+<span class="comment">// CRJPitchEngine.h</span>
+<span class="keyword">#include</span> &lt;vector&gt;
+<span class="keyword">#include</span> &lt;complex&gt;
+<span class="keyword">#include</span> &lt;cmath&gt;
+
+<span class="keyword">namespace</span> CRJ_Engine {
+
+  <span class="comment">/** Culturally significant pitch output */</span>
+  <span class="keyword">struct</span> PitchResult {
+    <span class="keyword">double</span> frequencyHz;     <span class="comment">// Fundamental frequency</span>
+    <span class="keyword">double</span> confidence;      <span class="comment">// pYIN probability</span>
+    <span class="keyword">double</span> centsOffset;     <span class="comment">// Deviation from nearest swara</span>
+    <span class="keyword">int</span>    shrutiIndex;     <span class="comment">// 1-12 swarasthana index</span>
+    std::string swara;      <span class="comment">// "Sa", "Ri1", "Ga3", etc.</span>
+  };
+
+  <span class="comment">/** Core engine for real-time Gamaka tracking */</span>
+  <span class="keyword">class</span> PitchDetector {
+  <span class="keyword">public</span>:
+    PitchDetector(<span class="keyword">double</span> sampleRate, <span class="keyword">int</span> bufferSize);
+    ~PitchDetector();
+
+    <span class="comment">// Audio-thread entry — no malloc allowed</span>
+    PitchResult processBuffer(<span class="keyword">const float</span>* inputBuffer);
+    <span class="keyword">void</span> setBaseFrequency(<span class="keyword">double</span> baseHz);
+
+  <span class="keyword">private</span>:
+    <span class="keyword">void</span> applyHanningWindow();
+    <span class="keyword">double</span> calculateAutocorrelation();
+    <span class="keyword">double</span> detectFundamentalYIN();
+    PitchResult mapToSwarasthana(<span class="keyword">double</span> detectedFreq);
+
+    <span class="keyword">double</span> sampleRate;
+    <span class="keyword">int</span>    bufferSize;
+    <span class="keyword">double</span> adharaShadja = <span class="number">220.0</span>;
+
+    std::vector&lt;<span class="keyword">double</span>&gt; analysisBuffer;
+    std::vector&lt;<span class="keyword">double</span>&gt; windowedBuffer;
+    std::vector&lt;<span class="keyword">double</span>&gt; yinDifferenceBuffer;
+  };
+
+  <span class="comment">/** Gamaka contour analyzer */</span>
+  <span class="keyword">class</span> GamakaTracker {
+  <span class="keyword">public</span>:
+    <span class="keyword">void</span> update(<span class="keyword">double</span> currentPitch);
+    <span class="keyword">bool</span> isKampitaDetected();
+  <span class="keyword">private</span>:
+    std::vector&lt;<span class="keyword">double</span>&gt; pitchHistory;
+  };
+}
+</pre>
+  </div>
+
+  <!-- ===== SECTION 8: PYTHON LIBRARIES ===== -->
+  <h2>8. Open-Source Python Libraries</h2>
+
+  <h3>A. Core Audio Libraries</h3>
+  <table class="spec-table">
+    <tr><th>Library</th><th>Strengths</th><th>CRJ Use Case</th></tr>
+    <tr><td><strong>Librosa</strong></td><td>Gold standard for audio analysis, spectral features, time-stretching</td><td>Chroma features, pYIN pitch tracking on Vedic recordings</td></tr>
+    <tr><td><strong>Essentia</strong></td><td>C++ library with Python bindings, industrial-grade speed</td><td>Real-time feature extraction for CRJ App, automated quality gating</td></tr>
+    <tr><td><strong>Aubio</strong></td><td>Optimized for real-time onset &amp; pitch detection</td><td>Low-latency onset detection (Mantra syllable start times)</td></tr>
+  </table>
+
+  <h3>B. Deep Learning &amp; Pitch</h3>
+  <table class="spec-table">
+    <tr><th>Library</th><th>Description</th></tr>
+    <tr><td><strong>CREPE</strong></td><td>Pre-trained CNN for noise-robust pitch estimation. Tracks pitch in noisy ritual environments.</td></tr>
+    <tr><td><strong>SPICE</strong> (Google)</td><td>Pitch estimation from unlabelled data.</td></tr>
+    <tr><td><strong>FastDTW</strong></td><td>Dynamic Time Warping for comparing pitch curves (student vs. master).</td></tr>
+  </table>
+
+  <h3>C. Indian Classical Music Specific</h3>
+  <table class="spec-table">
+    <tr><th>Resource</th><th>Description</th></tr>
+    <tr><td><strong>CompMusic / Saraga</strong></td><td>Open-source Carnatic &amp; Hindustani music dataset with curated Raga, Tala, and Swara annotations.</td></tr>
+    <tr><td><strong>Music21</strong></td><td>Computer-aided musicology &mdash; transposing scales, managing complex musical scores.</td></tr>
+    <tr><td><strong>Abjad</strong></td><td>Python API for Formalized Score Control &mdash; bridge to LilyPond for professional PDF output.</td></tr>
+  </table>
+
+  <h3>D. Python &rarr; C++ Pipeline</h3>
+  <ul class="spec-list">
+    <li><strong>Prototype in Python:</strong> Use Librosa + CREPE to find optimal Gamaka recognition parameters.</li>
+    <li><strong>Export model:</strong> ONNX or TorchScript format.</li>
+    <li><strong>Deploy in C++:</strong> Load via ONNX Runtime or LibTorch for Python intelligence at C++ speed.</li>
+  </ul>
+
+  <!-- ===== SECTION 9: IMPLEMENTATION ROADMAP ===== -->
+  <h2>9. Technical Implementation Roadmap</h2>
+
+  <div class="phase">
+    <div class="phase-title">Phase 1: The "Digital Ear" (Months 1&ndash;3)</div>
+    <ul class="phase-list">
+      <li>Implement circular buffer for 96 kHz stream (zero-dropout guarantee)</li>
+      <li>Pre-calculate Hanning Window coefficients to save CPU cycles</li>
+      <li>pYIN algorithm implementation with Voice Activity Detection</li>
+      <li>Raw JSON frequency output: <code>{"timestamp", "freq", "confidence"}</code></li>
+      <li>Goal: stable frequency readout in Hz that ignores harmonics</li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <div class="phase-title">Phase 2: The "Scholar's Brain" (Months 4&ndash;6)</div>
+    <ul class="phase-list">
+      <li>Train CNN to classify Vedic vs. Musical audio (Rig vs. Sama chanting styles)</li>
+      <li>Develop Notation Bridge: frequency paths &rarr; Swarasthana symbols</li>
+      <li>Microtonal cent mapping with &plusmn;25 cent tolerance zones</li>
+      <li>Gamaka recognition: DTW comparison against master pitch curves</li>
+      <li>AI-suggested Sa (tonic): pitch-class histogram + Sa-Pa spectral validation</li>
+      <li>Live Tala/Laya engine: 7 talas across Carnatic, Hindustani, Dhrupad with Mridangam, Pakhavaj, Tabla synth voices</li>
+      <li>Shruti playback: 5 popular Sa presets &times; 3 pluck patterns (Sa-Pa, Sa-Ma, Sa-Ni)</li>
+      <li>Session Mode: combined Shruti + Tala accompaniment with mic recording for practice and analysis</li>
+      <li>Goal: real-time swara identification with gamaka type classification + accompaniment-aware practice</li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <div class="phase-title">Phase 3: The "Notation Hand" (Months 7&ndash;9)</div>
+    <ul class="phase-list">
+      <li>Flutter UI with scrolling staff / script-based notation display</li>
+      <li>Physical Modeling Synthesis: synthesized Veena playback for accuracy confirmation</li>
+      <li>Multilingual rendering in all five supported scripts</li>
+      <li>Real-time latency target: &lt; 20 ms for LCD visual feedback</li>
+      <li>Goal: complete notation output on mobile and web</li>
+    </ul>
+  </div>
+
+  <div class="phase">
+    <div class="phase-title">Phase 4: Integration &amp; Deployment (Months 10&ndash;12)</div>
+    <ul class="phase-list">
+      <li>Web: React / Next.js + Web Audio API + Essentia.js</li>
+      <li>Mobile: Flutter with native audio bridge for low-latency microphone access</li>
+      <li>Desktop: Electron wrapper for offline use in Pathashalas</li>
+      <li>Cloud: FastAPI backend on Google Cloud Run + Firebase Hosting</li>
+      <li>Goal: CRJ App 1.0 across all platforms</li>
+    </ul>
+  </div>
+
+  <!-- ===== SECTION 10: HARDWARE ===== -->
+  <h2>10. Hardware Requirements</h2>
+
+  <h3>Development Workstation</h3>
+  <table class="spec-table">
+    <tr><th>Component</th><th>Requirement</th></tr>
+    <tr><td><strong>Processor</strong></td><td>Apple Silicon (M1/M2/M3) or Intel i7+ with AVX instructions</td></tr>
+    <tr><td><strong>Audio Interface</strong></td><td>ASIO (Windows) or CoreAudio (Mac), 96 kHz / 24-bit capable</td></tr>
+    <tr><td><strong>IDE</strong></td><td>CLion or Visual Studio 2022 (C++), VS Code (Python/Web)</td></tr>
+    <tr><td><strong>RAM</strong></td><td>16 GB minimum (32 GB for ML training)</td></tr>
+  </table>
+
+  <h3>Studio Recording Chain</h3>
+  <table class="spec-table">
+    <tr><th>Component</th><th>Specification</th></tr>
+    <tr><td><strong>Microphone</strong></td><td>Large-diaphragm condenser, flat response 20 Hz &ndash; 20 kHz &plusmn;1 dB</td></tr>
+    <tr><td><strong>Preamp</strong></td><td>Clean, transparent, &ge;60 dB gain, low noise floor</td></tr>
+    <tr><td><strong>ADC</strong></td><td>96 kHz / 24-bit minimum, ASIO or CoreAudio driver</td></tr>
+    <tr><td><strong>DAW</strong></td><td>ProTools or Logic Pro (studio), Audacity (field recording)</td></tr>
+  </table>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 <a href="https://vedavishtaram.in/crj">CRJ Studio</a>, Mysore &bull;
+    <a href="/apps/crj/about.html">About</a> &bull;
+    <a href="/apps/crj/roadmap.html">Roadmap</a> &bull;
+    <a href="/">SoundScape</a> &bull;
+    <a href="../privacy.html">Privacy</a>
+  </footer>
+
+</div>
+
+</body>
+</html>

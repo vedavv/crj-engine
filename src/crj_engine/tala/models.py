@@ -77,6 +77,14 @@ class TalaDefinition:
     tradition: str = "carnatic"
     vibhag_marks: list[str] | None = None
     aliases: list[str] = field(default_factory=list)
+    # For Hindustani/Dhrupad where the Jati enum doesn't apply naturally
+    # (e.g. Ektaal vibhags are 2 matras each, not 4), the JSON file may
+    # supply an explicit jati_count. Falls back to jati.value when None.
+    jati_count_override: int | None = None
+
+    @property
+    def effective_jati_count(self) -> int:
+        return self.jati_count_override or self.jati.value
 
 
 @dataclass
@@ -229,6 +237,15 @@ def _talas_from_file(path: Path) -> list[TalaDefinition]:
         # don't break. Chatusra (4) is the safest default.
         jati_str = entry.get("jati", "chatusra")
         jati = Jati[jati_str.upper()]
+        # Honour an explicit jati_count from JSON only when it differs from
+        # the enum (i.e. only when the tala's vibhag count diverges from the
+        # jati enum's value — typical for Hindustani vibhag-based talas).
+        json_jati_count = entry.get("jati_count")
+        override = (
+            json_jati_count
+            if json_jati_count is not None and json_jati_count != jati.value
+            else None
+        )
         out.append(
             TalaDefinition(
                 id=entry["id"],
@@ -241,6 +258,7 @@ def _talas_from_file(path: Path) -> list[TalaDefinition]:
                 tradition=entry.get("tradition", file_tradition),
                 vibhag_marks=entry.get("vibhag_marks"),
                 aliases=entry.get("aliases", []),
+                jati_count_override=override,
             )
         )
     return out

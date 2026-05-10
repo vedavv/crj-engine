@@ -28,7 +28,7 @@ async def get_talas(tradition: str | None = None) -> list[dict]:
             "name": t.name,
             "base_tala": t.base_tala,
             "jati": t.jati.name.lower(),
-            "jati_count": t.jati.value,
+            "jati_count": t.effective_jati_count,
             "components": t.components,
             "total_aksharas": t.total_aksharas,
             "beat_pattern": t.beat_pattern,

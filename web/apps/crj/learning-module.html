@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Learning Module – CRJ SoundScape</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family: 'Georgia', 'Garamond', serif;
+background:#0a0612;
+color:#e8e0d4;
+line-height:1.8;
+}
+
+.container{
+max-width:960px;
+margin:0 auto;
+padding:40px 24px 60px;
+}
+
+/* Header */
+.hero{
+text-align:center;
+padding:48px 0 32px;
+border-bottom:1px solid rgba(212,168,84,0.2);
+margin-bottom:40px;
+}
+
+.hero h1{
+font-family: 'Palatino Linotype', 'Book Antiqua', serif;
+font-size:32px;
+color:#d4a854;
+letter-spacing:3px;
+margin-bottom:8px;
+}
+
+.hero .tagline{
+font-size:15px;
+color:#9a8e7e;
+letter-spacing:2px;
+text-transform:uppercase;
+}
+
+.hero .version{
+font-size:13px;
+color:#6a6050;
+margin-top:12px;
+}
+
+/* Section headers */
+h2{
+font-family: 'Palatino Linotype', 'Book Antiqua', serif;
+font-size:22px;
+color:#d4a854;
+letter-spacing:1px;
+margin:36px 0 16px;
+padding-bottom:8px;
+border-bottom:1px solid rgba(212,168,84,0.15);
+}
+
+h3{
+font-size:17px;
+color:#c8a960;
+margin:20px 0 10px;
+}
+
+h4{
+font-size:15px;
+color:#b8a070;
+margin:16px 0 8px;
+}
+
+p{
+margin-bottom:16px;
+color:#d0c8bc;
+font-size:16px;
+}
+
+/* Cards */
+.card{
+background:rgba(18,12,32,0.9);
+border:1px solid rgba(212,168,84,0.12);
+border-radius:8px;
+padding:24px;
+margin-bottom:20px;
+}
+
+.card-highlight{
+border-left:3px solid #d4a854;
+}
+
+/* Feature grid */
+.features{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(240px, 1fr));
+gap:16px;
+margin:20px 0 32px;
+}
+
+.feature{
+background:rgba(18,12,32,0.7);
+border:1px solid rgba(212,168,84,0.1);
+border-radius:6px;
+padding:18px;
+}
+
+.feature .icon{
+font-size:24px;
+margin-bottom:8px;
+display:block;
+}
+
+.feature h4{
+color:#d4a854;
+font-size:14px;
+letter-spacing:1px;
+text-transform:uppercase;
+margin-bottom:6px;
+}
+
+.feature p{
+font-size:14px;
+color:#9a8e7e;
+margin:0;
+line-height:1.6;
+}
+
+/* Tables */
+.spec-table{
+width:100%;
+border-collapse:collapse;
+margin:16px 0 24px;
+font-size:15px;
+}
+
+.spec-table th{
+background:rgba(212,168,84,0.12);
+color:#d4a854;
+padding:10px 14px;
+text-align:left;
+font-size:13px;
+letter-spacing:1px;
+text-transform:uppercase;
+border:1px solid rgba(212,168,84,0.1);
+}
+
+.spec-table td{
+padding:10px 14px;
+border:1px solid rgba(212,168,84,0.08);
+color:#d0c8bc;
+vertical-align:top;
+}
+
+.spec-table tr:nth-child(even){
+background:rgba(18,12,32,0.5);
+}
+
+.spec-table strong{
+color:#c8a960;
+}
+
+.spec-table code{
+font-family:'Courier New', monospace;
+background:rgba(212,168,84,0.08);
+padding:2px 6px;
+border-radius:3px;
+font-size:13px;
+color:#d4a854;
+}
+
+/* Code blocks */
+pre{
+background:rgba(13,22,36,0.8);
+border:1px solid rgba(212,168,84,0.1);
+border-radius:6px;
+padding:18px 20px;
+overflow-x:auto;
+font-family:'Courier New', monospace;
+font-size:14px;
+color:#d0c8bc;
+line-height:1.6;
+margin:12px 0 20px;
+}
+
+code{
+font-family:'Courier New', monospace;
+background:rgba(212,168,84,0.08);
+padding:2px 6px;
+border-radius:3px;
+font-size:14px;
+color:#d4a854;
+}
+
+/* Math formulas */
+.formula{
+background:rgba(18,12,32,0.7);
+border-left:3px solid #d4a854;
+padding:16px 20px;
+margin:16px 0;
+font-family:'Courier New', monospace;
+font-size:16px;
+color:#d4a854;
+letter-spacing:1px;
+}
+
+.formula .desc{
+display:block;
+font-family:'Georgia', serif;
+font-size:14px;
+color:#9a8e7e;
+margin-top:6px;
+letter-spacing:0;
+}
+
+/* Lists */
+ul.spec-list{
+list-style:none;
+padding:0;
+margin:12px 0 20px;
+}
+
+ul.spec-list li{
+padding:6px 0 6px 20px;
+border-left:2px solid rgba(212,168,84,0.2);
+margin-bottom:6px;
+color:#d0c8bc;
+font-size:15px;
+}
+
+ul.spec-list li strong{
+color:#c8a960;
+}
+
+/* Assignment cards */
+.assignment{
+background:rgba(18,12,32,0.9);
+border:1px solid rgba(212,168,84,0.12);
+border-left:4px solid #d4a854;
+border-radius:0 8px 8px 0;
+padding:24px;
+margin-bottom:24px;
+}
+
+.assignment h3{
+color:#d4a854;
+font-size:16px;
+letter-spacing:1px;
+margin:0 0 8px;
+}
+
+.assignment .meta{
+font-size:13px;
+color:#6a6050;
+margin-bottom:12px;
+text-transform:uppercase;
+letter-spacing:1px;
+}
+
+/* UI mockup styles */
+.harmonium-mockup{
+display:flex;
+gap:2px;
+margin:20px 0;
+padding:16px;
+background:rgba(13,22,36,0.6);
+border-radius:8px;
+border:1px solid rgba(212,168,84,0.1);
+overflow-x:auto;
+}
+
+.key{
+min-width:56px;
+padding:12px 6px;
+text-align:center;
+border-radius:4px;
+font-size:12px;
+font-weight:bold;
+cursor:default;
+transition:all 0.2s ease;
+}
+
+.key-white{
+background:rgba(232,224,212,0.1);
+color:#d0c8bc;
+border:1px solid rgba(212,168,84,0.1);
+}
+
+.key-black{
+background:rgba(13,22,36,0.9);
+color:#9a8e7e;
+border:1px solid rgba(212,168,84,0.15);
+}
+
+.key-root{
+background:rgba(212,168,84,0.2);
+color:#d4a854;
+border:2px solid #d4a854;
+font-size:11px;
+min-width:80px;
+}
+
+.key-root .full-label{
+display:block;
+font-size:10px;
+color:#c8a960;
+margin-top:4px;
+text-transform:uppercase;
+letter-spacing:0.5px;
+}
+
+/* Pitch bar mockup */
+.pitch-bar{
+position:relative;
+height:60px;
+background:rgba(13,22,36,0.6);
+border-radius:8px;
+border:1px solid rgba(212,168,84,0.1);
+margin:20px 0;
+overflow:hidden;
+}
+
+.pitch-zone{
+position:absolute;
+top:0;
+bottom:0;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:11px;
+font-weight:bold;
+letter-spacing:1px;
+text-transform:uppercase;
+}
+
+.zone-red-left{left:0;width:20%;background:rgba(224,85,85,0.15);color:#e05555;border-right:1px solid rgba(224,85,85,0.2);}
+.zone-yellow-left{left:20%;width:15%;background:rgba(224,168,64,0.1);color:#e0a840;border-right:1px solid rgba(224,168,64,0.15);}
+.zone-green{left:35%;width:30%;background:rgba(93,186,106,0.12);color:#5dba6a;border-right:1px solid rgba(93,186,106,0.15);}
+.zone-yellow-right{left:65%;width:15%;background:rgba(224,168,64,0.1);color:#e0a840;border-right:1px solid rgba(224,168,64,0.15);}
+.zone-red-right{left:80%;width:20%;background:rgba(224,85,85,0.15);color:#e05555;}
+
+.pitch-indicator{
+position:absolute;
+top:8px;
+bottom:8px;
+left:52%;
+width:3px;
+background:#d4a854;
+border-radius:2px;
+box-shadow:0 0 8px rgba(212,168,84,0.4);
+}
+
+/* Deployment grid */
+.deploy-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+gap:16px;
+margin:16px 0 28px;
+}
+
+.deploy-card{
+background:rgba(18,12,32,0.7);
+border:1px solid rgba(212,168,84,0.1);
+border-radius:6px;
+padding:18px;
+text-align:center;
+}
+
+.deploy-card .platform{
+font-size:28px;
+display:block;
+margin-bottom:8px;
+}
+
+.deploy-card h4{
+color:#d4a854;
+font-size:13px;
+letter-spacing:1px;
+text-transform:uppercase;
+margin-bottom:6px;
+}
+
+.deploy-card p{
+font-size:14px;
+color:#9a8e7e;
+margin:0;
+line-height:1.5;
+}
+
+/* Footer */
+footer{
+text-align:center;
+padding:24px 0;
+font-size:13px;
+color:#6a6050;
+border-top:1px solid rgba(212,168,84,0.1);
+margin-top:40px;
+}
+
+footer a{
+color:#9a8e7e;
+text-decoration:none;
+}
+
+footer a:hover{
+text-decoration:underline;
+}
+
+/* Responsive */
+@media(max-width:600px){
+  .features{grid-template-columns:1fr;}
+  .deploy-grid{grid-template-columns:1fr 1fr;}
+  .harmonium-mockup{gap:1px;}
+  .key{min-width:40px;padding:8px 4px;font-size:10px;}
+  .key-root{min-width:60px;}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>ADVANCED LEARNING MODULE</h1>
+    <div class="tagline">CRJ SoundScape &bull; Vedic &amp; Musical Mastery</div>
+    <div class="version">Project Report &bull; Functional Specification &bull; 2026</div>
+  </div>
+
+  <!-- ===== EXECUTIVE SUMMARY ===== -->
+  <h2>1. Executive Summary</h2>
+  <p>
+    The CRJ SoundScape Advanced Learning Module is an interactive audio-visual environment
+    for Vedic chanting and Indian Classical music mastery. It focuses on three pillars:
+    <strong>Precision</strong> (real-time pitch analysis), <strong>Repetition</strong>
+    (intelligent looping), and <strong>Visual Feedback</strong> (harmonium-style pitch display
+    with cent deviation tracking).
+  </p>
+  <p>
+    Users can loop specific mantra segments, synchronize text and notation in real-time,
+    practice against a sonorous Shruti drone with customizable click track, and receive
+    instant visual feedback comparing their pitch against the teacher's reference &mdash;
+    all rendered through a culturally-aware Harmonium keyboard interface with multilingual labeling.
+  </p>
+
+  <!-- ===== KEY FEATURES ===== -->
+  <h2>2. Key Features</h2>
+  <div class="features">
+    <div class="feature">
+      <span class="icon">&#x1F501;</span>
+      <h4>Segment Looping</h4>
+      <p>Dual-slider selection on waveform for precise phrase practice. Infinite or counted loops (11, 21, 108). Shuffle mode for testing recognition.</p>
+    </div>
+    <div class="feature">
+      <span class="icon">&#x1F4DC;</span>
+      <h4>Text &amp; Notation Sync</h4>
+      <p>JSON-based syllable-level highlighting ("Karaoke" mode). Swara notation syncs above text in secondary track.</p>
+    </div>
+    <div class="feature">
+      <span class="icon">&#x1F3B5;</span>
+      <h4>Sonorous Shruti Drone</h4>
+      <p>Multi-sampled Tanpura or rich synth drone. User-selectable key with independent volume control.</p>
+    </div>
+    <div class="feature">
+      <span class="icon">&#x1F514;</span>
+      <h4>Advanced Click Track</h4>
+      <p>Sound library: Bell, Ghatam, Manjira, Droplet, Om. Tala subdivisions (Adi, Rupaka, Mishra).</p>
+    </div>
+    <div class="feature">
+      <span class="icon">&#x1F3B9;</span>
+      <h4>Harmonium Pitch Bar</h4>
+      <p>12-key visual reference with dynamic multilingual labeling. Base Swara in full, others as initials.</p>
+    </div>
+    <div class="feature">
+      <span class="icon">&#x1F4CA;</span>
+      <h4>Imperfection Analysis</h4>
+      <p>Post-session heatmap showing pitch drift and rhythm waver. Cent deviation graph over time.</p>
+    </div>
+  </div>
+
+  <!-- ===== FUNCTIONAL ARCHITECTURE ===== -->
+  <h2>3. Functional Architecture</h2>
+
+  <h3>A. Multi-Track Audio Engine</h3>
+  <ul class="spec-list">
+    <li><strong>Track 1 &mdash; Mantra/Teacher:</strong> Primary audio with dual-handle segment selection and loop control.</li>
+    <li><strong>Track 2 &mdash; Shruti Drone:</strong> Independent volume, key selection (C1&ndash;C5 range), Tanpura or synth timbre.</li>
+    <li><strong>Track 3 &mdash; Click Track:</strong> Configurable tala pattern, sound selection, subdivision control.</li>
+    <li><strong>Track 4 &mdash; Student Mic:</strong> Live microphone input for real-time pitch comparison (Web Audio API).</li>
+  </ul>
+
+  <h3>B. Segment Looping Engine</h3>
+  <ul class="spec-list">
+    <li><strong>Dual-handle waveform slider:</strong> Users drag handles to highlight specific Anuvaka or verse.</li>
+    <li><strong>Loop modes:</strong> Infinite, Counter (custom count: 11, 21, 108, or user-defined).</li>
+    <li><strong>Shuffle Phrases:</strong> randomize segment order to test learner's recognition ability.</li>
+    <li><strong>Core logic:</strong> <code>if (currentTime >= markerB) { playhead = markerA; loopCount++; }</code></li>
+    <li><strong>Library:</strong> wavesurfer.js for waveform rendering and region management.</li>
+  </ul>
+
+  <h3>C. Visual Synchronization (Karaoke Layer)</h3>
+  <ul class="spec-list">
+    <li><strong>Text Sync:</strong> JSON timestamps at syllable level; <code>.highlight</code> CSS class applied in real-time.</li>
+    <li><strong>Notation Sync:</strong> Swaram markings appear in secondary track above text, lighting up in tandem.</li>
+    <li><strong>Data format:</strong> <code>{"time": 1.23, "text": "&#x0913;&#x092E;&#x094D;", "swara": "Sa", "duration": 0.5}</code></li>
+    <li><strong>Samaveda support:</strong> Udatta, Anudatta, and Svarita accent markers synchronized with audio.</li>
+  </ul>
+
+  <!-- ===== THE HARMONIUM UI ===== -->
+  <h2>4. The Harmonium Keyboard Interface</h2>
+  <p>
+    The keyboard is the <strong>Control Center</strong> for the entire Soundscape. Clicking a key
+    sets the Shruti globally and offsets the target pitch for the analysis engine. The Base Swara (Shadja)
+    is always displayed in full as the visual "anchor," while all other semitones show only their initial character.
+  </p>
+
+  <h3>Dynamic Labeling System</h3>
+  <table class="spec-table">
+    <tr><th>System</th><th>Sa</th><th>Ri</th><th>Ga</th><th>Ma</th><th>Pa</th><th>Dha</th><th>Ni</th></tr>
+    <tr>
+      <td><strong>Western</strong></td>
+      <td>C</td><td>C# / D</td><td>D# / E</td><td>F / F#</td><td>G</td><td>G# / A</td><td>A# / B</td>
+    </tr>
+    <tr>
+      <td><strong>South Indian (Kattai)</strong></td>
+      <td>1</td><td>1.5 / 2</td><td>2.5 / 3</td><td>3.5 / 4</td><td>4.5</td><td>5 / 5.5</td><td>6 / 6.5</td>
+    </tr>
+    <tr>
+      <td><strong>Vedic (Samaveda)</strong></td>
+      <td>Prathama</td><td>Dvitiya</td><td>Tritiya</td><td>Caturtha</td><td>Mandra</td><td>Atisvarya</td><td>Krushta</td>
+    </tr>
+  </table>
+
+  <h3>Visual Mockup: Harmonium Bar</h3>
+  <p style="color:#9a8e7e;font-size:14px;">Base Swara shown in full; all others display first letter only. Root key pulses when Shruti is active.</p>
+
+  <div class="harmonium-mockup">
+    <div class="key key-root">
+      Sa
+      <span class="full-label">SHADJA</span>
+    </div>
+    <div class="key key-black">R</div>
+    <div class="key key-white">R</div>
+    <div class="key key-black">G</div>
+    <div class="key key-white">G</div>
+    <div class="key key-white">M</div>
+    <div class="key key-black">M</div>
+    <div class="key key-white">P</div>
+    <div class="key key-black">D</div>
+    <div class="key key-white">D</div>
+    <div class="key key-black">N</div>
+    <div class="key key-white">N</div>
+  </div>
+
+  <h3>Display Logic</h3>
+<pre>
+// Dynamic labeling: full name for root, initial for others
+const keys = ["Shadja", "Rishabha", "Gandhara", "Madhyama", ...];
+const baseIndex = 0; // Selected Adhara Shadja
+
+keys.map((name, index) => {
+  if (index === baseIndex) {
+    return name.toUpperCase(); // Full label: "SHADJA"
+  } else {
+    return name.charAt(0).toUpperCase(); // Initial: "R", "G", "M"
+  }
+});
+</pre>
+
+  <!-- ===== PITCH FEEDBACK ===== -->
+  <h2>5. Pitch Feedback &amp; Analysis</h2>
+
+  <h3>A. Real-Time Pitch Comparison</h3>
+  <p>
+    The system overlays the student's frequency (f<sub>S</sub>) against the teacher's (f<sub>T</sub>)
+    using the cent deviation formula:
+  </p>
+
+  <div class="formula">
+    &Delta;cents = 1200 &times; log&#8322;(f<sub>S</sub> / f<sub>T</sub>)
+    <span class="desc">Goal: keep &Delta;cents as close to zero as possible throughout the mantra.</span>
+  </div>
+
+  <h3>B. Visual Pitch Bar</h3>
+  <p style="color:#9a8e7e;font-size:14px;">The gold indicator shows the learner's current pitch position against the target center.</p>
+
+  <div class="pitch-bar">
+    <div class="pitch-zone zone-red-left">&gt;30&cent; flat</div>
+    <div class="pitch-zone zone-yellow-left">11&ndash;30&cent;</div>
+    <div class="pitch-zone zone-green">&plusmn;10&cent; IN TUNE</div>
+    <div class="pitch-zone zone-yellow-right">11&ndash;30&cent;</div>
+    <div class="pitch-zone zone-red-right">&gt;30&cent; sharp</div>
+    <div class="pitch-indicator"></div>
+  </div>
+
+  <h3>C. Feedback Layers</h3>
+  <table class="spec-table">
+    <tr><th>Feature</th><th>Implementation</th><th>Purpose</th></tr>
+    <tr>
+      <td><strong>Pitch Tracker</strong></td>
+      <td>Moving line graph overlaid on notation</td>
+      <td>Shows if student is sharp or flat in real-time</td>
+    </tr>
+    <tr>
+      <td><strong>Comparison Bar</strong></td>
+      <td>f<sub>S</sub> vs. f<sub>T</sub> overlay with cent gap</td>
+      <td>Visualizes the deviation from teacher's pitch</td>
+    </tr>
+    <tr>
+      <td><strong>Imperfection Graph</strong></td>
+      <td>Post-session heatmap</td>
+      <td>Highlights where rhythm wavered or pitch drifted</td>
+    </tr>
+    <tr>
+      <td><strong>Harmonium Glow</strong></td>
+      <td>Keys light up as learner sings</td>
+      <td>Ghost key moves across keyboard showing live position</td>
+    </tr>
+  </table>
+
+  <h3>D. Color-Coded Deviation</h3>
+  <ul class="spec-list">
+    <li><strong style="color:#5dba6a;">Green Glow:</strong> &Delta;cents within &plusmn;10 &mdash; perfectly in tune</li>
+    <li><strong style="color:#e0a840;">Yellow Shift:</strong> &Delta;cents &plusmn;11 to 30 &mdash; slightly off</li>
+    <li><strong style="color:#e05555;">Red Shift:</strong> &Delta;cents &gt; 30 &mdash; incorrect Svara</li>
+  </ul>
+
+  <!-- ===== VEDIC OVERLAY ===== -->
+  <h2>6. Vedic Overlay (Samaveda Mode)</h2>
+  <p>
+    For Samaveda learners, the Harmonium keys are color-coded to match the descending chanting style.
+    As the chant moves from Krushta down to Atisvarya, corresponding keys light up in sequence
+    mimicking the traditional hand movements (Mudras).
+  </p>
+  <ul class="spec-list">
+    <li><strong>Accent visualization:</strong> Udatta (raised), Anudatta (lowered), Svarita (circumflex) mapped to vertical position on pitch display.</li>
+    <li><strong>Descending contour:</strong> visual flow from high to low keys matching Samaveda melodic structure.</li>
+    <li><strong>Mudra guide:</strong> optional hand gesture indicator synchronized with audio position.</li>
+  </ul>
+
+  <!-- ===== CODING ASSIGNMENTS ===== -->
+  <h2>7. Coding Assignments (Sprint-Based)</h2>
+
+  <div class="assignment">
+    <h3>Assignment 1: The "Smart" Harmonium UI</h3>
+    <div class="meta">HTML / CSS / JavaScript &bull; Sprint 1</div>
+    <p><strong>Task:</strong> Create a horizontal bar of 12 keys with dynamic labeling.</p>
+    <ul class="spec-list">
+      <li>Function takes an array of 12 strings and a <code>baseIndex</code></li>
+      <li>Render <code>baseIndex</code> in full uppercase; others as first letter only</li>
+      <li>Toggle between Western, South Indian, and Vedic label sets</li>
+      <li>Clicking a key sets the global Shruti reference</li>
+    </ul>
+  </div>
+
+  <div class="assignment">
+    <h3>Assignment 2: The Looping Engine</h3>
+    <div class="meta">JavaScript / wavesurfer.js &bull; Sprint 2</div>
+    <p><strong>Task:</strong> Implement waveform display with dual markers and loop control.</p>
+    <ul class="spec-list">
+      <li>Two draggable markers on waveform (Marker A and Marker B)</li>
+      <li>"Loop" toggle: reset playhead to Marker A when it reaches Marker B</li>
+      <li>Loop counter display (current / total)</li>
+      <li>Shuffle mode: randomize segment playback order from a segment list</li>
+    </ul>
+  </div>
+
+  <div class="assignment">
+    <h3>Assignment 3: Pitch Detection &amp; Cent Calculation</h3>
+    <div class="meta">JavaScript / Web Audio API &bull; Sprint 3</div>
+    <p><strong>Task:</strong> Access microphone, detect pitch, and calculate cent deviation.</p>
+    <ul class="spec-list">
+      <li>Capture microphone input using <code>navigator.mediaDevices.getUserMedia()</code></li>
+      <li>Implement autocorrelation-based pitch detection on <code>AnalyserNode</code> data</li>
+      <li>Calculate: <code>cents = 1200 * Math.log2(userFreq / refFreq)</code></li>
+      <li>Display result on the Harmonium bar with green/yellow/red color coding</li>
+    </ul>
+  </div>
+
+  <div class="assignment">
+    <h3>Assignment 4: Text &amp; Notation Sync</h3>
+    <div class="meta">JavaScript / JSON &bull; Sprint 4</div>
+    <p><strong>Task:</strong> Map JSON timestamps to text elements for karaoke-style highlighting.</p>
+    <ul class="spec-list">
+      <li>Load JSON file with <code>{time, text, swara, duration}</code> entries</li>
+      <li>As audio plays, add <code>.highlight</code> CSS class to corresponding syllable</li>
+      <li>Secondary notation track above text lights up swara in tandem</li>
+      <li>Support for Samaveda accent markers (Udatta, Anudatta, Svarita)</li>
+    </ul>
+  </div>
+
+  <!-- ===== UI LAYOUT ===== -->
+  <h2>8. UI Layout Specification</h2>
+  <p>The screen is divided into four vertical zones, top to bottom:</p>
+
+  <table class="spec-table">
+    <tr><th>Zone</th><th>Component</th><th>Description</th></tr>
+    <tr>
+      <td><strong>Top</strong></td>
+      <td>Text &amp; Notation Panel</td>
+      <td>Scrolling text with syllable highlighting. Swara notation track above with accent markers.</td>
+    </tr>
+    <tr>
+      <td><strong>Middle</strong></td>
+      <td>Waveform &amp; Controls</td>
+      <td>Dual-slider waveform (wavesurfer.js). Transport controls: play, pause, loop toggle, counter, shuffle. Speed control.</td>
+    </tr>
+    <tr>
+      <td><strong>Lower</strong></td>
+      <td>Harmonium Bar</td>
+      <td>12-key reference with dynamic labels. Live pitch indicator (ghost key). Language toggle for label system.</td>
+    </tr>
+    <tr>
+      <td><strong>Bottom</strong></td>
+      <td>Pitch Deviation Bar</td>
+      <td>Color-coded cent deviation display. Post-session imperfection heatmap toggle.</td>
+    </tr>
+  </table>
+
+  <h3>Side Panel (Collapsible)</h3>
+  <ul class="spec-list">
+    <li><strong>Shruti controls:</strong> 5 popular Sa presets (A3, B♭3, C4, C♯4, D♯4) plus custom Hz; pluck pattern Sa-Pa-Sa-Sa, Sa-Ma-Sa-Sa, or Sa-Ni-Sa-Sa</li>
+    <li><strong>Tala controls:</strong> 7 cycles across Carnatic (Adi, Rupakam, Tisra Triputa), Hindustani (Teentaal, Ektaal, Dadra), Dhrupad (Chautal). Voice selectable: Mridangam / Pakhavaj / Tabla / Click. Tempo 40&ndash;200 BPM.</li>
+    <li><strong>Session Mode:</strong> Shruti + Tala play together while the user practises; record voice for in-place analysis (Sa auto-suggested via pitch-class histogram).</li>
+    <li><strong>Script selector:</strong> IAST, Devanagari, Kannada, Tamil, Telugu</li>
+    <li><strong>Analysis toggle:</strong> show/hide pitch graph, imperfection heatmap</li>
+  </ul>
+
+  <!-- ===== DEPLOYMENT ===== -->
+  <h2>9. Deployment Strategy</h2>
+  <p>Cross-platform hybrid model ensuring the module works across all target environments.</p>
+
+  <div class="deploy-grid">
+    <div class="deploy-card">
+      <span class="platform">&#x1F310;</span>
+      <h4>Web Browser</h4>
+      <p>React / Next.js + Web Audio API + Essentia.js. Hosted on Firebase / Cloud Run.</p>
+    </div>
+    <div class="deploy-card">
+      <span class="platform">&#x1F4F1;</span>
+      <h4>iOS &amp; Android</h4>
+      <p>Capacitor or React Native wrapper. Native mic access for low-latency pitch feedback.</p>
+    </div>
+    <div class="deploy-card">
+      <span class="platform">&#x1F5A5;</span>
+      <h4>Windows Desktop</h4>
+      <p>Electron wrapper for offline use. Ideal for Pathashalas and home studios.</p>
+    </div>
+    <div class="deploy-card">
+      <span class="platform">&#x1F34E;</span>
+      <h4>macOS</h4>
+      <p>Electron or native Swift wrapper. CoreAudio for ultra-low-latency processing.</p>
+    </div>
+  </div>
+
+  <!-- ===== INTEGRATION ===== -->
+  <h2>10. Integration with CRJ Ecosystem</h2>
+  <ul class="spec-list">
+    <li><strong>CRJ SoundScape Analyzer:</strong> analyzed audio feeds into the learning module as "teacher reference."</li>
+    <li><strong>Composition Tool:</strong> composed notation can be loaded as practice material with auto-generated timestamps.</li>
+    <li><strong>Sacred Audio Player:</strong> existing Samaveda Setu recordings available as loop-practice source material.</li>
+    <li><strong>configs/swarasthanas.json:</strong> shared swara mapping config powers both analysis and learning display.</li>
+    <li><strong>Multilingual engine:</strong> same script selector and transliteration dictionary across all modules.</li>
+  </ul>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 <a href="https://vedavishtaram.in/crj">CRJ Studio</a>, Mysore &bull;
+    <a href="/apps/crj/about.html">About</a> &bull;
+    <a href="/apps/crj/roadmap.html">Roadmap</a> &bull;
+    <a href="/apps/crj/tech-spec.html">Tech Spec</a> &bull;
+    <a href="/">SoundScape</a> &bull;
+    <a href="../privacy.html">Privacy</a>
+  </footer>
+
+</div>
+
+</body>
+</html>

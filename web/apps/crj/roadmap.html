@@ -1,0 +1,629 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Roadmap – CRJ Studio</title>
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+font-family: 'Georgia', 'Garamond', serif;
+background:#0a0612;
+color:#e8e0d4;
+line-height:1.8;
+}
+
+.container{
+max-width:960px;
+margin:0 auto;
+padding:40px 24px 60px;
+}
+
+/* Header */
+.hero{
+text-align:center;
+padding:48px 0 32px;
+border-bottom:1px solid rgba(212,168,84,0.2);
+margin-bottom:40px;
+}
+
+.hero h1{
+font-family: 'Palatino Linotype', 'Book Antiqua', serif;
+font-size:32px;
+color:#d4a854;
+letter-spacing:3px;
+margin-bottom:8px;
+}
+
+.hero .tagline{
+font-size:15px;
+color:#9a8e7e;
+letter-spacing:2px;
+text-transform:uppercase;
+}
+
+.hero .sanskrit{
+font-size:18px;
+color:#d4a854;
+margin-top:16px;
+opacity:0.8;
+}
+
+/* Section headers */
+h2{
+font-family: 'Palatino Linotype', 'Book Antiqua', serif;
+font-size:22px;
+color:#d4a854;
+letter-spacing:1px;
+margin:36px 0 16px;
+padding-bottom:8px;
+border-bottom:1px solid rgba(212,168,84,0.15);
+}
+
+h3{
+font-size:17px;
+color:#c8a960;
+margin:20px 0 10px;
+}
+
+p{
+margin-bottom:16px;
+color:#d0c8bc;
+font-size:16px;
+}
+
+/* ---- TABBED NAVIGATION ---- */
+.tabs{
+display:flex;
+flex-wrap:wrap;
+gap:8px;
+margin-bottom:0;
+padding-bottom:0;
+}
+
+.tab-btn{
+padding:12px 24px;
+background:rgba(18,12,32,0.7);
+border:1px solid rgba(212,168,84,0.12);
+border-bottom:none;
+cursor:pointer;
+font-family:'Georgia', serif;
+font-size:14px;
+font-weight:bold;
+color:#9a8e7e;
+border-radius:6px 6px 0 0;
+transition:all 0.3s ease;
+letter-spacing:0.5px;
+}
+
+.tab-btn:hover{
+color:#d4a854;
+background:rgba(18,12,32,0.9);
+border-color:rgba(212,168,84,0.25);
+}
+
+.tab-btn.active{
+background:rgba(18,12,32,0.95);
+color:#d4a854;
+border-color:rgba(212,168,84,0.3);
+border-bottom:1px solid rgba(18,12,32,0.95);
+}
+
+/* ---- TAB CONTENT ---- */
+.tab-content{
+display:none;
+background:rgba(18,12,32,0.9);
+border:1px solid rgba(212,168,84,0.12);
+border-radius:0 8px 8px 8px;
+padding:32px 28px;
+animation:fadeIn 0.4s ease;
+}
+
+.tab-content.active{
+display:block;
+}
+
+@keyframes fadeIn{
+from{opacity:0;transform:translateY(6px)}
+to{opacity:1;transform:translateY(0)}
+}
+
+.tab-content h3{
+font-family:'Palatino Linotype','Book Antiqua',serif;
+font-size:20px;
+color:#d4a854;
+margin:0 0 24px;
+padding-bottom:8px;
+border-bottom:1px solid rgba(212,168,84,0.1);
+}
+
+/* ---- WEEK BLOCKS ---- */
+.week-block{
+margin-bottom:28px;
+padding-left:20px;
+border-left:3px solid rgba(212,168,84,0.3);
+}
+
+.week-title{
+font-weight:bold;
+color:#c8a960;
+font-size:16px;
+margin-bottom:6px;
+letter-spacing:0.5px;
+}
+
+.task-list{
+margin:0;
+padding-left:20px;
+list-style:none;
+}
+
+.task-list li{
+padding:4px 0;
+color:#d0c8bc;
+font-size:15px;
+line-height:1.7;
+}
+
+.task-list li::before{
+content:'\2726 ';
+color:#d4a854;
+margin-right:4px;
+}
+
+/* ---- QUARTERLY OVERVIEW TABLE ---- */
+.quarter-table{
+width:100%;
+border-collapse:collapse;
+margin:20px 0 32px;
+font-size:15px;
+}
+
+.quarter-table th{
+background:rgba(212,168,84,0.12);
+color:#d4a854;
+padding:12px 16px;
+text-align:left;
+font-size:13px;
+letter-spacing:1px;
+text-transform:uppercase;
+border:1px solid rgba(212,168,84,0.1);
+}
+
+.quarter-table td{
+padding:12px 16px;
+border:1px solid rgba(212,168,84,0.08);
+color:#d0c8bc;
+vertical-align:top;
+}
+
+.quarter-table tr:nth-child(even){
+background:rgba(18,12,32,0.5);
+}
+
+.quarter-table strong{
+color:#c8a960;
+}
+
+/* ---- CURRICULUM TABLE ---- */
+.curriculum-table{
+width:100%;
+border-collapse:collapse;
+margin:20px 0;
+font-size:15px;
+}
+
+.curriculum-table th{
+background:rgba(212,168,84,0.12);
+color:#d4a854;
+padding:10px 14px;
+text-align:left;
+font-size:13px;
+letter-spacing:1px;
+text-transform:uppercase;
+border:1px solid rgba(212,168,84,0.1);
+}
+
+.curriculum-table td{
+padding:10px 14px;
+border:1px solid rgba(212,168,84,0.08);
+color:#d0c8bc;
+vertical-align:top;
+}
+
+.curriculum-table tr:nth-child(even){
+background:rgba(18,12,32,0.5);
+}
+
+/* ---- VISION CARDS ---- */
+.vision-grid{
+display:grid;
+grid-template-columns:repeat(auto-fit, minmax(200px, 1fr));
+gap:16px;
+margin:20px 0 32px;
+}
+
+.vision-card{
+background:rgba(18,12,32,0.7);
+border:1px solid rgba(212,168,84,0.1);
+border-left:3px solid #d4a854;
+border-radius:6px;
+padding:18px;
+}
+
+.vision-card .icon{
+font-size:24px;
+margin-bottom:8px;
+display:block;
+}
+
+.vision-card h4{
+color:#d4a854;
+font-size:14px;
+letter-spacing:1px;
+text-transform:uppercase;
+margin-bottom:6px;
+}
+
+.vision-card p{
+font-size:14px;
+color:#9a8e7e;
+margin:0;
+line-height:1.6;
+}
+
+/* Footer */
+footer{
+text-align:center;
+padding:24px 0;
+font-size:13px;
+color:#6a6050;
+border-top:1px solid rgba(212,168,84,0.1);
+margin-top:40px;
+}
+
+footer a{
+color:#9a8e7e;
+text-decoration:none;
+}
+
+footer a:hover{
+text-decoration:underline;
+}
+
+/* Responsive */
+@media(max-width:600px){
+  .tabs{gap:4px;}
+  .tab-btn{padding:10px 14px;font-size:12px;}
+  .tab-content{padding:20px 16px;}
+  .vision-grid{grid-template-columns:1fr;}
+  .quarter-table th,.quarter-table td{padding:8px 10px;font-size:13px;}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <h1>CRJ STUDIO ROADMAP</h1>
+    <div class="tagline">Strategic Execution Plan &bull; Year 1</div>
+    <div class="sanskrit">कर्मण्येवाधिकारस्ते मा फलेषु कदाचन</div>
+  </div>
+
+  <!-- FOUR PILLARS -->
+  <h2>Four Pillars of CRJ Studio</h2>
+  <div class="vision-grid">
+    <div class="vision-card">
+      <span class="icon">&#x1F3A7;</span>
+      <h4>Audio Division</h4>
+      <p>Mantra and Puja recording, music production, archival mastering for sacred audio preservation.</p>
+    </div>
+    <div class="vision-card">
+      <span class="icon">&#x1F4F1;</span>
+      <h4>Apps &amp; Tech</h4>
+      <p>CRJ SoundScape (AI music engine), Mahaan App (community leaders), SwaDharma Hub (web services).</p>
+    </div>
+    <div class="vision-card">
+      <span class="icon">&#x1F3AC;</span>
+      <h4>Multimedia</h4>
+      <p>Posting-ready content, Reels, Lecture cum Demonstrations, TV debate facilitation for scholars.</p>
+    </div>
+    <div class="vision-card">
+      <span class="icon">&#x1F393;</span>
+      <h4>Training</h4>
+      <p>Dharmik Media Fellowship transforming young Vedic scholars into media professionals.</p>
+    </div>
+  </div>
+
+  <!-- QUARTERLY OVERVIEW -->
+  <h2>Quarterly Overview</h2>
+  <table class="quarter-table">
+    <thead>
+      <tr>
+        <th>Phase</th>
+        <th>Focus</th>
+        <th>Key Deliverables</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Q1</strong><br>Months 1&ndash;3</td>
+        <td>Foundation &amp; Infrastructure</td>
+        <td>Studio acoustic treatment. Mahaan App UI/UX design. Recruit first intern batch. Launch SwaDharma web portal (static listings).</td>
+      </tr>
+      <tr>
+        <td><strong>Q2</strong><br>Months 4&ndash;6</td>
+        <td>Content Engine &amp; MVP</td>
+        <td>Record Vedic Audio Library. First 10 LCDs. CRJ App Beta (internal testing). Mahaan App MVP for 10 community leaders. First 50 Reels &amp; videos.</td>
+      </tr>
+      <tr>
+        <td><strong>Q3</strong><br>Months 7&ndash;9</td>
+        <td>Integration &amp; Expansion</td>
+        <td>Curated Discussions &amp; mock TV debates. Matrimonial &amp; Job Portal on web. CRJ App 1.0 public release. Interns host first live stream.</td>
+      </tr>
+      <tr>
+        <td><strong>Q4</strong><br>Months 10&ndash;12</td>
+        <td>Scale &amp; Automation</td>
+        <td>Full TV debate facilitation. AI Smart Matching for SwaDharma. Posting-ready content as paid service. Graduation of Batch 1.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- TABBED WEEKLY PLANS -->
+  <h2>Weekly Execution Plans</h2>
+
+  <div class="tabs">
+    <button class="tab-btn active" onclick="openTab(event,'audio')">&#x1F3A7; Audio Division</button>
+    <button class="tab-btn" onclick="openTab(event,'apps')">&#x1F4F1; Apps &amp; Tech</button>
+    <button class="tab-btn" onclick="openTab(event,'multimedia')">&#x1F3AC; Multimedia</button>
+    <button class="tab-btn" onclick="openTab(event,'training')">&#x1F393; Training</button>
+  </div>
+
+  <!-- TAB: AUDIO -->
+  <div id="audio" class="tab-content active">
+    <h3>Audio Processing &amp; Post-Production</h3>
+
+    <div class="week-block">
+      <div class="week-title">Weeks 1&ndash;2: Setup &amp; Calibration</div>
+      <ul class="task-list">
+        <li>Complete acoustic treatment of Mysore facility</li>
+        <li>Install workstations for ProTools / Logic Pro</li>
+        <li>Acoustic calibration for Mantra frequency capture (96 kHz / 24-bit chains)</li>
+        <li>Setup high-fidelity chains for Puja procedure recordings</li>
+        <li>Configure large-diaphragm condenser microphones (flat response 20 Hz &ndash; 20 kHz &plusmn;1 dB)</li>
+      </ul>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">Weeks 3&ndash;4: Live Recording Phase</div>
+      <ul class="task-list">
+        <li>Batch recording of Vedic Mantras with various scholars</li>
+        <li>Instrumental tracking for Veena, Venu, and vocal projects</li>
+        <li>Multi-microphone setup for Homam and ritual recordings</li>
+        <li>Apply high-pass filter at 80 Hz to remove fire rumble and structural vibrations</li>
+      </ul>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">Weeks 5&ndash;8: Post-Production &amp; Mastering</div>
+      <ul class="task-list">
+        <li>Surgical cleaning: noise reduction, breath control, de-essing at 6 kHz</li>
+        <li>Harmonic excitement in 3&ndash;5 kHz range for Sanskrit Akshara clarity</li>
+        <li>Serial compression: slow-attack vocal glue + fast limiter for percussion peaks</li>
+        <li>Convolution reverb using Garbhagudi (sanctum) impulse responses</li>
+        <li>Loudness normalization: &minus;14 LUFS (social), &minus;23 LUFS (broadcast EBU R128)</li>
+      </ul>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">Weeks 9&ndash;12: Archival &amp; Integration</div>
+      <ul class="task-list">
+        <li>Archival mastering: WAV BWF at 96 kHz / 24-bit, &minus;1.0 dB True Peak</li>
+        <li>ID3/XMP metadata tagging: Raga/Deity, Veda/Shakha, Location, Engineer ID</li>
+        <li>Integration with CRJ SoundScape frequency database</li>
+        <li>Phase correlation validation (&gt; 0.5) for multi-mic recordings</li>
+        <li>Export for distribution: AAC/MP4 (social), PCM (broadcast), OPUS (mobile app)</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TAB: APPS -->
+  <div id="apps" class="tab-content">
+    <h3>Software &amp; App Development</h3>
+
+    <div class="week-block">
+      <div class="week-title">Weeks 1&ndash;4: Mahaan App MVP</div>
+      <ul class="task-list">
+        <li>UI/UX design for Dharmik Personality dashboards</li>
+        <li>Core database for community leaders and outreach management</li>
+        <li>SwaDharma directory: Temples, Archakas, Professional Scholars</li>
+        <li>Flutter cross-platform frontend (iOS / Android)</li>
+        <li>FastAPI backend with PostgreSQL</li>
+      </ul>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">Weeks 5&ndash;8: CRJ Frequency Engine</div>
+      <ul class="task-list">
+        <li>Implement pYIN pitch detection algorithm (4096-sample window at 96 kHz)</li>
+        <li>CREPE deep learning model integration for noise-robust pitch tracking</li>
+        <li>Microtonal cent mapping: 12 swarasthanas with &plusmn;25 cents tolerance</li>
+        <li>Gamaka recognition via Dynamic Time Warping (DTW) against master curves</li>
+        <li>Notation synthesis bridge: frequency &rarr; swara &rarr; multilingual output</li>
+        <li>Real-time JSON stream output: timestamp, frequency, confidence, swara</li>
+        <li>AI Sa-suggestion: pitch-class histogram with FFT-based octave verification</li>
+        <li>Shruti playback engine: 5 Sa presets &times; 3 pluck patterns (Sa-Pa / Sa-Ma / Sa-Ni)</li>
+        <li>Live Tala engine: 7 talas across Carnatic / Hindustani / Dhrupad on synthesised Mridangam, Pakhavaj, Tabla voices with adjustable tempo</li>
+        <li>Session Mode: combined Shruti + Tala + mic recording for guided practice</li>
+      </ul>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">Weeks 9&ndash;12: SwaDharma &amp; Integration</div>
+      <ul class="task-list">
+        <li>Launch custom webpages for Dharmik organisations</li>
+        <li>Matrimonial &amp; Job Portal functionality</li>
+        <li>Donor-match module: connect philanthropists with Veda Schools</li>
+        <li>Beta testing purpose-driven apps for scholar data management</li>
+        <li>CRJ App 1.0 public release on Play Store and App Store</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TAB: MULTIMEDIA -->
+  <div id="multimedia" class="tab-content">
+    <h3>Content Production &amp; Propagation</h3>
+
+    <div class="week-block">
+      <div class="week-title">Weeks 1&ndash;3: Reels &amp; Social Content</div>
+      <ul class="task-list">
+        <li>Production of 20 high-quality cultural Reels</li>
+        <li>Finalize "Posting-Ready" templates and workflows</li>
+        <li>SEO for Dharma: titles, tags, descriptions for Vedic content searchability</li>
+        <li>Scripting: condense 1-hour discourses into 60-second Reel scripts</li>
+      </ul>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">Weeks 4&ndash;7: LCDs &amp; Curated Discussions</div>
+      <ul class="task-list">
+        <li>Video shoots for Lecture cum Demonstrations of Indian cultural concepts</li>
+        <li>LCD structure: Hook &rarr; Concept &rarr; Demo &rarr; Conclusion</li>
+        <li>Editing curated discussions for YouTube and Mahaan App</li>
+        <li>Thumbnail and flyer design using Canva/Photoshop for SwaDharma events</li>
+        <li>Subtitles in English, Kannada, and Sanskrit</li>
+      </ul>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">Weeks 8&ndash;12: TV &amp; Discourse Support</div>
+      <ul class="task-list">
+        <li>Curated Discussions with invited guests</li>
+        <li>Mock TV debate simulations to prepare scholars for broadcast</li>
+        <li>Facilitate professional discourse broadcasts</li>
+        <li>On-site production of Vedic ritual coverage</li>
+        <li>Build pipeline for "Posting-Ready Content" as a paid service</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- TAB: TRAINING -->
+  <div id="training" class="tab-content">
+    <h3>The Dharmik Media Fellowship &mdash; Scholar Transformation</h3>
+    <p style="color:#9a8e7e;font-size:14px;margin-bottom:24px;">
+      6-month program &bull; Goal: Transform Vedic Scholars into Media Professionals &amp; Multilingual Public Speakers
+    </p>
+
+    <table class="curriculum-table">
+      <thead>
+        <tr>
+          <th>Month</th>
+          <th>Module</th>
+          <th>Key Skills</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>1</strong></td>
+          <td>The Modern Toolbox</td>
+          <td>Audio/video hardware basics, microphone types (Lavalier vs. Condenser), 3-point lighting for rituals, social media algorithms.</td>
+        </tr>
+        <tr>
+          <td><strong>2</strong></td>
+          <td>Post-Production Mastery</td>
+          <td>Editing in Premiere/DaVinci, Mantra audio cleaning, breath removal, EQ for vocal clarity, graphic design for events.</td>
+        </tr>
+        <tr>
+          <td><strong>3</strong></td>
+          <td>Content Strategy &amp; Storytelling</td>
+          <td>Scripting Shastras for Reels, LCD format structuring, SEO for Dharma, writing searchable titles and descriptions.</td>
+        </tr>
+        <tr>
+          <td><strong>4</strong></td>
+          <td>The App Ecosystem</td>
+          <td>Managing Mahaan App dashboard, scheduling posts, handling Q&amp;A. CRJ frequency tagging to train the AI engine.</td>
+        </tr>
+        <tr>
+          <td><strong>5</strong></td>
+          <td>Vak (Speech) &amp; Debate</td>
+          <td>Mock TV debates in hostile scenarios, multilingual transition (Sanskrit/English/regional), body language and screen presence.</td>
+        </tr>
+        <tr>
+          <td><strong>6</strong></td>
+          <td>Capstone Project</td>
+          <td>End-to-end campaign for a real temple: 1 promo video, 1 month of social content, 1 live stream event. Certification.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="week-block" style="margin-top:28px;">
+      <div class="week-title">Weeks 1&ndash;4: Technical Immersion</div>
+      <ul class="task-list">
+        <li>Recruit first batch of 4&ndash;6 young scholar interns</li>
+        <li>Training on studio equipment and audio processing fundamentals</li>
+        <li>Digital literacy: understanding media platforms and algorithms</li>
+        <li>Hands-on recording sessions with supervision</li>
+      </ul>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">Weeks 5&ndash;8: Content Mastery</div>
+      <ul class="task-list">
+        <li>Interns assist in post-production for real studio projects</li>
+        <li>Workshop on multilingual public speaking</li>
+        <li>Begin managing social media pages for local temples (live projects)</li>
+        <li>B-Roll shooting, text overlay placement, subtitle creation</li>
+      </ul>
+    </div>
+
+    <div class="week-block">
+      <div class="week-title">Weeks 9&ndash;12: Professional Transformation</div>
+      <ul class="task-list">
+        <li>Interns host their first public live stream or webinar</li>
+        <li>Live project handling for Dharmik organisations</li>
+        <li>Mock debate practice and multilingual speech drills</li>
+        <li>Capstone preparation: campaign planning for assigned temple</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    &copy; 2026 <a href="https://vedavishtaram.in/crj">CRJ Studio</a>, Mysore &bull;
+    <a href="/apps/crj/about.html">About</a> &bull;
+    <a href="/apps/crj/tech-spec.html">Tech Spec</a> &bull;
+    <a href="/">SoundScape</a> &bull;
+    <a href="../privacy.html">Privacy</a>
+  </footer>
+
+</div>
+
+<script>
+function openTab(evt, tabName) {
+  var contents = document.getElementsByClassName('tab-content');
+  for (var i = 0; i < contents.length; i++) {
+    contents[i].classList.remove('active');
+  }
+  var btns = document.getElementsByClassName('tab-btn');
+  for (var i = 0; i < btns.length; i++) {
+    btns[i].classList.remove('active');
+  }
+  document.getElementById(tabName).classList.add('active');
+  evt.currentTarget.classList.add('active');
+}
+</script>
+
+</body>
+</html>

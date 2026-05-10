@@ -234,3 +234,18 @@ class TestTalaDbMerge:
         r = client.get("/api/v1/talas", params={"tradition": "hindustani"})
         teentaal = next(t for t in r.json() if t["id"] == "teentaal")
         assert teentaal["vibhag_marks"] == ["sam", "tali", "khali", "tali"]
+
+    def test_ektaal_jati_count_uses_json_override(self, client):
+        # Ektaal's vibhags are 2 matras each (the jati_count_override in
+        # hindustani.json). Without the override, jati=chatusra would yield 4
+        # which is wrong for Ektaal's vibhag structure.
+        r = client.get("/api/v1/talas", params={"tradition": "hindustani"})
+        ektaal = next(t for t in r.json() if t["id"] == "ektaal")
+        assert ektaal["jati_count"] == 2
+
+    def test_carnatic_jati_count_uses_enum(self, client):
+        # Carnatic talas have no jati_count override in JSON, so the API
+        # value should still be the Jati enum value.
+        r = client.get("/api/v1/talas", params={"tradition": "carnatic"})
+        adi = next(t for t in r.json() if t["id"] == "triputa_chatusra")
+        assert adi["jati_count"] == 4  # CHATUSRA

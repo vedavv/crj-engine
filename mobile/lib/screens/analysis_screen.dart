@@ -40,6 +40,7 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
   String _script = 'iast';
   bool _recording = false;
   bool _analyzing = false;
+  String _analyzeStage = '';
   AnalysisResult? _result;
 
   double _saHz = _defaultSaHz;
@@ -296,7 +297,10 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
   }
 
   Future<void> _confirmSaThenAnalyze(File file) async {
-    setState(() => _analyzing = true);
+    setState(() {
+      _analyzing = true;
+      _analyzeStage = 'Detecting tonic Sa…';
+    });
     TonicSuggestion? suggestion;
     try {
       final api = context.read<ApiClient>();
@@ -343,7 +347,16 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
   }
 
   Future<void> _analyze(File file, {double? overrideSaHz}) async {
-    setState(() => _analyzing = true);
+    final fileLength = await file.length();
+    // Rough heuristic — 16-bit mono 44.1kHz is ~88 KB/s, m4a/AAC ~16 KB/s.
+    // Either way, a > 60s clip is large enough to take noticeable time.
+    final isLongClip = fileLength > 1.5 * 1024 * 1024;
+    setState(() {
+      _analyzing = true;
+      _analyzeStage = isLongClip
+          ? 'Analyzing pitch contour (this may take up to a minute)…'
+          : 'Analyzing pitch contour…';
+    });
     try {
       final api = context.read<ApiClient>();
       final r = await api.analyze(
@@ -352,6 +365,11 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
         script: _script,
         saHz: overrideSaHz ?? _saHz,
       );
+      if (mounted) {
+        setState(() {
+          _analyzeStage = 'Identifying ragas…';
+        });
+      }
       setState(() => _result = r);
     } catch (e) {
       if (mounted) {
@@ -361,7 +379,12 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
         );
       }
     }
-    if (mounted) setState(() => _analyzing = false);
+    if (mounted) {
+      setState(() {
+        _analyzing = false;
+        _analyzeStage = '';
+      });
+    }
   }
 
   Future<void> _exportText() async {
@@ -414,15 +437,23 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
       appBar: AppBar(title: const Text('SWARA ANALYSIS')),
       body: _analyzing
           ? Center(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const CircularProgressIndicator(
-                      color: SoundScapeTheme.amberGlow),
-                  const SizedBox(height: 16),
-                  Text('Analyzing audio...',
-                      style: Theme.of(context).textTheme.bodyMedium),
-                ],
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 32),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    const CircularProgressIndicator(
+                        color: SoundScapeTheme.amberGlow),
+                    const SizedBox(height: 16),
+                    Text(
+                      _analyzeStage.isEmpty
+                          ? 'Analyzing audio…'
+                          : _analyzeStage,
+                      style: Theme.of(context).textTheme.bodyMedium,
+                      textAlign: TextAlign.center,
+                    ),
+                  ],
+                ),
               ),
             )
           : _result != null
@@ -546,6 +577,37 @@ class _AnalysisScreenState extends State<AnalysisScreen> {
             onChanged: (s) => setState(() => _script = s),
           ),
           const SizedBox(height: 40),
+
+          // Quality hint
+          Container(
+            padding: const EdgeInsets.all(10),
+            decoration: BoxDecoration(
+              color: SoundScapeTheme.cardBg,
+              borderRadius: BorderRadius.circular(6),
+              border: Border.all(color: SoundScapeTheme.cardBorder),
+            ),
+            child: Row(
+              children: [
+                const Icon(
+                  Icons.tips_and_updates_outlined,
+                  size: 16,
+                  color: SoundScapeTheme.textMuted,
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    'For best gamaka detection, record at ≥128 kbps AAC '
+                    'or upload WAV. Clips up to 180 s are supported.',
+                    style: GoogleFonts.cormorantGaramond(
+                      fontSize: 12,
+                      color: SoundScapeTheme.textMuted,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(height: 16),
 
           // Record button
           SizedBox(
