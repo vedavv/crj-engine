@@ -49,6 +49,12 @@
 	</dict>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>CRJ SoundScape needs microphone access to record audio for swara analysis</string>
+	<key>NSAppleMusicUsageDescription</key>
+	<string>CRJ SoundScape needs access to your music library so you can pick existing recordings to analyse</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>CRJ SoundScape may access your Files / Photos library when you upload an audio clip to analyse</string>
+	<key>NSDocumentsFolderUsageDescription</key>
+	<string>CRJ SoundScape reads audio files from the Files app to analyse them</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>
